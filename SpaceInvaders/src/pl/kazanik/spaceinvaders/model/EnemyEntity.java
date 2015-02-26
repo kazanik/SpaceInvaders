@@ -5,6 +5,7 @@
 package pl.kazanik.spaceinvaders.model;
 
 import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
+import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
 
 /**
  *
@@ -12,18 +13,25 @@ import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
  */
 public class EnemyEntity extends AbstractEntity {
 
+    public EnemyEntity() {
+    }
+
+    public EnemyEntity(float health, float speed, AbstractSprite sprite) {
+        super(health, speed, sprite);
+    }
+
     @Override
-    protected void move() {
+    public void move() {
         System.out.println("Enemy move");
     }
 
     @Override
-    protected void born() {
+    public void born() {
         System.out.println("Enemy born");
     }
 
     @Override
-    protected void die() {
+    public void die() {
         System.out.println("Enemy died");
     }
     

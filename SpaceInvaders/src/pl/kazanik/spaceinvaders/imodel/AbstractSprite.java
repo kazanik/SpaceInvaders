@@ -20,7 +20,20 @@ public abstract class AbstractSprite {
     private int collisionOffset;
     private BufferedImage image;
 
-    protected abstract Rectangle collisionRect();
+    protected AbstractSprite() {
+    }
+
+    protected AbstractSprite(int width, int height, int x, int y, 
+            int collisionOffset, BufferedImage image) {
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.collisionOffset = collisionOffset;
+        this.image = image;
+    }
+
+    public abstract Rectangle collisionRect();
     
     public int getWidth() {
         return width;

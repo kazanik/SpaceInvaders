@@ -14,9 +14,18 @@ public abstract class AbstractEntity {
     private float speed;
     private AbstractSprite sprite;
 
-    protected abstract void move();
-    protected abstract void born();
-    protected abstract void die();
+    protected AbstractEntity() {
+    }
+
+    protected AbstractEntity(float health, float speed, AbstractSprite sprite) {
+        this.health = health;
+        this.speed = speed;
+        this.sprite = sprite;
+    }
+
+    public abstract void move();
+    public abstract void born();
+    public abstract void die();
     
     public float getHealth() {
         return health;
