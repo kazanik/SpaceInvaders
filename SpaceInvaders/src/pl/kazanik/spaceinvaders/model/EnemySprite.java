@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.model;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
@@ -17,14 +18,15 @@ public class EnemySprite extends AbstractSprite {
     public EnemySprite() {
     }
 
-    public EnemySprite(int width, int height, int x, int y, int collisionOffset, BufferedImage image) {
+    public EnemySprite(int width, int height, int x, int y, 
+            int collisionOffset, BufferedImage image) {
         super(width, height, x, y, collisionOffset, image);
     }
 
     @Override
     public Rectangle collisionRect() {
-        System.out.println("Enemy sprite collision rectangle");
-        return null;
+        return new Rectangle((int) getX(), (int) getY(), (int) getWidth(), 
+                (int) getHeight());
     }
-    
+
 }

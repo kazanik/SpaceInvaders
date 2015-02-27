@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.model;
 
+import java.awt.event.MouseEvent;
+import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
 import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
 
@@ -11,7 +13,7 @@ import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
  *
  * @author kazanik
  */
-public class PlayerEntity extends AbstractEntity {
+public class PlayerEntity extends AbstractEntity implements MouseInputListener {
 
     public PlayerEntity() {
     }
@@ -35,4 +37,38 @@ public class PlayerEntity extends AbstractEntity {
         System.out.println("Player died");
     }
     
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // not implemented
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // not implemented
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // not implemented
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        
+    }
 }

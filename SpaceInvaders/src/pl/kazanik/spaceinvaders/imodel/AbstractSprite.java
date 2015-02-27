@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.imodel;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -13,17 +14,17 @@ import java.awt.image.BufferedImage;
  */
 public abstract class AbstractSprite {
     
-    private int width;
-    private int height;
-    private int x;
-    private int y;
+    private float width;
+    private float height;
+    private float x;
+    private float y;
     private int collisionOffset;
     private BufferedImage image;
 
     protected AbstractSprite() {
     }
 
-    protected AbstractSprite(int width, int height, int x, int y, 
+    protected AbstractSprite(float width, float height, float x, float y, 
             int collisionOffset, BufferedImage image) {
         this.width = width;
         this.height = height;
@@ -35,35 +36,40 @@ public abstract class AbstractSprite {
 
     public abstract Rectangle collisionRect();
     
-    public int getWidth() {
+    public void draw(Graphics g) {
+        g.drawImage(image, (int)x, (int)y, (int)(x+width), (int)(y+height), 
+                0, 0, image.getWidth(), image.getHeight(), null);
+    }
+    
+    public float getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(float width) {
         this.width = width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
