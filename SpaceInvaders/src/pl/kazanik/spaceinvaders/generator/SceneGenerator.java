@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import pl.kazanik.spaceinvaders.consts.GameConditions;
 import pl.kazanik.spaceinvaders.imodel.IGenerator;
-import pl.kazanik.spaceinvaders.model.Scene;
-import pl.kazanik.spaceinvaders.model.SceneLayer;
+import pl.kazanik.spaceinvaders.scene.Scene;
+import pl.kazanik.spaceinvaders.scene.SceneLayer;
 
 /**
  *

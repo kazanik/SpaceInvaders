@@ -9,8 +9,8 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
-import pl.kazanik.spaceinvaders.model.PlayerEntity;
-import pl.kazanik.spaceinvaders.model.Scene;
+import pl.kazanik.spaceinvaders.entity.PlayerEntity;
+import pl.kazanik.spaceinvaders.scene.Scene;
 
 /**
  *

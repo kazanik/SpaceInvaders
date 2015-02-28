@@ -9,11 +9,11 @@ import pl.kazanik.spaceinvaders.consts.GameConditions;
 import pl.kazanik.spaceinvaders.generator.SceneGenerator;
 import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
 import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
-import pl.kazanik.spaceinvaders.model.EnemyEntity;
-import pl.kazanik.spaceinvaders.model.EnemySprite;
-import pl.kazanik.spaceinvaders.model.PlayerEntity;
-import pl.kazanik.spaceinvaders.model.PlayerSprite;
-import pl.kazanik.spaceinvaders.model.Scene;
+import pl.kazanik.spaceinvaders.entity.EnemyEntity;
+import pl.kazanik.spaceinvaders.sprite.EnemySprite;
+import pl.kazanik.spaceinvaders.entity.PlayerEntity;
+import pl.kazanik.spaceinvaders.sprite.PlayerSprite;
+import pl.kazanik.spaceinvaders.scene.Scene;
 
 /**
  *
