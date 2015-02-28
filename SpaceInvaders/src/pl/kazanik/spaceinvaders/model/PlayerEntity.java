@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.model;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
@@ -13,13 +15,20 @@ import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
  *
  * @author kazanik
  */
-public class PlayerEntity extends AbstractEntity implements MouseInputListener {
+public class PlayerEntity extends AbstractEntity implements 
+        MouseInputListener, KeyListener {
 
     public PlayerEntity() {
+        super();
     }
 
-    public PlayerEntity(float health, float speed, AbstractSprite sprite) {
-        super(health, speed, sprite);
+    public PlayerEntity(AbstractSprite sprite) {
+        super(sprite);
+    }
+
+    public PlayerEntity(float health, float speed, float armor, 
+            AbstractSprite sprite) {
+        super(health, speed, armor, sprite);
     }
 
     @Override
@@ -69,6 +78,21 @@ public class PlayerEntity extends AbstractEntity implements MouseInputListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         
     }
 }

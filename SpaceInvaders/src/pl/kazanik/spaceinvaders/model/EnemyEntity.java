@@ -14,10 +14,16 @@ import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
 public class EnemyEntity extends AbstractEntity {
 
     public EnemyEntity() {
+        super();
     }
 
-    public EnemyEntity(float health, float speed, AbstractSprite sprite) {
-        super(health, speed, sprite);
+    public EnemyEntity(AbstractSprite sprite) {
+        super(sprite);
+    }
+
+    public EnemyEntity(float health, float speed, float armor, 
+            AbstractSprite sprite) {
+        super(health, speed, armor, sprite);
     }
 
     @Override

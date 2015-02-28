@@ -10,16 +10,23 @@ package pl.kazanik.spaceinvaders.imodel;
  */
 public abstract class AbstractEntity {
     
-    private float health;
-    private float speed;
+    private float health = 1.0f;
+    private float speed = 1.0f;
+    private float armor;
     private AbstractSprite sprite;
 
     protected AbstractEntity() {
     }
 
-    protected AbstractEntity(float health, float speed, AbstractSprite sprite) {
+    protected AbstractEntity(AbstractSprite sprite) {
+        this.sprite = sprite;
+    }
+
+    protected AbstractEntity(float health, float speed, float armor, 
+            AbstractSprite sprite) {
         this.health = health;
         this.speed = speed;
+        this.armor = armor;
         this.sprite = sprite;
     }
 

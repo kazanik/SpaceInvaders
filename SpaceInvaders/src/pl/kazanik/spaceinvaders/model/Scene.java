@@ -14,16 +14,17 @@ import java.util.List;
  */
 public class Scene {
     
+    private static final Scene scene = new Scene();
     private List<SceneLayer> layers;
 
-    public Scene() {
+    private Scene() {
         layers = new ArrayList<>();
     }
 
-    public Scene(List<SceneLayer> layers) {
-        this.layers = layers;
+    public static Scene getInstance() {
+        return scene;
     }
-
+    
     public List<SceneLayer> getLayers() {
         return layers;
     }

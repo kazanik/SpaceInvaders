@@ -16,6 +16,7 @@ import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
 public class EnemySprite extends AbstractSprite {
 
     public EnemySprite() {
+        super();
     }
 
     public EnemySprite(int width, int height, int x, int y, 
