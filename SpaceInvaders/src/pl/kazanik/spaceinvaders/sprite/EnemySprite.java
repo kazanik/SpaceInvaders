@@ -7,7 +7,6 @@ package pl.kazanik.spaceinvaders.sprite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
 
 /**
  *

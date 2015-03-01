@@ -7,7 +7,7 @@ package pl.kazanik.spaceinvaders.scene;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
-import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
+import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *

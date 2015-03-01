@@ -4,8 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
-import pl.kazanik.spaceinvaders.imodel.AbstractEntity;
-import pl.kazanik.spaceinvaders.imodel.AbstractSprite;
+import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *

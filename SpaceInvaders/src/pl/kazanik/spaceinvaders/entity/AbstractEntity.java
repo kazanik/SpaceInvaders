@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kazanik.spaceinvaders.imodel;
+package pl.kazanik.spaceinvaders.entity;
+
+import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *
