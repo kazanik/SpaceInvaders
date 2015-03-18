@@ -15,12 +15,18 @@ import pl.kazanik.spaceinvaders.main.GameCanvas;
 public class BGLayer implements ISceneLayer {
     
     private BufferedImage bgImage;
+    private int level;
 
     public BGLayer() {
     }
 
     public BGLayer(BufferedImage bgImage) {
         this.bgImage = bgImage;
+    }
+
+    public BGLayer(BufferedImage bgImage, int level) {
+        this.bgImage = bgImage;
+        this.level = level;
     }
 
     public BufferedImage getBgImage() {
@@ -31,10 +37,23 @@ public class BGLayer implements ISceneLayer {
         this.bgImage = bgImage;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
         System.out.println("bg layer");
         g.drawImage(bgImage, 0, 0, canvas);
+    }
+
+    @Override
+    public int level() {
+        return level;
     }
     
 }

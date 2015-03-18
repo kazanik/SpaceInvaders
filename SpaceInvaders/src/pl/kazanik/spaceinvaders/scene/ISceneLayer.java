@@ -13,5 +13,6 @@ import pl.kazanik.spaceinvaders.main.GameCanvas;
  */
 public interface ISceneLayer {
     
+    public abstract int level();
     public abstract void draw(Graphics g, GameCanvas canvas);
 }

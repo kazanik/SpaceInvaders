@@ -18,7 +18,7 @@ public class PlayerSprite extends AbstractSprite {
         super();
     }
 
-    public PlayerSprite(int width, int height, int x, int y, 
+    public PlayerSprite(float width, float height, float x, float y, 
             int collisionOffset, BufferedImage image) {
         super(width, height, x, y, collisionOffset, image);
     }

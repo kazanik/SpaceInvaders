@@ -18,7 +18,7 @@ public class EnemySprite extends AbstractSprite {
         super();
     }
 
-    public EnemySprite(int width, int height, int x, int y, 
+    public EnemySprite(float width, float height, float x, float y, 
             int collisionOffset, BufferedImage image) {
         super(width, height, x, y, collisionOffset, image);
     }

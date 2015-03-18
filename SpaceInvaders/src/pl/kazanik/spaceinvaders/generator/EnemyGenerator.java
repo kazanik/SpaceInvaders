@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import pl.kazanik.spaceinvaders.consts.GameConditions;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.EnemyEntity;
+import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
@@ -28,6 +29,7 @@ public class EnemyGenerator implements IGenerator {
 
     private static final EnemyGenerator eg = new EnemyGenerator();
     private Scene scene = Scene.getInstance();
+    private EntityFactory factory = new EntityFactory();
     
     private EnemyGenerator() {
         
@@ -47,12 +49,11 @@ public class EnemyGenerator implements IGenerator {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        AbstractSprite sprite = new EnemySprite(GameConditions.ENEMY_SPRITE_WIDTH, 
-                GameConditions.ENEMY_SPRITE_HEIGHT, GameConditions.WAVE_GAP*waveNum, 
-                0, 0, spriteImg);
-        AbstractEntity enemy = new EnemyEntity(100.0f, 0.1f, 0f, sprite);
-        SpritesLayer sl = (SpritesLayer) scene.getLayer(1);
-        sl.addEntity(enemy);
+        AbstractEntity enemy = factory.createEnemy(100.0f, 0.1f, 0f, 
+                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
+                GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
+//        SpritesLayer sl = (SpritesLayer) scene.getLayer(GameConditions.OBJECTS_LAYER_ID);
+//        sl.addEntity(enemy);
         enemies.add(enemy);
         return enemies;
     }

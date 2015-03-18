@@ -7,7 +7,7 @@ package pl.kazanik.spaceinvaders.thread;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pl.kazanik.spaceinvaders.consts.GameConditions;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 

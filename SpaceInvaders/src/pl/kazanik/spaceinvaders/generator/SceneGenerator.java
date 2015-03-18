@@ -10,8 +10,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import pl.kazanik.spaceinvaders.consts.GameConditions;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.scene.BGLayer;
+import pl.kazanik.spaceinvaders.scene.EffectsLayer;
 import pl.kazanik.spaceinvaders.scene.ISceneLayer;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
@@ -41,11 +42,12 @@ public class SceneGenerator implements IGenerator {
         Graphics2D graphics = bgImage.createGraphics();
         graphics.setPaint(new Color(0, 0, 0));
         graphics.fillRect(0, 0, bgImage.getWidth(), bgImage.getHeight());
-        BGLayer bgLayer = new BGLayer(bgImage);
+        BGLayer bgLayer = new BGLayer(bgImage, GameConditions.BG_LAYER_ID);
+        SpritesLayer spLayer = new SpritesLayer(GameConditions.OBJECTS_LAYER_ID);
+        EffectsLayer effLayer = new EffectsLayer(GameConditions.EFFECTS_LAYER_ID);
         sceneLayers.add(bgLayer);
-        for(int lvl = 1; lvl < GameConditions.SCENE_LAYERS; lvl++) {
-            sceneLayers.add(new SpritesLayer(lvl)); // game objects layer|effects layer
-        }
+        sceneLayers.add(spLayer);
+        sceneLayers.add(effLayer); // game objects layer|effects layer
         scene.setLayers(sceneLayers);
         return scene;
     }

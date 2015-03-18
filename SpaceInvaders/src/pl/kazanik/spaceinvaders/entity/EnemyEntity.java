@@ -4,7 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
-import pl.kazanik.spaceinvaders.consts.GameConditions;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
