@@ -36,13 +36,18 @@ public class PlayerEntity extends AbstractEntity implements
     }
 
     @Override
-    public void born() {
+    public void spawn() {
         System.out.println("Player born");
     }
 
     @Override
     public void die() {
         System.out.println("Player died");
+    }
+    
+    @Override
+    public void attack() {
+        System.out.println("Player attack");
     }
     
     @Override
@@ -94,4 +99,5 @@ public class PlayerEntity extends AbstractEntity implements
     public void keyReleased(KeyEvent e) {
         
     }
+
 }

@@ -4,11 +4,18 @@
  */
 package pl.kazanik.spaceinvaders.generator;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import pl.kazanik.spaceinvaders.consts.GameConditions;
+import pl.kazanik.spaceinvaders.scene.BGLayer;
+import pl.kazanik.spaceinvaders.scene.ISceneLayer;
 import pl.kazanik.spaceinvaders.scene.Scene;
-import pl.kazanik.spaceinvaders.scene.SceneLayer;
+import pl.kazanik.spaceinvaders.scene.SpritesLayer;
+import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *
@@ -28,9 +35,16 @@ public class SceneGenerator implements IGenerator {
     @Override
     public Scene generate() {
         Scene scene = Scene.getInstance();
-        List<SceneLayer> sceneLayers = new ArrayList<>();
-        for(int num = 0; num < GameConditions.SCENE_LAYERS; num++) {
-            sceneLayers.add(new SceneLayer(num)); // game objects layer|effects layer
+        LinkedList<ISceneLayer> sceneLayers = new LinkedList<>();
+        BufferedImage bgImage = new BufferedImage(GameConditions.SCENE_WIDTH, 
+                GameConditions.SCENE_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = bgImage.createGraphics();
+        graphics.setPaint(new Color(0, 0, 0));
+        graphics.fillRect(0, 0, bgImage.getWidth(), bgImage.getHeight());
+        BGLayer bgLayer = new BGLayer(bgImage);
+        sceneLayers.add(bgLayer);
+        for(int lvl = 1; lvl < GameConditions.SCENE_LAYERS; lvl++) {
+            sceneLayers.add(new SpritesLayer(lvl)); // game objects layer|effects layer
         }
         scene.setLayers(sceneLayers);
         return scene;

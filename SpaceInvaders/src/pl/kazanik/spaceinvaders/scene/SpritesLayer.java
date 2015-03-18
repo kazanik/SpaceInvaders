@@ -1,0 +1,71 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pl.kazanik.spaceinvaders.scene;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.main.GameCanvas;
+import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
+
+/**
+ *
+ * @author kazanik
+ */
+public class SpritesLayer implements ISceneLayer {
+    
+    private int level;
+    private List<AbstractEntity> entities;
+
+    public SpritesLayer() {
+        entities = new ArrayList<>();
+    }
+
+    public SpritesLayer(int level) {
+        this.level = level;
+        entities = new ArrayList<>();
+    }
+
+    public SpritesLayer(List<AbstractEntity> entities) {
+        this.entities = entities;
+    }
+
+    public SpritesLayer(int level, List<AbstractEntity> entities) {
+        this.level = level;
+        this.entities = entities;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+    
+    public List<AbstractEntity> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(List<AbstractEntity> entities) {
+        this.entities = entities;
+    }
+    
+    public void addEntity(AbstractEntity entity) {
+        entities.add(entity);
+    }
+    
+    public void removeEntity(AbstractEntity entity) {
+        entities.remove(entity);
+    }
+    
+    public void draw(Graphics g, GameCanvas canvas) {
+        System.out.println("sprites layer");
+        for(AbstractEntity entity : entities) {
+            entity.getSprite().draw(g, canvas);
+        }
+    }
+}

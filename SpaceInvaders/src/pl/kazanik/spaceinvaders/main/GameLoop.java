@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.main;
 
+import java.util.List;
+import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.thread.GameLoopRunnable;
 
 /**
@@ -19,8 +21,12 @@ public class GameLoop {
         
     }
     
-    public void init() {
-        gameLoopRunnable = new GameLoopRunnable();
+    public GameLoop(GameCanvas canvas, List<AbstractEntity> enemies) {
+        init(canvas, enemies);
+    }
+    
+    public final void init(GameCanvas canvas, List<AbstractEntity> enemies) {
+        gameLoopRunnable = new GameLoopRunnable(canvas, enemies);
         gameLoopThread = new Thread(gameLoopRunnable);
     }
     

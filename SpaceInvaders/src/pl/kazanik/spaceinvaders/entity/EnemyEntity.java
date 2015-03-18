@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
+import pl.kazanik.spaceinvaders.consts.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
@@ -28,16 +29,25 @@ public class EnemyEntity extends AbstractEntity {
     @Override
     public void move() {
         System.out.println("Enemy move");
+        float dy = sprite.getY()+(speed*5);
+        sprite.setY(dy);
+        if(dy == GameConditions.SCENE_HEIGHT-sprite.getHeight())
+            sprite.setY(0);
     }
 
     @Override
-    public void born() {
+    public void spawn() {
         System.out.println("Enemy born");
     }
 
     @Override
     public void die() {
         System.out.println("Enemy died");
+    }
+
+    @Override
+    public void attack() {
+        System.out.println("Enemy attack");
     }
     
 }

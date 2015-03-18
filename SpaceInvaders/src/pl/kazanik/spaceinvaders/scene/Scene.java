@@ -6,7 +6,9 @@ package pl.kazanik.spaceinvaders.scene;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import pl.kazanik.spaceinvaders.main.GameCanvas;
 
 /**
  *
@@ -15,31 +17,35 @@ import java.util.List;
 public class Scene {
     
     private static final Scene scene = new Scene();
-    private List<SceneLayer> layers;
+    private LinkedList<ISceneLayer> layers;
 
     private Scene() {
-        layers = new ArrayList<>();
+        layers = new LinkedList<>();
     }
 
     public static Scene getInstance() {
         return scene;
     }
     
-    public List<SceneLayer> getLayers() {
+    public LinkedList<ISceneLayer> getLayers() {
         return layers;
     }
 
-    public void setLayers(List<SceneLayer> layers) {
+    public void setLayers(LinkedList<ISceneLayer> layers) {
         this.layers = layers;
     }
     
-    public void addLayer(SceneLayer l) {
-        layers.add(l);
+    public void addLayer(ISceneLayer l) {
+        layers.addLast(l);
     }
     
-    public void draw(Graphics g) {
-        for(SceneLayer layer : layers) {
-            layer.draw(g);
+    public ISceneLayer getLayer(int level) {
+        return layers.get(level);
+    }
+    
+    public void draw(Graphics g, GameCanvas canvas) {
+        for(ISceneLayer layer : layers) {
+            layer.draw(g, canvas);
         }
     }
 }

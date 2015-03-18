@@ -12,16 +12,22 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  */
 public abstract class AbstractEntity {
     
-    private float health = 1.0f;
-    private float speed = 1.0f;
-    private float armor;
-    private AbstractSprite sprite;
+    protected float health;
+    protected float speed;
+    protected float armor;
+    protected AbstractSprite sprite;
 
     protected AbstractEntity() {
+        health = 100f;
+        speed = 1f;
+        armor = 0f;
     }
 
     protected AbstractEntity(AbstractSprite sprite) {
         this.sprite = sprite;
+        health = 100f;
+        speed = 1f;
+        armor = 0f;
     }
 
     protected AbstractEntity(float health, float speed, float armor, 
@@ -33,8 +39,9 @@ public abstract class AbstractEntity {
     }
 
     public abstract void move();
-    public abstract void born();
+    public abstract void spawn();
     public abstract void die();
+    public abstract void attack();
     
     public float getHealth() {
         return health;

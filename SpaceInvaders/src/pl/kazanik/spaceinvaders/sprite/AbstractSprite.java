@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.sprite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import pl.kazanik.spaceinvaders.main.GameCanvas;
 
 /**
  *
@@ -36,7 +37,8 @@ public abstract class AbstractSprite {
 
     public abstract Rectangle collisionRect();
     
-    public void draw(Graphics g) {
+    public void draw(Graphics g, GameCanvas canvas) {
+        System.out.println("Sprite draw");
         g.drawImage(image, (int)x, (int)y, (int)(x+width), (int)(y+height), 
                 0, 0, image.getWidth(), image.getHeight(), null);
     }
@@ -87,6 +89,32 @@ public abstract class AbstractSprite {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Float.floatToIntBits(this.x);
+        hash = 67 * hash + Float.floatToIntBits(this.y);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractSprite other = (AbstractSprite) obj;
+        if (Float.floatToIntBits(this.x) != Float.floatToIntBits(other.x)) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.y) != Float.floatToIntBits(other.y)) {
+            return false;
+        }
+        return true;
     }
     
 }

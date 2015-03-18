@@ -6,13 +6,6 @@ package pl.kazanik.spaceinvaders.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
@@ -33,19 +26,19 @@ public class GameCanvas extends /*JComponent*/ JPanel {
         addMouseMotionListener(player2);
         addKeyListener(player2);
         requestFocusInWindow();
-        setOpaque(true);
-        setBackground(Color.black);
+//        setOpaque(true);
+//        setBackground(Color.black);
 //        setForeground(Color.black);
     }
 
-    @Override
+    /*@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
 //        setOpaque(true);
-        setBackground(Color.black);
+//        setBackground(Color.black);
 //        setForeground(Color.black);
         System.out.println("paint component");
-    }
+    }*/
 
     @Override
     public void paint(Graphics g) {
@@ -53,8 +46,9 @@ public class GameCanvas extends /*JComponent*/ JPanel {
 //        setOpaque(true);
 //        setBackground(Color.black);
 //        setForeground(Color.black);
-//        scene.draw(g);
-        System.out.println("paint");
+//        System.out.println("paint");
+        scene.draw(g, this);
+        /*
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("/home/kazanik/Obrazy/sprite/space_ship2_sprite.png"));
@@ -62,6 +56,7 @@ public class GameCanvas extends /*JComponent*/ JPanel {
             e.printStackTrace();
         }
         g.drawImage(img, 0, 0, this);
+        */
     }
     
     
