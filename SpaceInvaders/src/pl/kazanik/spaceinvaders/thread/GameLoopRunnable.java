@@ -34,6 +34,7 @@ public class GameLoopRunnable implements Runnable {
     @Override
     public void run() {
         int lastMoveFrame = 0;
+//        long lastFrameTime = 0l;
         while(running) {
             long lastLoopTime = System.currentTimeMillis();
             long lastFrameTime = 0l;
@@ -43,12 +44,16 @@ public class GameLoopRunnable implements Runnable {
                 lastFrameTime = System.currentTimeMillis();
                 frames++;
             }
-            if(lastMoveFrame+50000 == frames) {
+//            if(lastMoveFrame+50000 == frames) {
+//            if(lastMoveFrame+5 == frames) {
                 for(AbstractEntity enemy : enemies) {
-                    enemy.move();
+                    if(enemy.getLastMoveFrame()+enemy.getSpeed() == frames) {
+                        enemy.move();
+                        enemy.setLastMoveFrame(frames);
+                    }
                 }
-                lastMoveFrame = frames;
-            }
+//                lastMoveFrame = frames;
+//            }
         }
     }
     

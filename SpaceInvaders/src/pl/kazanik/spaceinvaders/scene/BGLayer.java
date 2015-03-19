@@ -47,7 +47,7 @@ public class BGLayer implements ISceneLayer {
 
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
-        System.out.println("bg layer");
+//        System.out.println("Draw bg layer");
         g.drawImage(bgImage, 0, 0, canvas);
     }
 

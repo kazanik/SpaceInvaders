@@ -28,7 +28,6 @@ import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 public class EnemyGenerator implements IGenerator {
 
     private static final EnemyGenerator eg = new EnemyGenerator();
-    private Scene scene = Scene.getInstance();
     private EntityFactory factory = new EntityFactory();
     
     private EnemyGenerator() {
@@ -45,15 +44,16 @@ public class EnemyGenerator implements IGenerator {
         int waveNum = 1;
         BufferedImage spriteImg = null;
         try {
-            spriteImg = ImageIO.read(new File("/home/kazanik/Obrazy/sprite/space_ship2_sprite.png"));
+            spriteImg = ImageIO.read(new File(GameConditions.ENEMY_SPRITE_PATH));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        AbstractEntity enemy = factory.createEnemy(100.0f, 0.1f, 0f, 
+//        AbstractEntity enemy = factory.createEnemy(100.0f, 0.1f, 0f, 
+//                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
+//                GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
+        AbstractEntity enemy = factory.createEnemy(100.0f, 50000f, 0f, 
                 GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
                 GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
-//        SpritesLayer sl = (SpritesLayer) scene.getLayer(GameConditions.OBJECTS_LAYER_ID);
-//        sl.addEntity(enemy);
         enemies.add(enemy);
         return enemies;
     }

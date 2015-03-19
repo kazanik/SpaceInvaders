@@ -14,9 +14,9 @@ public enum Difficulty {
     MEDIUM(2,20,400),
     HARD(3,30,300);
     
-    public final int enemyWaves;
-    public final int enemiesInWave;
-    public final long enemyWaveIntervalMilis;
+    private final int enemyWaves;
+    private final int enemiesInWave;
+    private final long enemyWaveIntervalMilis;
     
     private Difficulty(int enemyWaves, int enemiesInWave, long enemyWaveIntervalMilis) {
         this.enemyWaves = enemyWaves;

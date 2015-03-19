@@ -64,7 +64,7 @@ public class SpritesLayer implements ISceneLayer {
     
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
-        System.out.println("sprites layer");
+//        System.out.println("Draw sprites layer");
         for(AbstractEntity entity : entities) {
             entity.getSprite().draw(g, canvas);
         }

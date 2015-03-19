@@ -38,7 +38,7 @@ public class EffectsLayer implements ISceneLayer {
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
         // draw all effects
-        System.out.println("Drawing effects");
+//        System.out.println("Drawing effects");
     }
     
 }

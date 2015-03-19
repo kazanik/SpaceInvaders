@@ -38,7 +38,7 @@ public abstract class AbstractSprite {
     public abstract Rectangle collisionRect();
     
     public void draw(Graphics g, GameCanvas canvas) {
-        System.out.println("Sprite draw");
+//        System.out.println("Sprite draw");
         g.drawImage(image, (int)x, (int)y, (int)(x+width), (int)(y+height), 
                 0, 0, image.getWidth(), image.getHeight(), null);
     }

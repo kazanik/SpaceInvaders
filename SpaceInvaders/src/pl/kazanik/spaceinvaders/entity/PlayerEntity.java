@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.entity;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.EnumSet;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
@@ -30,6 +31,24 @@ public class PlayerEntity extends AbstractEntity implements
         super(health, speed, armor, sprite);
     }
 
+    enum Key {
+        LEFT(37), UP(38), DOWN(40), RIGHT(39);
+        private int code;
+
+        private Key(int code) {
+            this.code = code;
+        }
+        
+        public static Key fromCode(int c) {
+            for (Key k : values()) {
+                if (k.code == c) return k;
+            }
+            return null;
+        }
+        
+    };
+    EnumSet<Key> keySet = EnumSet.noneOf(Key.class);
+    
     @Override
     public void move() {
         System.out.println("Player moved");
@@ -87,17 +106,17 @@ public class PlayerEntity extends AbstractEntity implements
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+//        System.out.println("*******KEY TYPED***********");
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
+        System.out.println("*******KEY PRESSED***********");
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+//        System.out.println("*******KEY RELEASED***********");
     }
 
 }

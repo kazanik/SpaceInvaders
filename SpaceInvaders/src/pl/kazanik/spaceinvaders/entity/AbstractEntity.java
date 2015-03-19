@@ -15,6 +15,7 @@ public abstract class AbstractEntity {
     protected float health;
     protected float speed;
     protected float armor;
+    protected int lastMoveFrame = 0;
     protected AbstractSprite sprite;
 
     protected AbstractEntity() {
@@ -59,12 +60,28 @@ public abstract class AbstractEntity {
         this.speed = speed;
     }
 
+    public float getArmor() {
+        return armor;
+    }
+
+    public void setArmor(float armor) {
+        this.armor = armor;
+    }
+
     public AbstractSprite getSprite() {
         return sprite;
     }
 
     public void setSprite(AbstractSprite sprite) {
         this.sprite = sprite;
+    }
+
+    public int getLastMoveFrame() {
+        return lastMoveFrame;
+    }
+
+    public void setLastMoveFrame(int lastMoveFrame) {
+        this.lastMoveFrame = lastMoveFrame;
     }
     
 }

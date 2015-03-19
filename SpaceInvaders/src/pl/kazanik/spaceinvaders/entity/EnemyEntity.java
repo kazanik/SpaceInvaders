@@ -28,8 +28,9 @@ public class EnemyEntity extends AbstractEntity {
 
     @Override
     public void move() {
-        System.out.println("Enemy move");
-        float dy = sprite.getY()+(speed*5);
+//        System.out.println("Enemy move");
+//        float dy = sprite.getY()+(speed*5);
+        float dy = sprite.getY()+1;
         sprite.setY(dy);
         if(dy == GameConditions.SCENE_HEIGHT-sprite.getHeight())
             sprite.setY(0);

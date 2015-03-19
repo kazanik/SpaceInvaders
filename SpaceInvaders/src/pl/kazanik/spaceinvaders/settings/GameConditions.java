@@ -27,4 +27,6 @@ public class GameConditions {
     public static final int ENEMY_SPRITE_HEIGHT = 50;
     public static final String PLAYER_SPRITE_PATH = 
             "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
+    public static final String ENEMY_SPRITE_PATH = 
+            "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
 }

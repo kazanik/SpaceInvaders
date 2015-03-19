@@ -5,11 +5,13 @@
 package pl.kazanik.spaceinvaders.main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.scene.Scene;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
  *
@@ -39,6 +41,13 @@ public class GameCanvas extends /*JComponent*/ JPanel {
 //        setForeground(Color.black);
         System.out.println("paint component");
     }*/
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(GameConditions.SCENE_WIDTH, 
+                GameConditions.SCENE_HEIGHT); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     @Override
     public void paint(Graphics g) {
