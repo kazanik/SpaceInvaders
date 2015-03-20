@@ -18,6 +18,7 @@ import pl.kazanik.spaceinvaders.entity.EnemyEntity;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
+import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 
@@ -29,6 +30,7 @@ public class EnemyGenerator implements IGenerator {
 
     private static final EnemyGenerator eg = new EnemyGenerator();
     private EntityFactory factory = new EntityFactory();
+    private GameSettings settings = GameSettings.getInstance();
     
     private EnemyGenerator() {
         
@@ -51,7 +53,8 @@ public class EnemyGenerator implements IGenerator {
 //        AbstractEntity enemy = factory.createEnemy(100.0f, 0.1f, 0f, 
 //                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
 //                GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
-        AbstractEntity enemy = factory.createEnemy(100.0f, 50000f, 0f, 
+        AbstractEntity enemy = factory.createEnemy(100.0f, 
+                settings.getDifficulty().getEnemySpeed(), 0f, 
                 GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
                 GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
         enemies.add(enemy);

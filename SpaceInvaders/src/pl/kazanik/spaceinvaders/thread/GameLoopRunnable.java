@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 
 /**
@@ -18,6 +19,7 @@ import pl.kazanik.spaceinvaders.main.GameCanvas;
 public class GameLoopRunnable implements Runnable {
 
     private List<AbstractEntity> enemies;
+    private PlayerEntity player;
     private GameCanvas canvas;
     private boolean running = true;
     private int frames = 0;
@@ -26,9 +28,11 @@ public class GameLoopRunnable implements Runnable {
         
     }
     
-    public GameLoopRunnable(GameCanvas canvas, List<AbstractEntity> enemies) {
+    public GameLoopRunnable(GameCanvas canvas, List<AbstractEntity> enemies, 
+            PlayerEntity player) {
         this.enemies = enemies;
         this.canvas = canvas;
+        this.player = player;
     }
     
     @Override
@@ -51,6 +55,10 @@ public class GameLoopRunnable implements Runnable {
                         enemy.move();
                         enemy.setLastMoveFrame(frames);
                     }
+                }
+                if(player.getLastMoveFrame()+player.getSpeed() == frames) {
+                    player.updatePosition();
+                    player.setLastMoveFrame(frames);
                 }
 //                lastMoveFrame = frames;
 //            }

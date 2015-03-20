@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
@@ -17,16 +18,17 @@ import pl.kazanik.spaceinvaders.settings.GameConditions;
  *
  * @author kazanik
  */
-public class GameCanvas extends /*JComponent*/ JPanel {
+public class GameCanvas extends JComponent /*JPanel*/ {
 
     private Scene scene;
     
-    public GameCanvas(Scene scene, AbstractEntity player) {
+    public GameCanvas(Scene scene, AbstractEntity player2) {
         this.scene = scene;
-        PlayerEntity player2 = (PlayerEntity) player;
-        addMouseListener(player2);
-        addMouseMotionListener(player2);
-        addKeyListener(player2);
+        PlayerEntity player = (PlayerEntity) player2;
+        setFocusable(true);
+        addMouseListener(player);
+        addMouseMotionListener(player);
+        addKeyListener(player);
         requestFocusInWindow();
 //        setOpaque(true);
 //        setBackground(Color.black);

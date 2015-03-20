@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.EnumSet;
 import javax.swing.event.MouseInputListener;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
@@ -18,6 +19,9 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 public class PlayerEntity extends AbstractEntity implements 
         MouseInputListener, KeyListener {
 
+    private int direction;
+    private boolean leftPressed, rightPressed, firePressed;
+    
     public PlayerEntity() {
         super();
     }
@@ -51,7 +55,13 @@ public class PlayerEntity extends AbstractEntity implements
     
     @Override
     public void move() {
-        System.out.println("Player moved");
+//        System.out.println("Player moved");
+        float dx = sprite.getX()+(1*direction);
+        sprite.setX(dx);
+        if(dx > GameConditions.SCENE_WIDTH-sprite.getWidth())
+            sprite.setX(0);
+        if(dx < 0)
+            sprite.setX(GameConditions.SCENE_WIDTH-sprite.getWidth());
     }
 
     @Override
@@ -111,12 +121,69 @@ public class PlayerEntity extends AbstractEntity implements
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("*******KEY PRESSED***********");
+//        System.out.println("*******KEY PRESSED***********");
+        int code = e.getKeyCode();
+//        System.out.println(code);
+        switch(code) {
+            case GameConditions.FIRE_KEY_CODE:
+                firePressed = true;
+                break;
+            case GameConditions.FIRE_KEY_CODE2:
+                firePressed = true;
+                break;
+            case GameConditions.LEFT_KEY_CODE:
+                leftPressed = true;
+                break;
+            case GameConditions.LEFT_KEY_CODE2:
+                leftPressed = true;
+                break;
+            case GameConditions.RIGHT_KEY_CODE:
+                rightPressed = true;
+                break;
+            case GameConditions.RIGHT_KEY_CODE2:
+                rightPressed = true;
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 //        System.out.println("*******KEY RELEASED***********");
+        int code = e.getKeyCode();
+        switch(code) {
+            case GameConditions.FIRE_KEY_CODE:
+                firePressed = false;
+                break;
+            case GameConditions.FIRE_KEY_CODE2:
+                firePressed = false;
+                break;
+            case GameConditions.LEFT_KEY_CODE:
+                leftPressed = false;
+                break;
+            case GameConditions.LEFT_KEY_CODE2:
+                leftPressed = false;
+                break;
+            case GameConditions.RIGHT_KEY_CODE:
+                rightPressed = false;
+                break;
+            case GameConditions.RIGHT_KEY_CODE2:
+                rightPressed = false;
+                break;
+        }
+    }
+    
+    public void updatePosition() {
+        if(leftPressed) {
+            direction = -1;
+            move();
+        }
+        if(rightPressed) {
+            direction = 1;
+            move();
+        }
+        if(firePressed) {
+            attack();
+        }
     }
 
 }

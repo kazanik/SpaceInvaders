@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.main;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JFrame;
+import pl.kazanik.spaceinvaders.difficulty.Difficulty;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.generator.SceneGenerator;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
@@ -33,6 +34,7 @@ public class SpaceInvaders {
     public static void main(String[] args) {
         // TODO code application logic here
         GameSettings settings = GameSettings.getInstance();
+        settings.setDifficulty(Difficulty.HARD);
         SceneGenerator sg = SceneGenerator.getInstance();
         PlayerGenerator pg = PlayerGenerator.getInstance();
         Scene gameScene = sg.generate();
@@ -53,7 +55,7 @@ public class SpaceInvaders {
         gameFrame.pack();
         gameFrame.setVisible(true);
         gameFrame.setResizable(false);
-        GameLoop gl = new GameLoop(canvas, enemies);
+        GameLoop gl = new GameLoop(canvas, enemies, (PlayerEntity) player);
         gl.start();
     }
 }

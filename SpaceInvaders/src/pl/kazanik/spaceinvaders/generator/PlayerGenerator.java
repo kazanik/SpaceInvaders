@@ -30,7 +30,14 @@ public class PlayerGenerator implements IGenerator {
     
     @Override
     public AbstractEntity generate() {
-        AbstractEntity player = factory.createPlayer(100f, 1f, 0f, GameConditions.PLAYER_SPRITE_WIDTH, 
+//        AbstractEntity player = factory.createPlayer(100f, 1f, 0f, GameConditions.PLAYER_SPRITE_WIDTH, 
+//                GameConditions.PLAYER_SPRITE_HEIGHT, 
+//                GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
+//                GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
+//                0, settings.getPlayerImage());
+        AbstractEntity player = factory.createPlayer(100f, 
+                settings.getDifficulty().getPlayerSpeed(), 0f, 
+                GameConditions.PLAYER_SPRITE_WIDTH, 
                 GameConditions.PLAYER_SPRITE_HEIGHT, 
                 GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
                 GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
