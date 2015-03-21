@@ -13,6 +13,7 @@ import pl.kazanik.spaceinvaders.generator.SceneGenerator;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.entity.EnemyEntity;
+import pl.kazanik.spaceinvaders.entity.EnemyManager;
 import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
@@ -42,14 +43,10 @@ public class SpaceInvaders {
         AbstractEntity player = pg.generate();
         EnemyGenerator eg = EnemyGenerator.getInstance();
         List<AbstractEntity> enemies = eg.generate();
+        EnemyManager em = EnemyManager.getInstance();
+        em.setEnemies(enemies);
         GameCanvas canvas = new GameCanvas(gameScene, player);
         JFrame gameFrame = new JFrame("Space Invaders Alpha");
-//        gameFrame.setSize(GameConditions.WINDOW_WIDTH, GameConditions.WINDOW_HEIGHT);
-//        gameFrame.setMinimumSize(new Dimension(GameConditions.WINDOW_WIDTH, 
-//                GameConditions.WINDOW_HEIGHT));
-//        gameFrame.setMaximumSize(new Dimension(GameConditions.WINDOW_WIDTH, 
-//                GameConditions.WINDOW_HEIGHT));
-//        gameFrame.setExtendedState(JFrame.NORMAL);
         gameFrame.getContentPane().add(canvas);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameFrame.pack();
@@ -57,5 +54,10 @@ public class SpaceInvaders {
         gameFrame.setResizable(false);
         GameLoop gl = new GameLoop(canvas, enemies, (PlayerEntity) player);
         gl.start();
+//        AbstractSprite sprite1 = new EnemySprite(0, 0, 0, 0, 0, null);
+//        AbstractEntity enemy1 = new EnemyEntity(0, 0, 0, sprite1);
+//        AbstractSprite sprite2 = new EnemySprite(0, 0, 0, 10, 0, null);
+//        AbstractEntity enemy2 = new EnemyEntity(0, 0, 0, sprite2);
+//        System.out.println(enemy1.equals(enemy2));
     }
 }

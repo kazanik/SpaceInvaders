@@ -35,10 +35,10 @@ public class EntityFactory {
     }
     
     public AbstractEntity createEnemy(float health, float speed, float armor, 
-            float width, float height, float x, float y, 
+            long intervalMilis, float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
         AbstractSprite sprite = new EnemySprite(width, height, x, y, collisionOffset, spriteImg);
-        AbstractEntity enemy = new EnemyEntity(health, speed, armor, sprite);
+        AbstractEntity enemy = new EnemyEntity(health, speed, armor, intervalMilis, sprite);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(enemy);

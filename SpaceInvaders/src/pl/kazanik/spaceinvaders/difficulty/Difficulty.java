@@ -10,9 +10,9 @@ package pl.kazanik.spaceinvaders.difficulty;
  */
 public enum Difficulty {
     
-    EASY(1,10,500, 65000, 30000),
-    MEDIUM(2,20,400, 45000, 45000),
-    HARD(3,30,300, 30000, 50000);
+    EASY(1, 10, 500, 24, 3),
+    MEDIUM(2, 20, 400, 16, 4),
+    HARD(3, 30, 300, 15, 5);
     
     private final int enemyWaves;
     private final int enemiesInWave;

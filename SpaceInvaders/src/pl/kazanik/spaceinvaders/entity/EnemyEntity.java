@@ -13,6 +13,9 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  */
 public class EnemyEntity extends AbstractEntity {
 
+    private long intervalMilis;
+    private boolean spawned = true;
+    
     public EnemyEntity() {
         super();
     }
@@ -22,23 +25,29 @@ public class EnemyEntity extends AbstractEntity {
     }
 
     public EnemyEntity(float health, float speed, float armor, 
-            AbstractSprite sprite) {
+            long intervalMilis, AbstractSprite sprite) {
         super(health, speed, armor, sprite);
+        this.intervalMilis = intervalMilis;
     }
 
     @Override
     public void move() {
-//        System.out.println("Enemy move");
-//        float dy = sprite.getY()+(speed*5);
+//        if(spawned)
+//            spawn();
         float dy = sprite.getY()+1;
         sprite.setY(dy);
         if(dy == GameConditions.SCENE_HEIGHT-sprite.getHeight())
-            sprite.setY(0);
+            die();
     }
 
     @Override
     public void spawn() {
         System.out.println("Enemy born");
+        long start = System.currentTimeMillis();
+        while(System.currentTimeMillis() < start+intervalMilis) {
+            
+        }
+        spawned = false;
     }
 
     @Override
@@ -49,6 +58,32 @@ public class EnemyEntity extends AbstractEntity {
     @Override
     public void attack() {
         System.out.println("Enemy attack");
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 4; //To change body of generated methods, choose Tools | Templates.
+        hash = 13 * hash + (int) this.getSprite().getX();
+        hash = 13 * hash + (int) this.getSprite().getY();
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(getClass() != obj.getClass()) {
+            return false;
+        }
+        final EnemyEntity other = (EnemyEntity) obj;
+        if(this.getSprite().getX() != other.getSprite().getX()) {
+            return false;
+        }
+        if(this.getSprite().getY() != other.getSprite().getY()) {
+            return false;
+        }
+        return true; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

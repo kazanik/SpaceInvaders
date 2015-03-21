@@ -53,11 +53,17 @@ public class EnemyGenerator implements IGenerator {
 //        AbstractEntity enemy = factory.createEnemy(100.0f, 0.1f, 0f, 
 //                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
 //                GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
-        AbstractEntity enemy = factory.createEnemy(100.0f, 
-                settings.getDifficulty().getEnemySpeed(), 0f, 
-                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
-                GameConditions.WAVE_GAP*waveNum, 0, 0, spriteImg);
-        enemies.add(enemy);
+        for(int i = 1; i <= settings.getDifficulty().getEnemyWaves(); i++) {
+            long intervalMilis = 0l;
+            for(int j = 1; j <= settings.getDifficulty().getEnemiesInWave(); j++) {
+                AbstractEntity enemy = factory.createEnemy(100.0f, 
+                    settings.getDifficulty().getEnemySpeed(), 0f, intervalMilis, 
+                    GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
+                    GameConditions.WAVE_GAP*i, 0, 0, spriteImg);
+                enemies.add(enemy);
+                intervalMilis += settings.getDifficulty().getEnemyWaveIntervalMilis();
+            }
+        }
         return enemies;
     }
 }
