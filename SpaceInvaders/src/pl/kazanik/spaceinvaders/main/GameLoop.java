@@ -5,6 +5,8 @@
 package pl.kazanik.spaceinvaders.main;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.thread.CollisionRunnable;
@@ -24,20 +26,26 @@ public class GameLoop {
     private Runnable updateRunnable, enemyRunnable, playerRunnable, 
             collisionRunnable;
     private boolean running;
-    private int frames;
+    private int frames, waves;
+    private ExecutorService threadPool;
     
     public GameLoop() {
         
     }
     
-    public GameLoop(GameCanvas canvas, PlayerEntity player) {
+    public GameLoop(GameCanvas canvas, PlayerEntity player, int waves) {
         this.canvas = canvas;
         this.player = player;
+        this.waves = waves;
+        threadPool = Executors.newFixedThreadPool(waves);
     }
     
     public final void init() {
         updateRunnable = new GameLoopRunnable(canvas, player, this);
         updateThread = new Thread(updateRunnable);
+        for(int i = 0; i < waves; i++) {
+            threadPool.submit(new EnemyRunnable(this, i));
+        }
         /*
         enemyRunnable = new EnemyRunnable(this);
         enemyThread = new Thread(enemyRunnable);

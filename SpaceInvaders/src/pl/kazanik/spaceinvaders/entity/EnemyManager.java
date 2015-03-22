@@ -14,6 +14,7 @@ import java.util.List;
 public class EnemyManager {
     
     private List<AbstractEntity> enemies;
+    private List<List<AbstractEntity>> enemiesWaves;
     private static final EnemyManager em = new EnemyManager();
 
     private EnemyManager() {
@@ -33,6 +34,22 @@ public class EnemyManager {
 
     public void setEnemies(List<AbstractEntity> enemies) {
         this.enemies = enemies;
+    }
+
+    public List<List<AbstractEntity>> getEnemiesWaves() {
+        return enemiesWaves;
+    }
+
+    public void setEnemiesWaves(List<List<AbstractEntity>> enemiesWaves) {
+        this.enemiesWaves = enemiesWaves;
+    }
+    
+    public List<AbstractEntity> getWaveEnemies(int waveNum) {
+        return enemiesWaves.get(waveNum);
+    }
+    
+    public int getWaves() {
+        return enemiesWaves.size();
     }
     
     public void destroy(AbstractEntity enemy) {
