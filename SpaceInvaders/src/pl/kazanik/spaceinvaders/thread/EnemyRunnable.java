@@ -4,10 +4,44 @@
  */
 package pl.kazanik.spaceinvaders.thread;
 
+import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.EnemyManager;
+import pl.kazanik.spaceinvaders.main.GameLoop;
+
 /**
  *
  * @author kazanik
  */
-public class EnemyRunnable {
+public class EnemyRunnable implements Runnable {
+
+    private GameLoop gameLoop;
+    private EnemyManager manager = EnemyManager.getInstance();
+
+    public EnemyRunnable() {
+    }
+
+    public EnemyRunnable(GameLoop gameLoop) {
+        this.gameLoop = gameLoop;
+    }
+    
+    @Override
+    public void run() {
+        System.out.println("Enemy runnable");
+        while(gameLoop.isRunning()) {
+            for(final AbstractEntity enemy : manager.getEnemies()) {
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if(enemy.getLastMoveFrame()+enemy.getSpeed() == gameLoop.getFrames()) {
+                            enemy.move();
+                            enemy.setLastMoveFrame(gameLoop.getFrames());
+                        }
+                    }
+                };
+                
+            }
+        }
+    }
     
 }

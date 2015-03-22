@@ -11,17 +11,14 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  *
  * @author kazanik
  */
-public class EnemyEntity extends AbstractEntity {
+
+public class EnemyEntity extends AbstractSpaceCraft {
 
     private long intervalMilis;
     private boolean spawned = true;
     
     public EnemyEntity() {
         super();
-    }
-
-    public EnemyEntity(AbstractSprite sprite) {
-        super(sprite);
     }
 
     public EnemyEntity(float health, float speed, float armor, 
@@ -61,6 +58,11 @@ public class EnemyEntity extends AbstractEntity {
     }
 
     @Override
+    public void collision() {
+        
+    }
+    
+    @Override
     public int hashCode() {
         int hash = 4; //To change body of generated methods, choose Tools | Templates.
         hash = 13 * hash + (int) this.getSprite().getX();
@@ -85,5 +87,5 @@ public class EnemyEntity extends AbstractEntity {
         }
         return true; //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

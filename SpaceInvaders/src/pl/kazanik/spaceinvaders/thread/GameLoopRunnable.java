@@ -13,6 +13,7 @@ import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.EnemyManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
+import pl.kazanik.spaceinvaders.main.GameLoop;
 
 /**
  *
@@ -20,10 +21,10 @@ import pl.kazanik.spaceinvaders.main.GameCanvas;
  */
 public class GameLoopRunnable implements Runnable {
 
-    private List<AbstractEntity> enemies;
     private PlayerEntity player;
     private GameCanvas canvas;
     private EnemyManager manager = EnemyManager.getInstance();
+    private GameLoop gameLoop;
     private boolean running = true;
     private int frames = 0;
     
@@ -31,42 +32,53 @@ public class GameLoopRunnable implements Runnable {
         
     }
     
-    public GameLoopRunnable(GameCanvas canvas, List<AbstractEntity> enemies, 
-            PlayerEntity player) {
-        this.enemies = enemies;
+    public GameLoopRunnable(GameCanvas canvas, PlayerEntity player, GameLoop gameLoop) {
         this.canvas = canvas;
         this.player = player;
+        this.gameLoop = gameLoop;
     }
     
     @Override
     public void run() {
-//        int lastMoveFrame = 0;
+        System.out.println("Update runnable");
         long lastFrameTime = 0l;
         gameloop:
         while(running) {
             long lastLoopTime = System.currentTimeMillis();
 //            long lastFrameTime = 0l;
+            // Paint
             long abs = Math.abs(lastLoopTime-lastFrameTime);
             if(abs >= GameConditions.REFRESH_RATE) {
-//                System.out.println("abs = "+abs);
                 canvas.repaint();
                 lastFrameTime = System.currentTimeMillis();
                 frames++;
+//                gameLoop.nextFrame();
             }
 //            if(lastMoveFrame+50000 == frames) {
+            //      Enemies
             for(AbstractEntity enemy : manager.getEnemies()) {
                 if(enemy.getLastMoveFrame()+enemy.getSpeed() == frames) {
+//                if(enemy.getLastMoveFrame()+enemy.getSpeed() == gameLoop.getFrames()) {
                     enemy.move();
                     enemy.setLastMoveFrame(frames);
+//                    enemy.setLastMoveFrame(gameLoop.getFrames());
                 }
             }
+            
+            //      Player
             if(player.getLastMoveFrame()+player.getSpeed() == frames) {
+//            if(player.getLastMoveFrame()+player.getSpeed() == gameLoop.getFrames()) {
                 player.updatePosition();
                 player.setLastMoveFrame(frames);
+//                player.setLastMoveFrame(gameLoop.getFrames());
             }
+            
 //                lastMoveFrame = frames;
 //            }
             frames = (frames >= 2000000000) ? 0 : frames;
+//            int frames = (gameLoop.getFrames() >= 2000000000) ? 0 : gameLoop.getFrames();
+//            gameLoop.setFrames(frames);
+            //      Collision
             for(AbstractEntity enemy : manager.getEnemies()) {
                 Rectangle er = new Rectangle((int)enemy.getSprite().getX(), 
                         (int)enemy.getSprite().getY(), (int)enemy.getSprite().getWidth(), 
@@ -78,6 +90,7 @@ public class GameLoopRunnable implements Runnable {
                     break gameloop;
                 }
             }
+            
         }
     }
     

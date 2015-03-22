@@ -52,7 +52,8 @@ public class SpaceInvaders {
         gameFrame.pack();
         gameFrame.setVisible(true);
         gameFrame.setResizable(false);
-        GameLoop gl = new GameLoop(canvas, enemies, (PlayerEntity) player);
+        GameLoop gl = new GameLoop(canvas, (PlayerEntity) player);
+        gl.init();
         gl.start();
 //        AbstractSprite sprite1 = new EnemySprite(0, 0, 0, 0, 0, null);
 //        AbstractEntity enemy1 = new EnemyEntity(0, 0, 0, sprite1);

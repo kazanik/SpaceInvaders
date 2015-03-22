@@ -16,7 +16,8 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  *
  * @author kazanik
  */
-public class PlayerEntity extends AbstractEntity implements 
+
+public class PlayerEntity extends AbstractSpaceCraft implements 
         MouseInputListener, KeyListener {
 
     private int direction;
@@ -24,10 +25,6 @@ public class PlayerEntity extends AbstractEntity implements
     
     public PlayerEntity() {
         super();
-    }
-
-    public PlayerEntity(AbstractSprite sprite) {
-        super(sprite);
     }
 
     public PlayerEntity(float health, float speed, float armor, 
@@ -52,7 +49,12 @@ public class PlayerEntity extends AbstractEntity implements
         
     };
     EnumSet<Key> keySet = EnumSet.noneOf(Key.class);
-    
+
+    @Override
+    public void collision() {
+        
+    }
+
     @Override
     public void move() {
 //        System.out.println("Player moved");

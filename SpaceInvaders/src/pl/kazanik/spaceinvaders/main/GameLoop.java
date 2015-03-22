@@ -7,7 +7,10 @@ package pl.kazanik.spaceinvaders.main;
 import java.util.List;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
+import pl.kazanik.spaceinvaders.thread.CollisionRunnable;
+import pl.kazanik.spaceinvaders.thread.EnemyRunnable;
 import pl.kazanik.spaceinvaders.thread.GameLoopRunnable;
+import pl.kazanik.spaceinvaders.thread.PlayerRunnable;
 
 /**
  *
@@ -15,33 +18,70 @@ import pl.kazanik.spaceinvaders.thread.GameLoopRunnable;
  */
 public class GameLoop {
     
-    private Thread gameLoopThread;
-    private Runnable gameLoopRunnable;
+    private GameCanvas canvas;
+    private PlayerEntity player;
+    private Thread updateThread, enemyThread, playerThread, collisionThread;
+    private Runnable updateRunnable, enemyRunnable, playerRunnable, 
+            collisionRunnable;
+    private boolean running;
+    private int frames;
     
     public GameLoop() {
         
     }
     
-    public GameLoop(GameCanvas canvas, List<AbstractEntity> enemies, 
-            PlayerEntity player) {
-        init(canvas, enemies, player);
+    public GameLoop(GameCanvas canvas, PlayerEntity player) {
+        this.canvas = canvas;
+        this.player = player;
     }
     
-    public final void init(GameCanvas canvas, List<AbstractEntity> enemies, 
-            PlayerEntity player) {
-        gameLoopRunnable = new GameLoopRunnable(canvas, enemies, player);
-        gameLoopThread = new Thread(gameLoopRunnable);
+    public final void init() {
+        updateRunnable = new GameLoopRunnable(canvas, player, this);
+        updateThread = new Thread(updateRunnable);
+        /*
+        enemyRunnable = new EnemyRunnable(this);
+        enemyThread = new Thread(enemyRunnable);
+        playerRunnable = new PlayerRunnable(this, player);
+        playerThread = new Thread(playerRunnable);
+        collisionRunnable = new CollisionRunnable(this, player);
+        collisionThread = new Thread(collisionRunnable);
+        */
     }
     
     public void abort() {
-        
+        running = false;
+        updateThread.interrupt();
+//        enemyThread.interrupt();
+//        playerThread.interrupt();
+//        collisionThread.interrupt();
     }
     
     public void restart() {
-        
+        init();
+        start();
     }
     
     public void start() {
-        gameLoopThread.start();
+        running = true;
+        updateThread.start();
+//        enemyThread.start();
+//        playerThread.start();
+//        collisionThread.start();
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public int getFrames() {
+        return frames;
+    }
+
+    public void setFrames(int frames) {
+        this.frames = frames;
+    }
+    
+    public void nextFrame() {
+        frames++;
     }
 }
