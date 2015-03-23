@@ -58,12 +58,12 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     @Override
     public void move() {
 //        System.out.println("Player moved");
-        float dx = sprite.getX()+(1*direction);
-        sprite.setX(dx);
-        if(dx > GameConditions.SCENE_WIDTH-sprite.getWidth())
-            sprite.setX(0);
+        float dx = getSprite().getX()+(1*direction);
+        getSprite().setX(dx);
+        if(dx > GameConditions.SCENE_WIDTH-getSprite().getWidth())
+            getSprite().setX(0);
         if(dx < 0)
-            sprite.setX(GameConditions.SCENE_WIDTH-sprite.getWidth());
+            getSprite().setX(GameConditions.SCENE_WIDTH-getSprite().getWidth());
     }
 
     @Override

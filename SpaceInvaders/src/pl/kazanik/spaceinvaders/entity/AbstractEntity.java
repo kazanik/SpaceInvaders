@@ -12,9 +12,9 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  */
 public abstract class AbstractEntity {
     
-    protected float speed;
-    protected int lastMoveFrame = 0;
-    protected AbstractSprite sprite;
+    private float speed;
+    private int lastMoveFrame = 0;
+    private AbstractSprite sprite;
 
     protected AbstractEntity() {
         speed = 1f;

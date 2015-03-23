@@ -32,9 +32,9 @@ public class EnemyEntity extends AbstractSpaceCraft {
 //        if(spawned)
 //            spawn();
         if(!spawned) {
-            float dy = sprite.getY()+1;
-            sprite.setY(dy);
-            if(dy == GameConditions.SCENE_HEIGHT-sprite.getHeight())
+            float dy = getSprite().getY()+1;
+            getSprite().setY(dy);
+            if(dy == GameConditions.SCENE_HEIGHT-getSprite().getHeight())
                 die();
         }
     }

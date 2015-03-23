@@ -5,6 +5,7 @@
 package pl.kazanik.spaceinvaders.entity;
 
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
+import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
 /**
  *
@@ -12,8 +13,9 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  */
 public abstract class AbstractSpaceCraft extends AbstractEntity {
     
-    protected float health;
-    protected float armor;
+    private float health;
+    private float armor;
+    private AbstractWeapon weapon;
 
     protected AbstractSpaceCraft() {
     }
@@ -26,4 +28,21 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     
     public abstract void attack();
     public abstract void die();
+
+    public float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
+    }
+
+    public float getArmor() {
+        return armor;
+    }
+
+    public void setArmor(float armor) {
+        this.armor = armor;
+    }
+    
 }
