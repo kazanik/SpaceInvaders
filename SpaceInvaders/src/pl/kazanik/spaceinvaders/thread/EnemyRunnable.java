@@ -31,11 +31,11 @@ public class EnemyRunnable implements Runnable {
     public void run() {
         System.out.println("Enemy runnable");
         List<AbstractEntity> waveEnemies = manager.getWaveEnemies(waveNum);
-        while(gameLoop.isRunning()) {
+//        while(gameLoop.isRunning()) {
             for(AbstractEntity enemy : waveEnemies) {
-                enemy.spawn();
+                if(gameLoop.isRunning()) enemy.spawn();
             }
-        }
+//        }
     }
     
 }

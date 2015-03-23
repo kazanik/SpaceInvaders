@@ -87,6 +87,7 @@ public class GameLoopRunnable implements Runnable {
                         (int)player.getSprite().getY(), (int)player.getSprite().getWidth(), 
                         (int)player.getSprite().getHeight());
                 if(er.intersects(pr)) {     // collision
+                    gameLoop.abort();
                     break gameloop;
                 }
             }

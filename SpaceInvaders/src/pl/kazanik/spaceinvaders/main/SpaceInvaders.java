@@ -4,22 +4,15 @@
  */
 package pl.kazanik.spaceinvaders.main;
 
-import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JFrame;
 import pl.kazanik.spaceinvaders.difficulty.Difficulty;
-import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.generator.SceneGenerator;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
-import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
-import pl.kazanik.spaceinvaders.entity.EnemyEntity;
 import pl.kazanik.spaceinvaders.entity.EnemyManager;
-import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
-import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.generator.EnemyGenerator;
 import pl.kazanik.spaceinvaders.generator.PlayerGenerator;
-import pl.kazanik.spaceinvaders.sprite.PlayerSprite;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 
@@ -35,7 +28,7 @@ public class SpaceInvaders {
     public static void main(String[] args) {
         // TODO code application logic here
         GameSettings settings = GameSettings.getInstance();
-        settings.setDifficulty(Difficulty.HARD);
+        settings.setDifficulty(Difficulty.EASY);
         SceneGenerator sg = SceneGenerator.getInstance();
         PlayerGenerator pg = PlayerGenerator.getInstance();
         Scene gameScene = sg.generate();

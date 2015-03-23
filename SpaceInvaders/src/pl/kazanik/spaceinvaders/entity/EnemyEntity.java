@@ -41,7 +41,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void spawn() {
-        System.out.println("Enemy born");
+//        System.out.println("Enemy born");
         long start = System.currentTimeMillis();
         while(System.currentTimeMillis() < start+intervalMilis) {
             
@@ -51,12 +51,12 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void die() {
-        System.out.println("Enemy died");
+//        System.out.println("Enemy died");
     }
 
     @Override
     public void attack() {
-        System.out.println("Enemy attack");
+//        System.out.println("Enemy attack");
     }
 
     @Override

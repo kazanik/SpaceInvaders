@@ -38,14 +38,18 @@ public class GameLoop {
         this.player = player;
         this.waves = waves;
         threadPool = Executors.newFixedThreadPool(waves);
+//        threadPool = Executors.newSingleThreadExecutor();
     }
     
     public final void init() {
         updateRunnable = new GameLoopRunnable(canvas, player, this);
         updateThread = new Thread(updateRunnable);
+        /*
         for(int i = 0; i < waves; i++) {
-            threadPool.submit(new EnemyRunnable(this, i));
+//            threadPool.submit(new EnemyRunnable(this, i));
+            threadPool.execute(new EnemyRunnable(this, i));
         }
+        */
         /*
         enemyRunnable = new EnemyRunnable(this);
         enemyThread = new Thread(enemyRunnable);
@@ -59,6 +63,7 @@ public class GameLoop {
     public void abort() {
         running = false;
         updateThread.interrupt();
+        threadPool.shutdownNow();
 //        enemyThread.interrupt();
 //        playerThread.interrupt();
 //        collisionThread.interrupt();
@@ -72,6 +77,10 @@ public class GameLoop {
     public void start() {
         running = true;
         updateThread.start();
+        for(int i = 0; i < waves; i++) {
+//            threadPool.submit(new EnemyRunnable(this, i));
+            threadPool.execute(new EnemyRunnable(this, i));
+        }
 //        enemyThread.start();
 //        playerThread.start();
 //        collisionThread.start();
