@@ -28,7 +28,7 @@ public class SpaceInvaders {
     public static void main(String[] args) {
         // TODO code application logic here
         GameSettings settings = GameSettings.getInstance();
-        settings.setDifficulty(Difficulty.EASY);
+        settings.setDifficulty(Difficulty.HARD);
         SceneGenerator sg = SceneGenerator.getInstance();
         PlayerGenerator pg = PlayerGenerator.getInstance();
         Scene gameScene = sg.generate();

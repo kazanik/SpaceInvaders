@@ -11,15 +11,15 @@ import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
  *
  * @author kazanik
  */
-public abstract class AbstractMissle extends AbstractEntity {
+public class Missle extends AbstractEntity {
     
     private int damage;
     private int direction;
 
-    protected AbstractMissle() {
+    public Missle() {
     }
 
-    protected AbstractMissle(int damage, int direction, float speed, 
+    public Missle(int damage, int direction, float speed, 
             AbstractSprite sprite) {
         super(speed, sprite);
         this.damage = damage;
@@ -52,4 +52,8 @@ public abstract class AbstractMissle extends AbstractEntity {
         
     }
 
+    @Override
+    public void move() {
+        
+    }
 }

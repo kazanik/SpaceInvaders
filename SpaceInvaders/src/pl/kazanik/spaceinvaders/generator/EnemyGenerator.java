@@ -54,7 +54,7 @@ public class EnemyGenerator implements IGenerator {
                     GameConditions.WAVE_GAP*i, 0-GameConditions.ENEMY_SPRITE_HEIGHT, 0, spriteImg);
                 wave.add(enemy);
                 enemies.add(enemy);
-//                intervalMilis += settings.getDifficulty().getEnemyWaveIntervalMilis();
+                intervalMilis += settings.getDifficulty().getEnemyWaveIntervalMilis();
             }
             enemiesWaves.add(wave);
         }

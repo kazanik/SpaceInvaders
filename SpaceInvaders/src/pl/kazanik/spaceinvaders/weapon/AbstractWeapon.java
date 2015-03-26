@@ -4,8 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.weapon;
 
-import java.awt.image.BufferedImage;
-import pl.kazanik.spaceinvaders.missle.AbstractMissle;
+import pl.kazanik.spaceinvaders.factory.MissleFactory;
 
 /**
  *
@@ -19,24 +18,24 @@ public abstract class AbstractWeapon {
     private int clipCapacity;
     private int clipAmmo;
     private int damage;
-    private AbstractMissle missle;
+    private MissleFactory missleFactory;
 
     // private AbstractMissle bullet;
     protected AbstractWeapon() {
     }
 
     protected AbstractWeapon(long fireDelay, int ammoCapacity, int availableAmmo, 
-            int clipCapacity, int clipAmmo, int damage, AbstractMissle missle) {
+            int clipCapacity, int clipAmmo, int damage, MissleFactory missleFactory) {
         this.fireDelay = fireDelay;
         this.ammoCapacity = ammoCapacity;
         this.availableAmmo = availableAmmo;
         this.clipCapacity = clipCapacity;
         this.clipAmmo = clipAmmo;
         this.damage = damage;
-        this.missle = missle;
+        this.missleFactory = missleFactory;
     }
     
-    public abstract void fire();
+    public abstract void fire(int direction, int x, int y);
     public abstract void reload();
 
     public long getFireDelay() {
@@ -87,12 +86,12 @@ public abstract class AbstractWeapon {
         this.damage = damage;
     }
 
-    public AbstractMissle getMissle() {
-        return missle;
+    public MissleFactory getMissleFactory() {
+        return missleFactory;
     }
 
-    public void setMissle(AbstractMissle missle) {
-        this.missle = missle;
+    public void setMissleFactory(MissleFactory missleFactory) {
+        this.missleFactory = missleFactory;
     }
-    
+
 }

@@ -27,16 +27,24 @@ public class EnemyEntity extends AbstractSpaceCraft {
         this.intervalMilis = intervalMilis;
     }
 
+    public long getIntervalMilis() {
+        return intervalMilis;
+    }
+
+    public boolean isSpawned() {
+        return spawned;
+    }
+
     @Override
     public void move() {
 //        if(spawned)
 //            spawn();
-        if(!spawned) {
-            float dy = getSprite().getY()+1;
+//        if(!spawned) {
+            float dy = getSprite().getY()+getSpeed();
             getSprite().setY(dy);
             if(dy == GameConditions.SCENE_HEIGHT-getSprite().getHeight())
                 die();
-        }
+//        }
     }
 
     @Override

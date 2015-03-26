@@ -77,10 +77,12 @@ public class GameLoop {
     public void start() {
         running = true;
         updateThread.start();
+        /*
         for(int i = 0; i < waves; i++) {
 //            threadPool.submit(new EnemyRunnable(this, i));
             threadPool.execute(new EnemyRunnable(this, i));
         }
+        */
 //        enemyThread.start();
 //        playerThread.start();
 //        collisionThread.start();

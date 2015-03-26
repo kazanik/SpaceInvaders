@@ -11,6 +11,7 @@ import java.util.EnumSet;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
+import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
 /**
  *
@@ -22,14 +23,16 @@ public class PlayerEntity extends AbstractSpaceCraft implements
 
     private int direction;
     private boolean leftPressed, rightPressed, firePressed;
+    private AbstractWeapon weapon;
     
     public PlayerEntity() {
         super();
     }
 
     public PlayerEntity(float health, float speed, float armor, 
-            AbstractSprite sprite) {
+            AbstractSprite sprite, AbstractWeapon weapon) {
         super(health, speed, armor, sprite);
+        this.weapon = weapon;
     }
 
     enum Key {
@@ -58,7 +61,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     @Override
     public void move() {
 //        System.out.println("Player moved");
-        float dx = getSprite().getX()+(1*direction);
+        float dx = getSprite().getX()+(getSpeed()*direction);
         getSprite().setX(dx);
         if(dx > GameConditions.SCENE_WIDTH-getSprite().getWidth())
             getSprite().setX(0);
@@ -186,6 +189,14 @@ public class PlayerEntity extends AbstractSpaceCraft implements
         if(firePressed) {
             attack();
         }
+    }
+
+    public AbstractWeapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(AbstractWeapon weapon) {
+        this.weapon = weapon;
     }
 
 }

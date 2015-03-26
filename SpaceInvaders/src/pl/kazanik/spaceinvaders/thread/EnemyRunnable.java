@@ -36,6 +36,7 @@ public class EnemyRunnable implements Runnable {
                 if(gameLoop.isRunning()) enemy.spawn();
             }
 //        }
+            Thread.currentThread().interrupt();
     }
     
 }
