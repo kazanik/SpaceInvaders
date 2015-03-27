@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,20 +12,22 @@ import java.util.List;
  *
  * @author kazanik
  */
-public class EnemyManager {
+public class EntityManager {
     
     private List<AbstractEntity> enemies;
     private List<List<AbstractEntity>> enemiesWaves;
-    private static final EnemyManager em = new EnemyManager();
+    private List<AbstractEntity> missles;
+    private static final EntityManager em = new EntityManager();
 
-    private EnemyManager() {
+    private EntityManager() {
+        missles = new ArrayList<>();
     }
 
-    public static EnemyManager getInstance() {
+    public static EntityManager getInstance() {
         return em;
     }
     
-    public EnemyManager(List<AbstractEntity> enemies) {
+    public EntityManager(List<AbstractEntity> enemies) {
         this.enemies = enemies;
     }
 
@@ -50,6 +53,22 @@ public class EnemyManager {
     
     public int getWaves() {
         return enemiesWaves.size();
+    }
+
+    public List<AbstractEntity> getMissles() {
+        return missles;
+    }
+
+    public void setMissles(List<AbstractEntity> missles) {
+        this.missles = missles;
+    }
+    
+    public void addMissle(AbstractEntity missle) {
+        missles.add(missle);
+    }
+    
+    public boolean removeMissle(AbstractEntity missle) {
+        return missles.remove(missle);
     }
     
     public void destroy(AbstractEntity enemy) {

@@ -20,8 +20,9 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     protected AbstractSpaceCraft() {
     }
 
-    protected AbstractSpaceCraft(float health, float speed, float armor, AbstractSprite sprite) {
-        super(speed, sprite);
+    protected AbstractSpaceCraft(float health, float speed, float armor, 
+            int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
+        super(speed, horizontalDirection, verticalDirection, sprite);
         this.health = health;
         this.armor = armor;
     }

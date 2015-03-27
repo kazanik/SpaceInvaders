@@ -21,9 +21,9 @@ public class EnemyEntity extends AbstractSpaceCraft {
         super();
     }
 
-    public EnemyEntity(float health, float speed, float armor, 
-            long intervalMilis, AbstractSprite sprite) {
-        super(health, speed, armor, sprite);
+    public EnemyEntity(float health, float speed, float armor, long intervalMilis, 
+            int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
+        super(health, speed, armor, horizontalDirection, verticalDirection, sprite);
         this.intervalMilis = intervalMilis;
     }
 
@@ -37,14 +37,10 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void move() {
-//        if(spawned)
-//            spawn();
-//        if(!spawned) {
-            float dy = getSprite().getY()+getSpeed();
-            getSprite().setY(dy);
-            if(dy == GameConditions.SCENE_HEIGHT-getSprite().getHeight())
-                die();
-//        }
+        float dy = getSprite().getY()+getSpeed();
+        getSprite().setY(dy);
+        if(dy == GameConditions.SCENE_HEIGHT)
+            die();
     }
 
     @Override
@@ -60,6 +56,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
     @Override
     public void die() {
 //        System.out.println("Enemy died");
+        EntityManager.getInstance().destroy(this);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
     public void collision() {
         
     }
-    
+    /*
     @Override
     public int hashCode() {
         int hash = 4; //To change body of generated methods, choose Tools | Templates.
@@ -97,5 +94,6 @@ public class EnemyEntity extends AbstractSpaceCraft {
         }
         return true; //To change body of generated methods, choose Tools | Templates.
     }
+    */
 
 }

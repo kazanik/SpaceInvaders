@@ -30,8 +30,9 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     }
 
     public PlayerEntity(float health, float speed, float armor, 
+            int horizontalDirection, int verticalDirection, 
             AbstractSprite sprite, AbstractWeapon weapon) {
-        super(health, speed, armor, sprite);
+        super(health, speed, armor, 0, 1, sprite);
         this.weapon = weapon;
     }
 
@@ -82,6 +83,8 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     @Override
     public void attack() {
         System.out.println("Player attack");
+        int x = (int) (getSprite().getX()+(getSprite().getWidth()/2));
+        weapon.fire(direction, x, (int) getSprite().getY());
     }
     
     @Override
@@ -177,7 +180,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
         }
     }
     
-    public void updatePosition() {
+    public void doAction() {
         if(leftPressed) {
             direction = -1;
             move();
