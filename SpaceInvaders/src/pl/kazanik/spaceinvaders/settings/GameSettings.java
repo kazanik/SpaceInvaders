@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import pl.kazanik.spaceinvaders.difficulty.Difficulty;
+import pl.kazanik.spaceinvaders.difficulty.Difficulties;
 import pl.kazanik.spaceinvaders.scene.Scene;
 
 /**
@@ -17,7 +17,7 @@ import pl.kazanik.spaceinvaders.scene.Scene;
  */
 public class GameSettings {
     
-    private Difficulty difficulty;
+    private Difficulties difficulty;
     private Scene gameScene;
     private static final GameSettings settings = new GameSettings();
     private BufferedImage playerImage;
@@ -31,18 +31,18 @@ public class GameSettings {
         }
     }
 
-//    public GameSettings(Difficulty difficulty) {
+//    public GameSettings(Difficulties difficulty) {
 //        this.difficulty = difficulty;
 //    }
     public static GameSettings getInstance() {
         return settings;
     }
 
-    public Difficulty getDifficulty() {
+    public Difficulties getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(Difficulty difficulty) {
+    public void setDifficulty(Difficulties difficulty) {
         this.difficulty = difficulty;
     }
 
