@@ -29,7 +29,7 @@ public class PlayerRunnable implements Runnable {
         System.out.println("Player runnable");
         while(gameLoop.isRunning()) {
             if(player.getLastMoveFrame()+player.getSpeed() == gameLoop.getFrames()) {
-                player.updatePosition();
+                player.doAction();
 //                player.setLastMoveFrame(frames);
                 player.setLastMoveFrame(gameLoop.getFrames());
             }

@@ -6,7 +6,7 @@ package pl.kazanik.spaceinvaders.thread;
 
 import java.awt.Rectangle;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
-import pl.kazanik.spaceinvaders.entity.EnemyManager;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.main.GameLoop;
 
@@ -18,7 +18,7 @@ public class CollisionRunnable implements Runnable {
 
     private GameLoop gameLoop;
     private PlayerEntity player;
-    private EnemyManager manager = EnemyManager.getInstance();
+    private EntityManager manager = EntityManager.getInstance();
 
     public CollisionRunnable() {
     }

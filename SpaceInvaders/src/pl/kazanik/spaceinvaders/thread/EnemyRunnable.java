@@ -6,7 +6,7 @@ package pl.kazanik.spaceinvaders.thread;
 
 import java.util.List;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
-import pl.kazanik.spaceinvaders.entity.EnemyManager;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.main.GameLoop;
 
 /**
@@ -16,7 +16,7 @@ import pl.kazanik.spaceinvaders.main.GameLoop;
 public class EnemyRunnable implements Runnable {
 
     private GameLoop gameLoop;
-    private EnemyManager manager = EnemyManager.getInstance();
+    private EntityManager manager = EntityManager.getInstance();
     private int waveNum;
 
     public EnemyRunnable() {

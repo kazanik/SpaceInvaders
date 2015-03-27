@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.EnemyEntity;
-import pl.kazanik.spaceinvaders.entity.EnemyManager;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 import pl.kazanik.spaceinvaders.main.GameLoop;
@@ -24,7 +24,7 @@ public class GameLoopRunnable implements Runnable {
 
     private PlayerEntity player;
     private GameCanvas canvas;
-    private EnemyManager manager = EnemyManager.getInstance();
+    private EntityManager manager = EntityManager.getInstance();
     private GameLoop gameLoop;
     private boolean running = true;
     private int frames = 0;
@@ -66,6 +66,11 @@ public class GameLoopRunnable implements Runnable {
 //                gameLoop.nextFrame();
             }
             */
+            // Missles
+            for(AbstractEntity missle : manager.getMissles()) {
+                missle.move();
+                missle.setLastMoveFrame(frames);
+            }
             //      Enemies
             for(AbstractEntity enemy : manager.getEnemies()) {
 //                if(enemy.getLastMoveFrame()+enemy.getSpeed() == frames) {
@@ -78,7 +83,7 @@ public class GameLoopRunnable implements Runnable {
             }
             //      Player
 //            if(player.getLastMoveFrame()+player.getSpeed() == frames) {
-                player.updatePosition();
+                player.doAction();
                 player.setLastMoveFrame(frames);
 //            }
             frames = (frames >= 2000000000) ? 0 : frames;
