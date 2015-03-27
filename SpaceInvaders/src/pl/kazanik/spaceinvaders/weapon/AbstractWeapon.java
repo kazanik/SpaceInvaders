@@ -25,14 +25,14 @@ public abstract class AbstractWeapon {
     }
 
     protected AbstractWeapon(long fireDelay, int ammoCapacity, int availableAmmo, 
-            int clipCapacity, int clipAmmo, int damage, MissleFactory missleFactory) {
+            int clipCapacity, int clipAmmo, int damage) {
         this.fireDelay = fireDelay;
         this.ammoCapacity = ammoCapacity;
         this.availableAmmo = availableAmmo;
         this.clipCapacity = clipCapacity;
         this.clipAmmo = clipAmmo;
         this.damage = damage;
-        this.missleFactory = missleFactory;
+        this.missleFactory = new MissleFactory();
     }
     
     public abstract void fire(int direction, int x, int y);

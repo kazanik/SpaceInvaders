@@ -4,7 +4,6 @@
  */
 package pl.kazanik.spaceinvaders.weapon;
 
-import pl.kazanik.spaceinvaders.factory.MissleFactory;
 import pl.kazanik.spaceinvaders.missle.Missles;
 
 /**
@@ -17,9 +16,9 @@ public class Cannon extends AbstractWeapon {
     }
 
     public Cannon(long fireDelay, int ammoCapacity, int availableAmmo, 
-            int clipCapacity, int clipAmmo, int damage, MissleFactory missleFactory) {
+            int clipCapacity, int clipAmmo, int damage) {
         super(fireDelay, ammoCapacity, availableAmmo, clipCapacity, clipAmmo, 
-                damage, missleFactory);
+                damage);
     }
 
     @Override
