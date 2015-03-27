@@ -12,7 +12,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
-import pl.kazanik.spaceinvaders.entity.EnemyManager;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 
@@ -58,7 +58,7 @@ public class EnemyGenerator implements IGenerator {
             }
             enemiesWaves.add(wave);
         }
-        EnemyManager.getInstance().setEnemiesWaves(enemiesWaves);
+        EntityManager.getInstance().setEnemiesWaves(enemiesWaves);
         return enemies;
     }
 }
