@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.factory;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.missle.Missle;
 import pl.kazanik.spaceinvaders.missle.Missles;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
@@ -32,10 +33,11 @@ public class MissleFactory {
         AbstractSprite sprite = new MissleSprite(missle.getWidth(), missle.getHeight(), 
                 x, y, missle.getCollisionOffset(), getImage(missle));
         AbstractEntity missleEntity = new Missle(missle.getDamage(), direction, 
-                missle.getSpeed(), sprite);
+                missle.getSpeed(), 0, -1, sprite);
         SpritesLayer sl = (SpritesLayer) 
                 settings.getGameScene().getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(missleEntity);
+        EntityManager.getInstance().addMissle(missleEntity);
     }
     
     private BufferedImage getImage(Missles missle) {

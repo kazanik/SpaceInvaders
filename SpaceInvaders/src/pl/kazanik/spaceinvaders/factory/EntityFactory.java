@@ -16,6 +16,7 @@ import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 import pl.kazanik.spaceinvaders.sprite.PlayerSprite;
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 import pl.kazanik.spaceinvaders.weapon.Cannon;
+import pl.kazanik.spaceinvaders.weapon.Weapons;
 
 /**
  *
@@ -24,13 +25,14 @@ import pl.kazanik.spaceinvaders.weapon.Cannon;
 public class EntityFactory {
     
     private GameSettings settings = GameSettings.getInstance();
+    private WeaponFactory wf = new WeaponFactory();
     
     public AbstractEntity createPlayer(float health, float speed, float armor, 
             float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
-        AbstractWeapon weapon = new Cannon();
+        AbstractWeapon weapon = wf.createCannon(Weapons.CANNON);
         AbstractSprite sprite = new PlayerSprite(width, height, x, y, collisionOffset, spriteImg);
-        AbstractEntity player = new PlayerEntity(health, speed, armor, sprite, null);
+        AbstractEntity player = new PlayerEntity(health, speed, armor, 0, 1, sprite, weapon);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(player);
@@ -41,7 +43,7 @@ public class EntityFactory {
             long intervalMilis, float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
         AbstractSprite sprite = new EnemySprite(width, height, x, y, collisionOffset, spriteImg);
-        AbstractEntity enemy = new EnemyEntity(health, speed, armor, intervalMilis, sprite);
+        AbstractEntity enemy = new EnemyEntity(health, speed, armor, intervalMilis, 0, 1, sprite);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(enemy);
