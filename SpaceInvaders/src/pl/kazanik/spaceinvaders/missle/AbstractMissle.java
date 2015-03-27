@@ -20,8 +20,9 @@ public abstract class AbstractMissle extends AbstractEntity {
     }
 
     protected AbstractMissle(int damage, int direction, float speed, 
+            int horizontalDirection, int verticalDirection, 
             AbstractSprite sprite) {
-        super(speed, sprite);
+        super(speed, horizontalDirection, verticalDirection, sprite);
         this.damage = damage;
         this.direction = direction;
     }

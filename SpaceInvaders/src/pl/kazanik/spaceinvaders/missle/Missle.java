@@ -20,8 +20,8 @@ public class Missle extends AbstractEntity {
     }
 
     public Missle(int damage, int direction, float speed, 
-            AbstractSprite sprite) {
-        super(speed, sprite);
+            int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
+        super(speed, horizontalDirection, verticalDirection, sprite);
         this.damage = damage;
         this.direction = direction;
     }
@@ -54,6 +54,7 @@ public class Missle extends AbstractEntity {
 
     @Override
     public void move() {
-        
+        float dy = getSprite().getY()+(5*getVerticalDirection());
+        getSprite().setY(dy);
     }
 }

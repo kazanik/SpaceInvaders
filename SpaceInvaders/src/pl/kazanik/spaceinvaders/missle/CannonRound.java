@@ -15,8 +15,9 @@ public class CannonRound extends AbstractMissle {
     public CannonRound() {
     }
 
-    public CannonRound(int damage, int direction, float speed, AbstractSprite sprite) {
-        super(damage, direction, speed, sprite);
+    public CannonRound(int damage, int direction, float speed, 
+            int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
+        super(damage, direction, speed, horizontalDirection, verticalDirection, sprite);
     }
     
     @Override
