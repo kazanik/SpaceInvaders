@@ -8,7 +8,7 @@ package pl.kazanik.spaceinvaders.difficulty;
  *
  * @author kazanik
  */
-public enum Difficulty {
+public enum Difficulties {
     
 //    EASY(2, 15, 3500, 24, 3),
 //    MEDIUM(2, 30, 2500, 16, 4),
@@ -23,7 +23,7 @@ public enum Difficulty {
     private final float enemySpeed;
     private final float playerSpeed;
     
-    private Difficulty(int enemyWaves, int enemiesInWave, long enemyWaveIntervalMilis, 
+    private Difficulties(int enemyWaves, int enemiesInWave, long enemyWaveIntervalMilis, 
             float enemySpeed, float playerSpeed) {
         this.enemyWaves = enemyWaves;
         this.enemiesInWave = enemiesInWave;
