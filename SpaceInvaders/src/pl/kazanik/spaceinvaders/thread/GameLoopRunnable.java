@@ -15,6 +15,7 @@ import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 import pl.kazanik.spaceinvaders.main.GameLoop;
+import pl.kazanik.spaceinvaders.missle.Missle;
 
 /**
  *
@@ -55,12 +56,12 @@ public class GameLoopRunnable implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoopRunnable.class.getName()).log(Level.SEVERE, null, ex);
             }
-            // Missles
+            //      Missles move
             for(AbstractEntity missle : manager.getMissles()) {
                 missle.move();
                 missle.setLastMoveFrame(frames);
             }
-            //      Enemies
+            //      Enemies move
             for(AbstractEntity enemy : manager.getEnemies()) {
                 EnemyEntity e = (EnemyEntity) enemy;
                 if(System.currentTimeMillis()-start > e.getIntervalMilis()) {
@@ -68,7 +69,7 @@ public class GameLoopRunnable implements Runnable {
                     enemy.setLastMoveFrame(frames);
                 }
             }
-            //      Player
+            //      Player actions
             player.doAction();
             player.setLastMoveFrame(frames);
             frames = (frames >= 2000000000) ? 0 : frames;
@@ -77,6 +78,17 @@ public class GameLoopRunnable implements Runnable {
                 if(enemy.getSprite().collisionRect().intersects(player.getSprite().collisionRect())) {
                     gameLoop.abort();
                     break gameloop;
+                }
+                for(AbstractEntity missle : manager.getMissles()) {
+                    if(enemy.getSprite().collisionRect().intersects(
+                            missle.getSprite().collisionRect())) {
+                        Missle m = (Missle) missle;
+                        ;
+                    }
+                    if(player.getSprite().collisionRect().intersects(
+                            missle.getSprite().collisionRect())) {
+                        
+                    }
                 }
             }
             

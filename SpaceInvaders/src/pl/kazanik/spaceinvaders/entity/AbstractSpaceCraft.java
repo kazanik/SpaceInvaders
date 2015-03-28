@@ -15,20 +15,24 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     
     private float health;
     private float armor;
+    private int horizontalMoveDirection;
+    private int verticalMoveDirection;
     private AbstractWeapon weapon;
 
     protected AbstractSpaceCraft() {
     }
 
     protected AbstractSpaceCraft(float health, float speed, float armor, 
-            int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
-        super(speed, horizontalDirection, verticalDirection, sprite);
+            int horizontalMoveDirection, int verticalMoveDirection, AbstractSprite sprite) {
+        super(speed, horizontalMoveDirection, verticalMoveDirection, sprite);
         this.health = health;
         this.armor = armor;
+        this.horizontalMoveDirection = horizontalMoveDirection;
+        this.verticalMoveDirection = verticalMoveDirection;
     }
     
     public abstract void attack();
-    public abstract void die();
+    public abstract void destroy();
 
     public float getHealth() {
         return health;

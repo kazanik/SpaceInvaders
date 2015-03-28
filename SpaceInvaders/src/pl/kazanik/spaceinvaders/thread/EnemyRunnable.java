@@ -6,6 +6,7 @@ package pl.kazanik.spaceinvaders.thread;
 
 import java.util.List;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.main.GameLoop;
 
@@ -30,9 +31,9 @@ public class EnemyRunnable implements Runnable {
     @Override
     public void run() {
         System.out.println("Enemy runnable");
-        List<AbstractEntity> waveEnemies = manager.getWaveEnemies(waveNum);
+        List<AbstractSpaceCraft> waveEnemies = manager.getWaveEnemies(waveNum);
 //        while(gameLoop.isRunning()) {
-            for(AbstractEntity enemy : waveEnemies) {
+            for(AbstractSpaceCraft enemy : waveEnemies) {
                 if(gameLoop.isRunning()) enemy.spawn();
             }
 //        }

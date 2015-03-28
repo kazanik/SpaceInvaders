@@ -60,8 +60,8 @@ public class SpritesLayer implements ISceneLayer {
         entities.add(entity);
     }
     
-    public void removeEntity(AbstractEntity entity) {
-        entities.remove(entity);
+    public boolean removeEntity(AbstractEntity entity) {
+        return entities.remove(entity);
     }
     
     @Override

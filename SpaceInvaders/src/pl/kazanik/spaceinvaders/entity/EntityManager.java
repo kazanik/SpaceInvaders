@@ -19,8 +19,8 @@ import pl.kazanik.spaceinvaders.settings.GameConditions;
  */
 public class EntityManager {
     
-    private List<AbstractEntity> enemies;
-    private List<List<AbstractEntity>> enemiesWaves;
+    private List<AbstractSpaceCraft> enemies;
+    private List<List<AbstractSpaceCraft>> enemiesWaves;
     private List<AbstractEntity> missles;
     private static final EntityManager em = new EntityManager();
 
@@ -33,27 +33,27 @@ public class EntityManager {
         return em;
     }
     
-    public EntityManager(List<AbstractEntity> enemies) {
+    public EntityManager(List<AbstractSpaceCraft> enemies) {
         this.enemies = enemies;
     }
 
-    public List<AbstractEntity> getEnemies() {
+    public List<AbstractSpaceCraft> getEnemies() {
         return enemies;
     }
 
-    public void setEnemies(List<AbstractEntity> enemies) {
+    public void setEnemies(List<AbstractSpaceCraft> enemies) {
         this.enemies = enemies;
     }
 
-    public List<List<AbstractEntity>> getEnemiesWaves() {
+    public List<List<AbstractSpaceCraft>> getEnemiesWaves() {
         return enemiesWaves;
     }
 
-    public void setEnemiesWaves(List<List<AbstractEntity>> enemiesWaves) {
+    public void setEnemiesWaves(List<List<AbstractSpaceCraft>> enemiesWaves) {
         this.enemiesWaves = enemiesWaves;
     }
     
-    public List<AbstractEntity> getWaveEnemies(int waveNum) {
+    public List<AbstractSpaceCraft> getWaveEnemies(int waveNum) {
         return enemiesWaves.get(waveNum);
     }
     
@@ -76,11 +76,12 @@ public class EntityManager {
     public boolean removeMissle(AbstractEntity missle) {
         SpritesLayer sl = (SpritesLayer) Scene.getInstance().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
-        sl.removeEntity(missle);
-        return missles.remove(missle);
+        boolean succeed1 = sl.removeEntity(missle);
+        boolean succeed2 = missles.remove(missle);
+        return succeed1 && succeed2;
     }
     
-    public void destroy(AbstractEntity entity) {
-        enemies.remove(entity);
+    public boolean destroy(AbstractEntity entity) {
+        return enemies.remove(entity);
     }
 }

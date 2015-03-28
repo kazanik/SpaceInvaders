@@ -5,6 +5,7 @@
 package pl.kazanik.spaceinvaders.generator;
 
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
@@ -29,13 +30,13 @@ public class PlayerGenerator implements IGenerator {
     }
     
     @Override
-    public AbstractEntity generate() {
+    public AbstractSpaceCraft generate() {
 //        AbstractEntity player = factory.createPlayer(100f, 1f, 0f, GameConditions.PLAYER_SPRITE_WIDTH, 
 //                GameConditions.PLAYER_SPRITE_HEIGHT, 
 //                GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
 //                GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
 //                0, settings.getPlayerImage());
-        AbstractEntity player = factory.createPlayer(100f, 
+        AbstractSpaceCraft player = factory.createPlayer(100f, 
                 settings.getDifficulty().getPlayerSpeed(), 0f, 
                 GameConditions.PLAYER_SPRITE_WIDTH, 
                 GameConditions.PLAYER_SPRITE_HEIGHT, 

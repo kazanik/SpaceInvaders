@@ -40,7 +40,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
         float dy = getSprite().getY()+getSpeed();
         getSprite().setY(dy);
         if(dy >= GameConditions.SCENE_HEIGHT)
-            die();
+            destroy();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
     }
 
     @Override
-    public void die() {
+    public void destroy() {
         System.out.println("Enemy died");
         EntityManager.getInstance().destroy(this);
     }

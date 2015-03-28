@@ -13,6 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
@@ -36,10 +37,10 @@ public class EnemyGenerator implements IGenerator {
     }
     
     @Override
-    public List<AbstractEntity> generate() {
+    public List<AbstractSpaceCraft> generate() {
 //        List<AbstractEntity> enemies = new ArrayList<>();
-        List<AbstractEntity> enemies = new CopyOnWriteArrayList<>();
-        List<List<AbstractEntity>> enemiesWaves = new ArrayList<>();
+        List<AbstractSpaceCraft> enemies = new CopyOnWriteArrayList<>();
+        List<List<AbstractSpaceCraft>> enemiesWaves = new ArrayList<>();
         BufferedImage spriteImg = null;
         try {
             spriteImg = ImageIO.read(new File(GameConditions.ENEMY_SPRITE_PATH));
@@ -48,9 +49,9 @@ public class EnemyGenerator implements IGenerator {
         }
         for(int i = 1; i <= settings.getDifficulty().getEnemyWaves(); i++) {
             long intervalMilis = settings.getDifficulty().getEnemyWaveIntervalMilis();
-            List<AbstractEntity> wave = new ArrayList<>();
+            List<AbstractSpaceCraft> wave = new ArrayList<>();
             for(int j = 1; j <= settings.getDifficulty().getEnemiesInWave(); j++) {
-                AbstractEntity enemy = factory.createEnemy(100.0f, 
+                AbstractSpaceCraft enemy = factory.createEnemy(100.0f, 
                     settings.getDifficulty().getEnemySpeed(), 0f, intervalMilis, 
                     GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
                     GameConditions.WAVE_GAP*i, 0-GameConditions.ENEMY_SPRITE_HEIGHT, 0, spriteImg);

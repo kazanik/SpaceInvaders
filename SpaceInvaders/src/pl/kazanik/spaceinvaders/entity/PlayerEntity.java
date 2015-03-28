@@ -76,7 +76,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     }
 
     @Override
-    public void die() {
+    public void destroy() {
         System.out.println("Player died");
     }
     
