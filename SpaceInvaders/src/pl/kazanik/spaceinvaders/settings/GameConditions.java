@@ -19,7 +19,7 @@ public class GameConditions {
     public static final int BG_LAYER_ID = 0;
     public static final int OBJECTS_LAYER_ID = 1;
     public static final int EFFECTS_LAYER_ID = 2;
-    public static final long REFRESH_RATE = 1;
+    public static final long REFRESH_RATE = 20;
     public static final int WAVE_GAP = 150;
     public static final int PLAYER_SPRITE_WIDTH = 50;
     public static final int PLAYER_SPRITE_HEIGHT = 50;
