@@ -7,6 +7,11 @@ package pl.kazanik.spaceinvaders.entity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import pl.kazanik.spaceinvaders.missle.Missle;
+import pl.kazanik.spaceinvaders.scene.Scene;
+import pl.kazanik.spaceinvaders.scene.SpritesLayer;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
  *
@@ -20,7 +25,8 @@ public class EntityManager {
     private static final EntityManager em = new EntityManager();
 
     private EntityManager() {
-        missles = new ArrayList<>();
+//        missles = new ArrayList<>();
+        missles = new CopyOnWriteArrayList<>();
     }
 
     public static EntityManager getInstance() {
@@ -68,14 +74,13 @@ public class EntityManager {
     }
     
     public boolean removeMissle(AbstractEntity missle) {
+        SpritesLayer sl = (SpritesLayer) Scene.getInstance().
+                getLayer(GameConditions.OBJECTS_LAYER_ID);
+        sl.removeEntity(missle);
         return missles.remove(missle);
     }
     
-    public void destroy(AbstractEntity enemy) {
-        Iterator<AbstractEntity> it = enemies.iterator();
-        while(it.hasNext()) {
-            if(it.next().equals(enemy))
-                it.remove();
-        }
+    public void destroy(AbstractEntity entity) {
+        enemies.remove(entity);
     }
 }

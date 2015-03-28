@@ -39,7 +39,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
     public void move() {
         float dy = getSprite().getY()+getSpeed();
         getSprite().setY(dy);
-        if(dy == GameConditions.SCENE_HEIGHT)
+        if(dy >= GameConditions.SCENE_HEIGHT)
             die();
     }
 
@@ -55,7 +55,7 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void die() {
-//        System.out.println("Enemy died");
+        System.out.println("Enemy died");
         EntityManager.getInstance().destroy(this);
     }
 
@@ -68,32 +68,5 @@ public class EnemyEntity extends AbstractSpaceCraft {
     public void collision() {
         
     }
-    /*
-    @Override
-    public int hashCode() {
-        int hash = 4; //To change body of generated methods, choose Tools | Templates.
-        hash = 13 * hash + (int) this.getSprite().getX();
-        hash = 13 * hash + (int) this.getSprite().getY();
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
-        }
-        if(getClass() != obj.getClass()) {
-            return false;
-        }
-        final EnemyEntity other = (EnemyEntity) obj;
-        if(this.getSprite().getX() != other.getSprite().getX()) {
-            return false;
-        }
-        if(this.getSprite().getY() != other.getSprite().getY()) {
-            return false;
-        }
-        return true; //To change body of generated methods, choose Tools | Templates.
-    }
-    */
 
 }
