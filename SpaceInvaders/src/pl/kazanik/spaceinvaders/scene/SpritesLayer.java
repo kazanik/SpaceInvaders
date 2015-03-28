@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.scene;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
@@ -21,7 +22,8 @@ public class SpritesLayer implements ISceneLayer {
     private List<AbstractEntity> entities;
 
     public SpritesLayer() {
-        entities = new ArrayList<>();
+//        entities = new ArrayList<>();
+        entities = new CopyOnWriteArrayList<>();
     }
 
     public SpritesLayer(int level) {
