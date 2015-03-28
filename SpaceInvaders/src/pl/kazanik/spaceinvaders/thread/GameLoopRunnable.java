@@ -46,26 +46,15 @@ public class GameLoopRunnable implements Runnable {
         long start = System.currentTimeMillis();
         gameloop:
         while(running) {
+            // Scene
             try {
-                Thread.sleep(33);
+                Thread.sleep(GameConditions.REFRESH_RATE);
                 canvas.repaint();
                 frames++;
                 lastFrameTime = System.currentTimeMillis();
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoopRunnable.class.getName()).log(Level.SEVERE, null, ex);
             }
-            /*
-            long lastLoopTime = System.currentTimeMillis();
-//            long lastFrameTime = 0l;
-            // Paint
-            long abs = Math.abs(lastLoopTime-lastFrameTime);
-            if(abs >= GameConditions.REFRESH_RATE) {
-                canvas.repaint();
-                lastFrameTime = System.currentTimeMillis();
-                frames++;
-//                gameLoop.nextFrame();
-            }
-            */
             // Missles
             for(AbstractEntity missle : manager.getMissles()) {
                 missle.move();
@@ -73,19 +62,15 @@ public class GameLoopRunnable implements Runnable {
             }
             //      Enemies
             for(AbstractEntity enemy : manager.getEnemies()) {
-//                if(enemy.getLastMoveFrame()+enemy.getSpeed() == frames) {
                 EnemyEntity e = (EnemyEntity) enemy;
-                    if(System.currentTimeMillis()-start > e.getIntervalMilis()) {
-                        enemy.move();
-                        enemy.setLastMoveFrame(frames);
-                    }
-//                }
+                if(System.currentTimeMillis()-start > e.getIntervalMilis()) {
+                    enemy.move();
+                    enemy.setLastMoveFrame(frames);
+                }
             }
             //      Player
-//            if(player.getLastMoveFrame()+player.getSpeed() == frames) {
-                player.doAction();
-                player.setLastMoveFrame(frames);
-//            }
+            player.doAction();
+            player.setLastMoveFrame(frames);
             frames = (frames >= 2000000000) ? 0 : frames;
             //      Collision
             for(AbstractEntity enemy : manager.getEnemies()) {
