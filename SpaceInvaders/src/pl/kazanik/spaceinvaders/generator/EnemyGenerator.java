@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.imageio.ImageIO;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
@@ -36,7 +37,8 @@ public class EnemyGenerator implements IGenerator {
     
     @Override
     public List<AbstractEntity> generate() {
-        List<AbstractEntity> enemies = new ArrayList<>();
+//        List<AbstractEntity> enemies = new ArrayList<>();
+        List<AbstractEntity> enemies = new CopyOnWriteArrayList<>();
         List<List<AbstractEntity>> enemiesWaves = new ArrayList<>();
         BufferedImage spriteImg = null;
         try {
