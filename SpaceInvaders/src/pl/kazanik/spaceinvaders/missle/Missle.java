@@ -5,6 +5,8 @@
 package pl.kazanik.spaceinvaders.missle;
 
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
@@ -56,5 +58,13 @@ public class Missle extends AbstractEntity {
     public void move() {
         float dy = getSprite().getY()+(5*getVerticalDirection());
         getSprite().setY(dy);
+        if(dy <= 0 || dy >= GameConditions.SCENE_HEIGHT) {
+            destroy();
+        }
+    }
+    
+    private void destroy() {
+        System.out.println("Destroying missle");
+        EntityManager.getInstance().removeMissle(this);
     }
 }
