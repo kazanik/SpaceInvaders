@@ -4,8 +4,10 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
+import pl.kazanik.spaceinvaders.missle.Missle;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
+import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
 /**
  *
@@ -65,8 +67,8 @@ public class EnemyEntity extends AbstractSpaceCraft {
     }
 
     @Override
-    public void collision() {
-        
+    public <T extends AbstractEntity> void collision(T other) {
+//        return null;
     }
 
 }

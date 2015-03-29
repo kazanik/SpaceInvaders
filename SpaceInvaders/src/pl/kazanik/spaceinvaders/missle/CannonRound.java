@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.missle;
 
+import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
@@ -22,6 +23,11 @@ public class CannonRound extends AbstractMissle {
     
     @Override
     public void move() {
+        
+    }
+
+    @Override
+    public <T extends AbstractEntity> void collision(T other) {
         
     }
 }

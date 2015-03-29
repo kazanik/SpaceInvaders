@@ -33,14 +33,14 @@ public class EntityFactory {
             int collisionOffset, BufferedImage spriteImg) {
         AbstractWeapon weapon = wf.createCannon(Weapons.CANNON);
         AbstractSprite sprite = new PlayerSprite(width, height, x, y, collisionOffset, spriteImg);
-        AbstractSpaceCraft player = new PlayerEntity(health, speed, armor, 0, 1, sprite, weapon);
+        AbstractSpaceCraft player = new PlayerEntity(health, speed, armor, 0, 1, weapon, sprite);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(player);
         return player;
     }
     
-    public AbstractSpaceCraft createEnemy(float health, float speed, float armor, 
+    public AbstractSpaceCraft createPhoenixEntity(float health, float speed, float armor, 
             long intervalMilis, float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
         AbstractSprite sprite = new EnemySprite(width, height, x, y, collisionOffset, spriteImg);

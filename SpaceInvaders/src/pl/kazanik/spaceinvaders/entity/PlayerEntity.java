@@ -22,8 +22,8 @@ public class PlayerEntity extends AbstractSpaceCraft implements
         MouseInputListener, KeyListener {
 
     private int direction;
+    private int shootDirection = -1;
     private boolean leftPressed, rightPressed, firePressed;
-    private AbstractWeapon weapon;
     
     public PlayerEntity() {
         super();
@@ -31,9 +31,8 @@ public class PlayerEntity extends AbstractSpaceCraft implements
 
     public PlayerEntity(float health, float speed, float armor, 
             int horizontalDirection, int verticalDirection, 
-            AbstractSprite sprite, AbstractWeapon weapon) {
-        super(health, speed, armor, 0, 1, sprite);
-        this.weapon = weapon;
+            AbstractWeapon weapon, AbstractSprite sprite) {
+        super(health, speed, armor, 0, 1, weapon, sprite);
     }
 
     enum Key {
@@ -55,7 +54,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     EnumSet<Key> keySet = EnumSet.noneOf(Key.class);
 
     @Override
-    public void collision() {
+    public <T extends AbstractEntity> void collision(T other) {
         
     }
 
@@ -84,7 +83,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     public void attack() {
         System.out.println("Player attack");
         int x = (int) (getSprite().getX()+(getSprite().getWidth()/2));
-        weapon.fire(direction, x, (int) getSprite().getY());
+        getWeapon().fire(shootDirection, x, (int) getSprite().getY());
         firePressed = false;
     }
     
@@ -193,14 +192,6 @@ public class PlayerEntity extends AbstractSpaceCraft implements
         if(firePressed) {
             attack();
         }
-    }
-
-    public AbstractWeapon getWeapon() {
-        return weapon;
-    }
-
-    public void setWeapon(AbstractWeapon weapon) {
-        this.weapon = weapon;
     }
 
 }

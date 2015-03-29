@@ -23,12 +23,24 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     }
 
     protected AbstractSpaceCraft(float health, float speed, float armor, 
-            int horizontalMoveDirection, int verticalMoveDirection, AbstractSprite sprite) {
+            int horizontalMoveDirection, int verticalMoveDirection, 
+            AbstractSprite sprite) {
         super(speed, horizontalMoveDirection, verticalMoveDirection, sprite);
         this.health = health;
         this.armor = armor;
         this.horizontalMoveDirection = horizontalMoveDirection;
         this.verticalMoveDirection = verticalMoveDirection;
+    }
+    
+    protected AbstractSpaceCraft(float health, float speed, float armor, 
+            int horizontalMoveDirection, int verticalMoveDirection, 
+            AbstractWeapon weapon, AbstractSprite sprite) {
+        super(speed, horizontalMoveDirection, verticalMoveDirection, sprite);
+        this.health = health;
+        this.armor = armor;
+        this.horizontalMoveDirection = horizontalMoveDirection;
+        this.verticalMoveDirection = verticalMoveDirection;
+        this.weapon = weapon;
     }
     
     public abstract void attack();
@@ -48,6 +60,30 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
 
     public void setArmor(float armor) {
         this.armor = armor;
+    }
+
+    public int getHorizontalMoveDirection() {
+        return horizontalMoveDirection;
+    }
+
+    public void setHorizontalMoveDirection(int horizontalMoveDirection) {
+        this.horizontalMoveDirection = horizontalMoveDirection;
+    }
+
+    public int getVerticalMoveDirection() {
+        return verticalMoveDirection;
+    }
+
+    public void setVerticalMoveDirection(int verticalMoveDirection) {
+        this.verticalMoveDirection = verticalMoveDirection;
+    }
+
+    public AbstractWeapon getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(AbstractWeapon weapon) {
+        this.weapon = weapon;
     }
     
 }

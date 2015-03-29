@@ -50,13 +50,13 @@ public class Missle extends AbstractEntity {
     }
 
     @Override
-    public void collision() {
+    public void collision(AbstractEntity other) {
         
     }
 
     @Override
     public void move() {
-        float dy = getSprite().getY()+(5*getVerticalDirection());
+        float dy = getSprite().getY()+(5*getDirection());
         getSprite().setY(dy);
         if(dy <= 0 || dy >= GameConditions.SCENE_HEIGHT) {
             destroy();

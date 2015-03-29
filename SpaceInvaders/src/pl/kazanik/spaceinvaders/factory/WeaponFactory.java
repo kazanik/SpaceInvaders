@@ -25,9 +25,6 @@ public class WeaponFactory {
 //                x, y, missle.getCollisionOffset(), getImage(missle));
         AbstractWeapon weapon = new Cannon(weapons.getFireDelay(), weapons.getAmmoCapacity(), 
                 weapons.getAvailableAmmo(), 0, 0, 0);
-//        SpritesLayer sl = (SpritesLayer) 
-//                settings.getGameScene().getLayer(GameConditions.OBJECTS_LAYER_ID);
-//        sl.addEntity(missleEntity);
         return weapon;
     }
 }

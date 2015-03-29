@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EnemyEntity;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
@@ -45,6 +46,7 @@ public class GameLoopRunnable implements Runnable {
         System.out.println("Update runnable");
         long lastFrameTime = 0l;
         long start = System.currentTimeMillis();
+//        PlayerEntity pe = (PlayerEntity) player;
         gameloop:
         while(running) {
             // Scene
@@ -62,7 +64,7 @@ public class GameLoopRunnable implements Runnable {
                 missle.setLastMoveFrame(frames);
             }
             //      Enemies move
-            for(AbstractEntity enemy : manager.getEnemies()) {
+            for(AbstractSpaceCraft enemy : manager.getEnemies()) {
                 EnemyEntity e = (EnemyEntity) enemy;
                 if(System.currentTimeMillis()-start > e.getIntervalMilis()) {
                     enemy.move();
@@ -71,10 +73,11 @@ public class GameLoopRunnable implements Runnable {
             }
             //      Player actions
             player.doAction();
+//            pe.doAction();
             player.setLastMoveFrame(frames);
             frames = (frames >= 2000000000) ? 0 : frames;
             //      Collision
-            for(AbstractEntity enemy : manager.getEnemies()) {
+            for(AbstractSpaceCraft enemy : manager.getEnemies()) {
                 if(enemy.getSprite().collisionRect().intersects(player.getSprite().collisionRect())) {
                     gameLoop.abort();
                     break gameloop;

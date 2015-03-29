@@ -49,7 +49,7 @@ public abstract class AbstractMissle extends AbstractEntity {
     }
 
     @Override
-    public void collision() {
+    public <T extends AbstractEntity> void collision(T other) {
         
     }
 

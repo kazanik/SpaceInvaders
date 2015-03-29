@@ -14,8 +14,6 @@ public abstract class AbstractEntity {
     
     private float speed;
     private int lastMoveFrame = 0;
-    private int horizontalDirection;
-    private int verticalDirection;
     private AbstractSprite sprite;
 
     protected AbstractEntity() {
@@ -26,13 +24,11 @@ public abstract class AbstractEntity {
             int verticalDirection, AbstractSprite sprite) {
         this.speed = speed;
         this.sprite = sprite;
-        this.horizontalDirection = horizontalDirection;
-        this.verticalDirection = verticalDirection;
     }
     
     public abstract void move();
     public abstract void spawn();
-    public abstract void collision();
+    public abstract <T extends AbstractEntity> void collision(T other);
 
     public float getSpeed() {
         return speed;
@@ -58,13 +54,6 @@ public abstract class AbstractEntity {
         this.lastMoveFrame = lastMoveFrame;
     }
 
-    public int getHorizontalDirection() {
-        return horizontalDirection;
-    }
-
-    public int getVerticalDirection() {
-        return verticalDirection;
-    }
 
     @Override
     public int hashCode() {

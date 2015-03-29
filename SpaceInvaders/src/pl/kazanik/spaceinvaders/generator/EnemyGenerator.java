@@ -51,7 +51,7 @@ public class EnemyGenerator implements IGenerator {
             long intervalMilis = settings.getDifficulty().getEnemyWaveIntervalMilis();
             List<AbstractSpaceCraft> wave = new ArrayList<>();
             for(int j = 1; j <= settings.getDifficulty().getEnemiesInWave(); j++) {
-                AbstractSpaceCraft enemy = factory.createEnemy(100.0f, 
+                AbstractSpaceCraft enemy = factory.createPhoenixEntity(100.0f, 
                     settings.getDifficulty().getEnemySpeed(), 0f, intervalMilis, 
                     GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
                     GameConditions.WAVE_GAP*i, 0-GameConditions.ENEMY_SPRITE_HEIGHT, 0, spriteImg);
