@@ -86,16 +86,9 @@ public class EntityManager {
         return succeed1 && succeed2;
     }
     
-    public void checkDestroyedCrafts() {
+    public void checkDestroyed() {
         for(AbstractSpaceCraft craft : enemies) {
             if(!craft.isAlive()) destroy(craft);
-        }
-    }
-    
-    public void checkDestroyedMissles() {
-        for(AbstractEntity missle : missles) {
-            Missle m = (Missle) missle;
-            if(m.isDestroyed()) removeMissle(missle);
         }
     }
     
@@ -103,7 +96,7 @@ public class EntityManager {
         SpritesLayer sl = (SpritesLayer) Scene.getInstance().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         boolean succeed1 = sl.removeEntity(entity);
-        boolean succeed2 = enemies.remove(entity);
+        boolean succeed2 = missles.remove(entity);
         return succeed1 && succeed2;
     }
 }

@@ -31,7 +31,7 @@ public class EnemyGenerator implements IGenerator {
     private int horizontalGap, singleHGap;
     
     private EnemyGenerator() {
-        singleHGap = GameConditions.ENEMY_SPRITE_WIDTH+GameConditions.SCENE_WIDTH/10;
+        singleHGap = GameConditions.SCENE_WIDTH/10/2;
         horizontalGap = singleHGap;
     }
     
