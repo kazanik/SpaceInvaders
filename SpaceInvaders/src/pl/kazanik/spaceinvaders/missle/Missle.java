@@ -17,6 +17,7 @@ public class Missle extends AbstractEntity {
     
     private int damage;
     private int direction;
+    private boolean destroyed = false;
 
     public Missle() {
     }
@@ -44,6 +45,14 @@ public class Missle extends AbstractEntity {
         this.direction = direction;
     }
 
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
     @Override
     public void spawn() {
         // not used
@@ -56,16 +65,19 @@ public class Missle extends AbstractEntity {
 
     @Override
     public void move() {
-        float dy = getSprite().getY()+(5*getDirection());
-        getSprite().setY(dy);
-        if(dy <= 0 || dy >= GameConditions.SCENE_HEIGHT) {
-            destroy();
+        if(!destroyed) {
+            float dy = getSprite().getY()+(5*getDirection());
+            getSprite().setY(dy);
+            if(dy <= 0 || dy >= GameConditions.SCENE_HEIGHT) {
+                destroy();
+            }
         }
     }
     
     private void destroy() {
         System.out.println("Destroying missle");
-        EntityManager.getInstance().removeMissle(this);
+        destroyed = true;
+//        EntityManager.getInstance().removeMissle(this);
     }
     
     @Override
