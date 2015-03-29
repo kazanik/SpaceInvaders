@@ -33,16 +33,12 @@ public class SpaceInvaders {
         // TODO code application logic here
         
         GameSettings settings = GameSettings.getInstance();
-        settings.setDifficulty(Difficulties.HARD);
+        settings.setDifficulty(Difficulties.MEDIUM);
         SceneGenerator sg = SceneGenerator.getInstance();
         PlayerGenerator pg = PlayerGenerator.getInstance();
         Scene gameScene = sg.generate();
         settings.setGameScene(gameScene);
         AbstractSpaceCraft player = pg.generate();
-//        EnemyGenerator eg = EnemyGenerator.getInstance();
-//        List<AbstractSpaceCraft> enemies = eg.generate();
-//        EntityManager em = EntityManager.getInstance();
-//        em.setEnemies(enemies);
         GameCanvas canvas = new GameCanvas(gameScene, player);
         JFrame gameFrame = new JFrame("Space Invaders Alpha");
         gameFrame.getContentPane().add(canvas);

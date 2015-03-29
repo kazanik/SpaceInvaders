@@ -20,15 +20,9 @@ public class GameSettings {
     private Difficulties difficulty;
     private Scene gameScene;
     private static final GameSettings settings = new GameSettings();
-    private BufferedImage playerImage;
 
     private GameSettings() {
-        playerImage = null;
-        try {
-            playerImage = ImageIO.read(new File(GameConditions.PLAYER_SPRITE_PATH));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        
     }
 
 //    public GameSettings(Difficulties difficulty) {
@@ -54,12 +48,4 @@ public class GameSettings {
         this.gameScene = gameScene;
     }
 
-    public BufferedImage getPlayerImage() {
-        return playerImage;
-    }
-
-    public void setPlayerImage(BufferedImage playerImage) {
-        this.playerImage = playerImage;
-    }
-    
 }

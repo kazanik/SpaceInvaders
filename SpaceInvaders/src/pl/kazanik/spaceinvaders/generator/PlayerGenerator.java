@@ -10,6 +10,7 @@ import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
+import pl.kazanik.spaceinvaders.settings.Graphics;
 
 /**
  *
@@ -42,7 +43,7 @@ public class PlayerGenerator implements IGenerator {
                 GameConditions.PLAYER_SPRITE_HEIGHT, 
                 GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
                 GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
-                0, settings.getPlayerImage());
+                0, Graphics.createImage(GameConditions.PLAYER_SPRITE_PATH));
         return player;
     }
     
