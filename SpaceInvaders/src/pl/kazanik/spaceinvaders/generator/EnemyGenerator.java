@@ -17,6 +17,7 @@ import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
+import pl.kazanik.spaceinvaders.settings.Graphics;
 
 /**
  *
@@ -27,9 +28,11 @@ public class EnemyGenerator implements IGenerator {
     private static final EnemyGenerator eg = new EnemyGenerator();
     private EntityFactory factory = new EntityFactory();
     private GameSettings settings = GameSettings.getInstance();
+    private int horizontalGap, singleHGap;
     
     private EnemyGenerator() {
-        
+        singleHGap = GameConditions.SCENE_WIDTH/10/2;
+        horizontalGap = singleHGap;
     }
     
     public static EnemyGenerator getInstance() {
@@ -41,12 +44,7 @@ public class EnemyGenerator implements IGenerator {
 //        List<AbstractEntity> enemies = new ArrayList<>();
         List<AbstractSpaceCraft> enemies = new CopyOnWriteArrayList<>();
         List<List<AbstractSpaceCraft>> enemiesWaves = new ArrayList<>();
-        BufferedImage spriteImg = null;
-        try {
-            spriteImg = ImageIO.read(new File(GameConditions.ENEMY_SPRITE_PATH));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        BufferedImage spriteImg = Graphics.createImage(GameConditions.ENEMY_SPRITE_PATH);
         for(int i = 1; i <= settings.getDifficulty().getEnemyWaves(); i++) {
             long intervalMilis = settings.getDifficulty().getEnemyWaveIntervalMilis();
             List<AbstractSpaceCraft> wave = new ArrayList<>();
@@ -63,5 +61,16 @@ public class EnemyGenerator implements IGenerator {
         }
         EntityManager.getInstance().setEnemiesWaves(enemiesWaves);
         return enemies;
+    }
+    
+    public AbstractSpaceCraft generateEnemy() {
+        horizontalGap = (horizontalGap > GameConditions.SCENE_WIDTH-GameConditions.ENEMY_SPRITE_WIDTH) 
+                ? singleHGap : horizontalGap+singleHGap;
+        BufferedImage spriteImg = Graphics.createImage(GameConditions.ENEMY_SPRITE_PATH);
+        AbstractSpaceCraft enemy = factory.createPhoenixEntity(100.0f,
+                settings.getDifficulty().getEnemySpeed(), 0f, 0, 
+                GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 
+                horizontalGap, 0, 0, spriteImg);
+        return enemy;
     }
 }

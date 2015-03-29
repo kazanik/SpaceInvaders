@@ -17,6 +17,7 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     private float armor;
     private int horizontalMoveDirection;
     private int verticalMoveDirection;
+    private boolean alive = true;
     private AbstractWeapon weapon;
 
     protected AbstractSpaceCraft() {
@@ -84,6 +85,14 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
 
     public void setWeapon(AbstractWeapon weapon) {
         this.weapon = weapon;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
     
 }

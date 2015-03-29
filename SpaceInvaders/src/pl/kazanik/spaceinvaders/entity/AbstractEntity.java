@@ -54,31 +54,4 @@ public abstract class AbstractEntity {
         this.lastMoveFrame = lastMoveFrame;
     }
 
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 43 * hash + Float.floatToIntBits(this.sprite.getX());
-        hash = 43 * hash + Float.floatToIntBits(this.sprite.getY());
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AbstractEntity other = (AbstractEntity) obj;
-        if (Float.floatToIntBits(this.sprite.getX()) != Float.floatToIntBits(other.sprite.getX())) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.sprite.getY()) != Float.floatToIntBits(other.sprite.getY())) {
-            return false;
-        }
-        return true;
-    }
-    
 }

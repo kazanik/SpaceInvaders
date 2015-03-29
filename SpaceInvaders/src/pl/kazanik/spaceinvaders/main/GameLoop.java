@@ -33,11 +33,11 @@ public class GameLoop {
         
     }
     
-    public GameLoop(GameCanvas canvas, PlayerEntity player, int waves) {
+    public GameLoop(GameCanvas canvas, PlayerEntity player) {
         this.canvas = canvas;
         this.player = player;
         this.waves = waves;
-        threadPool = Executors.newFixedThreadPool(waves);
+//        threadPool = Executors.newFixedThreadPool(waves);
 //        threadPool = Executors.newSingleThreadExecutor();
     }
     
@@ -63,7 +63,7 @@ public class GameLoop {
     public void abort() {
         running = false;
         updateThread.interrupt();
-        threadPool.shutdownNow();
+//        threadPool.shutdownNow();
 //        enemyThread.interrupt();
 //        playerThread.interrupt();
 //        collisionThread.interrupt();

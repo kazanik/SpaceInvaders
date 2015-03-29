@@ -28,7 +28,7 @@ public class SpritesLayer implements ISceneLayer {
 
     public SpritesLayer(int level) {
         this.level = level;
-        entities = new ArrayList<>();
+        entities = new CopyOnWriteArrayList<>();
     }
 
     public SpritesLayer(List<AbstractEntity> entities) {

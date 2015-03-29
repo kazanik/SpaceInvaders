@@ -26,7 +26,8 @@ public class EntityManager {
 
     private EntityManager() {
 //        missles = new ArrayList<>();
-        missles = new CopyOnWriteArrayList<>();
+        this.missles = new CopyOnWriteArrayList<>();
+        this.enemies = new CopyOnWriteArrayList<>();
     }
 
     public static EntityManager getInstance() {
@@ -43,6 +44,10 @@ public class EntityManager {
 
     public void setEnemies(List<AbstractSpaceCraft> enemies) {
         this.enemies = enemies;
+    }
+    
+    public void addEnemy(AbstractSpaceCraft enemy) {
+        this.enemies.add(enemy);
     }
 
     public List<List<AbstractSpaceCraft>> getEnemiesWaves() {
@@ -81,7 +86,17 @@ public class EntityManager {
         return succeed1 && succeed2;
     }
     
+    public void checkDestroyed() {
+        for(AbstractSpaceCraft craft : enemies) {
+            if(!craft.isAlive()) destroy(craft);
+        }
+    }
+    
     public boolean destroy(AbstractEntity entity) {
-        return enemies.remove(entity);
+        SpritesLayer sl = (SpritesLayer) Scene.getInstance().
+                getLayer(GameConditions.OBJECTS_LAYER_ID);
+        boolean succeed1 = sl.removeEntity(entity);
+        boolean succeed2 = missles.remove(entity);
+        return succeed1 && succeed2;
     }
 }

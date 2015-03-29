@@ -39,10 +39,10 @@ public class SpaceInvaders {
         Scene gameScene = sg.generate();
         settings.setGameScene(gameScene);
         AbstractSpaceCraft player = pg.generate();
-        EnemyGenerator eg = EnemyGenerator.getInstance();
-        List<AbstractSpaceCraft> enemies = eg.generate();
-        EntityManager em = EntityManager.getInstance();
-        em.setEnemies(enemies);
+//        EnemyGenerator eg = EnemyGenerator.getInstance();
+//        List<AbstractSpaceCraft> enemies = eg.generate();
+//        EntityManager em = EntityManager.getInstance();
+//        em.setEnemies(enemies);
         GameCanvas canvas = new GameCanvas(gameScene, player);
         JFrame gameFrame = new JFrame("Space Invaders Alpha");
         gameFrame.getContentPane().add(canvas);
@@ -50,10 +50,13 @@ public class SpaceInvaders {
         gameFrame.pack();
         gameFrame.setVisible(true);
         gameFrame.setResizable(false);
-        GameLoop gl = new GameLoop(canvas, (PlayerEntity) player, em.getWaves());
+        GameLoop gl = new GameLoop(canvas, (PlayerEntity) player);
         gl.init();
         gl.start();
         
+//        int test = 16;
+//        test += (test > 15) ? 0 : test;
+//        System.out.println(test);
 //        AbstractSprite sprite1 = new EnemySprite(0, 0, 0, 0, 0, null);
 //        AbstractSpaceCraft Phoenix = new EnemyEntity(0, 0, 0, 0, 0, 0, sprite1);
 //        AbstractEntity enemy1 = new EnemyEntity(0, 0, 0, sprite1);

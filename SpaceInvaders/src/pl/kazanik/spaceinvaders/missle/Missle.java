@@ -51,7 +51,7 @@ public class Missle extends AbstractEntity {
 
     @Override
     public void collision(AbstractEntity other) {
-        
+        this.destroy();
     }
 
     @Override
@@ -66,5 +66,31 @@ public class Missle extends AbstractEntity {
     private void destroy() {
         System.out.println("Destroying missle");
         EntityManager.getInstance().removeMissle(this);
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Float.floatToIntBits(getSprite().getX());
+        hash = 43 * hash + Float.floatToIntBits(getSprite().getY());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractEntity other = (AbstractEntity) obj;
+        if (Float.floatToIntBits(this.getSprite().getX()) != Float.floatToIntBits(other.getSprite().getX())) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.getSprite().getY()) != Float.floatToIntBits(other.getSprite().getY())) {
+            return false;
+        }
+        return true;
     }
 }

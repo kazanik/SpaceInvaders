@@ -31,18 +31,14 @@ public class GameCanvas extends JComponent /*JPanel*/ {
         addKeyListener(player);
         requestFocusInWindow();
 //        setOpaque(true);
-//        setBackground(Color.black);
-//        setForeground(Color.black);
     }
 
-    /*@Override
+    @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+//        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
 //        setOpaque(true);
-//        setBackground(Color.black);
-//        setForeground(Color.black);
-        System.out.println("paint component");
-    }*/
+        scene.draw(g, this);
+    }
 
     @Override
     public Dimension getPreferredSize() {
@@ -51,24 +47,12 @@ public class GameCanvas extends JComponent /*JPanel*/ {
     }
 
 
-    @Override
+    /*@Override
     public void paint(Graphics g) {
-        super.paint(g); //To change body of generated methods, choose Tools | Templates.
+//        super.paint(g); //To change body of generated methods, choose Tools | Templates.
 //        setOpaque(true);
-//        setBackground(Color.black);
-//        setForeground(Color.black);
-//        System.out.println("paint");
         scene.draw(g, this);
-        /*
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("/home/kazanik/Obrazy/sprite/space_ship2_sprite.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        g.drawImage(img, 0, 0, this);
-        */
-    }
+    }*/
     
     
 }

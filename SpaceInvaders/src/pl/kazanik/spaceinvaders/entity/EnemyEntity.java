@@ -39,10 +39,12 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void move() {
-        float dy = getSprite().getY()+getSpeed();
-        getSprite().setY(dy);
-        if(dy >= GameConditions.SCENE_HEIGHT)
-            destroy();
+        if(isAlive()) {
+            float dy = getSprite().getY()+getSpeed();
+            getSprite().setY(dy);
+            if(dy >= GameConditions.SCENE_HEIGHT)
+                destroy();
+        }
     }
 
     @Override
@@ -57,18 +59,49 @@ public class EnemyEntity extends AbstractSpaceCraft {
 
     @Override
     public void destroy() {
-        System.out.println("Enemy died");
-        EntityManager.getInstance().destroy(this);
+//        System.out.println("Enemy died");
+//        EntityManager.getInstance().destroy(this);
+        setAlive(false);
     }
 
     @Override
     public void attack() {
 //        System.out.println("Enemy attack");
+        if(isAlive()) {
+            
+        }
     }
 
     @Override
     public <T extends AbstractEntity> void collision(T other) {
 //        return null;
+        destroy();
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 43 * hash + Float.floatToIntBits(getSprite().getX());
+        hash = 43 * hash + Float.floatToIntBits(getSprite().getY());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractEntity other = (AbstractEntity) obj;
+        if (Float.floatToIntBits(this.getSprite().getX()) != Float.floatToIntBits(other.getSprite().getX())) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.getSprite().getY()) != Float.floatToIntBits(other.getSprite().getY())) {
+            return false;
+        }
+        return true;
     }
 
 }
