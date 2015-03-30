@@ -10,7 +10,7 @@ package pl.kazanik.spaceinvaders.weapon;
  */
 public enum Weapons {
     
-    CANNON(50, 500, 500);
+    CANNON(200, 500, 500);
     
     private final long fireDelay;
     private final int ammoCapacity;

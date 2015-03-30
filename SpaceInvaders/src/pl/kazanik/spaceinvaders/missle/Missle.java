@@ -75,9 +75,8 @@ public class Missle extends AbstractEntity {
     }
     
     private void destroy() {
-        System.out.println("Destroying missle");
+//        System.out.println("Destroying missle");
         destroyed = true;
-//        EntityManager.getInstance().removeMissle(this);
     }
     
     @Override

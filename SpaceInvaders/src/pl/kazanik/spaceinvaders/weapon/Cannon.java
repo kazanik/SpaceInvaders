@@ -30,6 +30,7 @@ public class Cannon extends AbstractWeapon {
         if(availableAmmo > 0 && now-lastShotTime > getFireDelay()) {
             getMissleFactory().create(Missles.CANNON_ROUND, direction, x, y);
             setAvailableAmmo(availableAmmo-1);
+            lastShotTime = System.currentTimeMillis();
         }
     }
 

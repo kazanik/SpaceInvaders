@@ -81,10 +81,9 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     
     @Override
     public void attack() {
-        System.out.println("Player attack");
+//        System.out.println("Player attack");
         int x = (int) (getSprite().getX()+(getSprite().getWidth()/2));
         getWeapon().fire(shootDirection, x, (int) getSprite().getY());
-        firePressed = false;
     }
     
     @Override
