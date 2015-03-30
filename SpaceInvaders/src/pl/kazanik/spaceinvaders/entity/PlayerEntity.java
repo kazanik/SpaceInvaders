@@ -83,7 +83,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     public void attack() {
 //        System.out.println("Player attack");
         int x = (int) (getSprite().getX()+(getSprite().getWidth()/2));
-        getWeapon().fire(shootDirection, x, (int) getSprite().getY());
+        getWeapon().fire(this, shootDirection, x, (int) getSprite().getY());
     }
     
     @Override

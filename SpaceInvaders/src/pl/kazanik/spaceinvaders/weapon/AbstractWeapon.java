@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.weapon;
 
+import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.factory.MissleFactory;
 
 /**
@@ -35,7 +36,7 @@ public abstract class AbstractWeapon {
         this.missleFactory = new MissleFactory();
     }
     
-    public abstract void fire(int direction, int x, int y);
+    public abstract void fire(AbstractEntity entity, int direction, int x, int y);
     public abstract void reload();
 
     public long getFireDelay() {

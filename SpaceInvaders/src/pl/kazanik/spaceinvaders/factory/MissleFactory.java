@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
+import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.missle.Missle;
 import pl.kazanik.spaceinvaders.missle.Missles;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
@@ -28,7 +29,8 @@ public class MissleFactory {
         
     }
 
-    public void create(Missles missle, int direction, int x, int y) {
+    public <T extends AbstractEntity>void create(T entity, Missles missle, 
+            int direction, int x, int y) {
         //To change body of generated methods, choose Tools | Templates.
         AbstractSprite sprite = new MissleSprite(missle.getWidth(), missle.getHeight(), 
                 x, y, missle.getCollisionOffset(), getImage(missle));
@@ -37,7 +39,10 @@ public class MissleFactory {
         SpritesLayer sl = (SpritesLayer) 
                 settings.getGameScene().getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(missleEntity);
-        EntityManager.getInstance().addMissle(missleEntity);
+        if(entity instanceof PlayerEntity)
+            EntityManager.getInstance().addPlayerMissle(missleEntity);
+        else 
+            EntityManager.getInstance().addEnemyMissle(missleEntity);
     }
     
     private BufferedImage getImage(Missles missle) {

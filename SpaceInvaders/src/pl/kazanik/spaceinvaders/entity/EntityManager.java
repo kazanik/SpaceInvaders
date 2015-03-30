@@ -4,8 +4,6 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import pl.kazanik.spaceinvaders.missle.Missle;
@@ -21,13 +19,14 @@ public class EntityManager {
     
     private List<AbstractSpaceCraft> enemies;
     private List<List<AbstractSpaceCraft>> enemiesWaves;
-    private List<AbstractEntity> missles;
+    private List<AbstractEntity> enemyMissles;
+    private List<AbstractEntity> playerMissles;
     private static final EntityManager em = new EntityManager();
 
     private EntityManager() {
-//        missles = new ArrayList<>();
-        this.missles = new CopyOnWriteArrayList<>();
+        this.enemyMissles = new CopyOnWriteArrayList<>();
         this.enemies = new CopyOnWriteArrayList<>();
+        this.playerMissles = new CopyOnWriteArrayList<>();
     }
 
     public static EntityManager getInstance() {
@@ -66,23 +65,43 @@ public class EntityManager {
         return enemiesWaves.size();
     }
 
-    public List<AbstractEntity> getMissles() {
-        return missles;
+    public List<AbstractEntity> getEnemyMissles() {
+        return enemyMissles;
     }
 
-    public void setMissles(List<AbstractEntity> missles) {
-        this.missles = missles;
+    public void setEnemyMissles(List<AbstractEntity> missles) {
+        this.enemyMissles = missles;
     }
     
-    public void addMissle(AbstractEntity missle) {
-        missles.add(missle);
+    public void addEnemyMissle(AbstractEntity missle) {
+        enemyMissles.add(missle);
     }
     
-    public boolean removeMissle(AbstractEntity missle) {
+    public boolean removeEnemyMissle(AbstractEntity missle) {
         SpritesLayer sl = (SpritesLayer) Scene.getInstance().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         boolean succeed1 = sl.removeEntity(missle);
-        boolean succeed2 = missles.remove(missle);
+        boolean succeed2 = enemyMissles.remove(missle);
+        return succeed1 && succeed2;
+    }
+
+    public List<AbstractEntity> getPlayerMissles() {
+        return playerMissles;
+    }
+
+    public void setPlayerMissles(List<AbstractEntity> playerMissles) {
+        this.playerMissles = playerMissles;
+    }
+    
+    public void addPlayerMissle(AbstractEntity missle) {
+        playerMissles.add(missle);
+    }
+    
+    public boolean removePlayerMissle(AbstractEntity missle) {
+        SpritesLayer sl = (SpritesLayer) Scene.getInstance().
+                getLayer(GameConditions.OBJECTS_LAYER_ID);
+        boolean succeed1 = sl.removeEntity(missle);
+        boolean succeed2 = playerMissles.remove(missle);
         return succeed1 && succeed2;
     }
     
@@ -93,9 +112,13 @@ public class EntityManager {
     }
     
     public void checkDestroyedMissles() {
-        for(AbstractEntity missle : missles) {
+        for(AbstractEntity missle : enemyMissles) {
             Missle m = (Missle) missle;
-            if(m.isDestroyed()) removeMissle(missle);
+            if(m.isDestroyed()) removeEnemyMissle(missle);
+        }
+        for(AbstractEntity missle : playerMissles) {
+            Missle m = (Missle) missle;
+            if(m.isDestroyed()) removePlayerMissle(missle);
         }
     }
     

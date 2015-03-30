@@ -64,8 +64,13 @@ public class GameLoopRunnable implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameLoopRunnable.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //      Missles move
-            for(AbstractEntity missle : em.getMissles()) {
+            //      Enemy Missles move
+            for(AbstractEntity missle : em.getEnemyMissles()) {
+                missle.move();
+                missle.setLastMoveFrame(frames);
+            }
+            //      Player Missles move
+            for(AbstractEntity missle : em.getPlayerMissles()) {
                 missle.move();
                 missle.setLastMoveFrame(frames);
             }
@@ -93,21 +98,24 @@ public class GameLoopRunnable implements Runnable {
             frames = (frames >= 2000000000) ? 0 : frames;
             //      Collision
             for(AbstractSpaceCraft enemy : em.getEnemies()) {
-                if(enemy.getSprite().collisionRect().intersects(player.getSprite().collisionRect())) {
+                if(enemy.getSprite().collisionRect().intersects(
+                        player.getSprite().collisionRect())) {
                     gameLoop.abort();
                     break gameloop;
                 }
-                for(AbstractEntity missle : em.getMissles()) {
-                    if(enemy.getSprite().collisionRect().intersects(
-                            missle.getSprite().collisionRect())) {
-//                        Missle m = (Missle) missle;
-                        enemy.collision(missle);
-                        missle.collision(enemy);
-                    }
+                for(AbstractEntity missle : em.getEnemyMissles()) {
                     if(player.getSprite().collisionRect().intersects(
                             missle.getSprite().collisionRect())) {
-//                        gameLoop.abort();
-//                        break gameloop;
+                        gameLoop.abort();
+                        break gameloop;
+                    }
+                    
+                }
+                for(AbstractEntity missle : em.getPlayerMissles()) {
+                    if(enemy.getSprite().collisionRect().intersects(
+                            missle.getSprite().collisionRect())) {
+                        enemy.collision(missle);
+                        missle.collision(enemy);
                     }
                 }
             }
