@@ -29,6 +29,7 @@ public class GameConditions {
             "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
     public static final String ENEMY_SPRITE_PATH = 
             "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
+    public static final String SCORES_FILE_PATH = "scores";
     public static final int FIRE_KEY_CODE = 17, FIRE_KEY_CODE2 = 32;
     public static final int RIGHT_KEY_CODE = 39, RIGHT_KEY_CODE2 = 68;
     public static final int LEFT_KEY_CODE = 37, LEFT_KEY_CODE2 = 65;

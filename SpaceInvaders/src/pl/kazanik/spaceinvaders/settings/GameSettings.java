@@ -4,12 +4,10 @@
  */
 package pl.kazanik.spaceinvaders.settings;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.List;
 import pl.kazanik.spaceinvaders.difficulty.Difficulties;
 import pl.kazanik.spaceinvaders.scene.Scene;
+import pl.kazanik.spaceinvaders.score.Score;
 
 /**
  *
@@ -19,15 +17,13 @@ public class GameSettings {
     
     private Difficulties difficulty;
     private Scene gameScene;
+    private List<Score> scores;
     private static final GameSettings settings = new GameSettings();
 
     private GameSettings() {
         
     }
 
-//    public GameSettings(Difficulties difficulty) {
-//        this.difficulty = difficulty;
-//    }
     public static GameSettings getInstance() {
         return settings;
     }
@@ -46,6 +42,14 @@ public class GameSettings {
 
     public void setGameScene(Scene gameScene) {
         this.gameScene = gameScene;
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 
 }
