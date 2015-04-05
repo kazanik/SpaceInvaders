@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.main;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JFrame;
 import pl.kazanik.spaceinvaders.difficulty.Difficulties;
@@ -16,6 +18,7 @@ import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.generator.EnemyGenerator;
 import pl.kazanik.spaceinvaders.generator.PlayerGenerator;
 import pl.kazanik.spaceinvaders.scene.Scene;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.sprite.EnemySprite;
@@ -33,7 +36,7 @@ public class SpaceInvaders {
         // TODO code application logic here
         
         GameSettings settings = GameSettings.getInstance();
-        settings.setDifficulty(Difficulties.MEDIUM);
+        settings.setDifficulty(Difficulties.EASY);
         SceneGenerator sg = SceneGenerator.getInstance();
         PlayerGenerator pg = PlayerGenerator.getInstance();
         Scene gameScene = sg.generate();
@@ -43,6 +46,11 @@ public class SpaceInvaders {
         JFrame gameFrame = new JFrame("Space Invaders Alpha");
         gameFrame.getContentPane().add(canvas);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension location = new Dimension(scrSize.width/2-(GameConditions.SCENE_WIDTH/2), 
+                scrSize.height/2-(GameConditions.SCENE_HEIGHT/2));
+        gameFrame.setLocation(location.width, location.height);
+        settings.setGameFrameLocation(location);
         gameFrame.pack();
         gameFrame.setVisible(true);
         gameFrame.setResizable(false);

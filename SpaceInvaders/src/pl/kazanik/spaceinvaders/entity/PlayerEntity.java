@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.EnumSet;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
+import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
@@ -68,6 +69,17 @@ public class PlayerEntity extends AbstractSpaceCraft implements
         if(dx < 0)
             getSprite().setX(GameConditions.SCENE_WIDTH-getSprite().getWidth());
     }
+    
+//    @Override
+//    public void move(int xOffset) {
+////        System.out.println("Player moved");
+//        float dx = getSprite().getX()+(getSpeed()*direction);
+//        getSprite().setX(dx);
+//        if(dx > GameConditions.SCENE_WIDTH-getSprite().getWidth())
+//            getSprite().setX(0);
+//        if(dx < 0)
+//            getSprite().setX(GameConditions.SCENE_WIDTH-getSprite().getWidth());
+//    }
 
     @Override
     public void spawn() {
@@ -88,17 +100,22 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        int scrx = e.getXOnScreen();
+        if(scrx < GameSettings.getInstance().getGameFrameLocation().width 
+                || scrx > GameSettings.getInstance().getGameFrameLocation().width
+                +GameConditions.SCENE_WIDTH) {
+//            e.consume();
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+        firePressed = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+        firePressed = false;
     }
 
     @Override
@@ -118,7 +135,14 @@ public class PlayerEntity extends AbstractSpaceCraft implements
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+        int mx = e.getX();
+        rightPressed = false;
+        leftPressed = false;
+        if(mx >= getSprite().getX()+getSprite().getWidth()+20) {
+            rightPressed = true;
+        } else if(mx <= getSprite().getX()-20) {
+            leftPressed = true;
+        }
     }
 
     @Override

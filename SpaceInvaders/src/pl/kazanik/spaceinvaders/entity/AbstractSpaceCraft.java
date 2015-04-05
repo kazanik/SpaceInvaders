@@ -46,6 +46,7 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     
     public abstract void attack();
     public abstract void destroy();
+//    public abstract void move(int xOffset);
 
     public float getHealth() {
         return health;

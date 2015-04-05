@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.settings;
 
+import java.awt.Dimension;
 import java.util.List;
 import pl.kazanik.spaceinvaders.difficulty.Difficulties;
 import pl.kazanik.spaceinvaders.scene.Scene;
@@ -17,6 +18,7 @@ public class GameSettings {
     
     private Difficulties difficulty;
     private Scene gameScene;
+    private Dimension gameFrameLocation;
     private List<Score> scores;
     private static final GameSettings settings = new GameSettings();
 
@@ -50,6 +52,14 @@ public class GameSettings {
 
     public void setScores(List<Score> scores) {
         this.scores = scores;
+    }
+
+    public Dimension getGameFrameLocation() {
+        return gameFrameLocation;
+    }
+
+    public void setGameFrameLocation(Dimension gameFrameLocation) {
+        this.gameFrameLocation = gameFrameLocation;
     }
 
 }
