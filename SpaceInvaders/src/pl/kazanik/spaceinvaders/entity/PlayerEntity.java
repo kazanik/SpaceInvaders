@@ -64,10 +64,12 @@ public class PlayerEntity extends AbstractSpaceCraft implements
 //        System.out.println("Player moved");
         float dx = getSprite().getX()+(getSpeed()*direction);
         getSprite().setX(dx);
-        if(dx > GameConditions.SCENE_WIDTH-getSprite().getWidth())
-            getSprite().setX(0);
-        if(dx < 0)
-            getSprite().setX(GameConditions.SCENE_WIDTH-getSprite().getWidth());
+        if(dx > GameConditions.SCENE_WIDTH+GameConditions.SCENE_HORIZONTAL_GAP
+                -getSprite().getWidth())
+            getSprite().setX(0+GameConditions.SCENE_HORIZONTAL_GAP);
+        if(dx < 0+GameConditions.SCENE_HORIZONTAL_GAP)
+            getSprite().setX(GameConditions.SCENE_WIDTH
+                    +GameConditions.SCENE_HORIZONTAL_GAP-getSprite().getWidth());
     }
     
 //    @Override
@@ -100,12 +102,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        int scrx = e.getXOnScreen();
-        if(scrx < GameSettings.getInstance().getGameFrameLocation().width 
-                || scrx > GameSettings.getInstance().getGameFrameLocation().width
-                +GameConditions.SCENE_WIDTH) {
-//            e.consume();
-        }
+        // not implemented
     }
 
     @Override
@@ -130,7 +127,15 @@ public class PlayerEntity extends AbstractSpaceCraft implements
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        // not implemented
+        int mx = e.getX();
+        rightPressed = false;
+        leftPressed = false;
+        if(mx >= getSprite().getX()+getSprite().getWidth()+20) {
+            rightPressed = true;
+        } else if(mx <= getSprite().getX()-20) {
+            leftPressed = true;
+        }
+        firePressed = true;
     }
 
     @Override

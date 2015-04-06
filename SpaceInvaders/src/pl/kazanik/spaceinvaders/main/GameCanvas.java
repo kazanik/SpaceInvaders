@@ -42,8 +42,8 @@ public class GameCanvas extends JComponent /*JPanel*/ {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(GameConditions.SCENE_WIDTH, 
-                GameConditions.SCENE_HEIGHT); //To change body of generated methods, choose Tools | Templates.
+        return new Dimension(GameConditions.WINDOW_WIDTH, 
+                GameConditions.WINDOW_HEIGHT); //To change body of generated methods, choose Tools | Templates.
     }
 
 

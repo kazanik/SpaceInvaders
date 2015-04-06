@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -44,11 +45,12 @@ public class SpaceInvaders {
         AbstractSpaceCraft player = pg.generate();
         GameCanvas canvas = new GameCanvas(gameScene, player);
         JFrame gameFrame = new JFrame("Space Invaders Alpha");
+        gameFrame.getContentPane().setBackground(Color.BLACK);
         gameFrame.getContentPane().add(canvas);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension location = new Dimension(scrSize.width/2-(GameConditions.SCENE_WIDTH/2), 
-                scrSize.height/2-(GameConditions.SCENE_HEIGHT/2));
+        Dimension location = new Dimension(scrSize.width/2-(GameConditions.WINDOW_WIDTH/2), 
+                scrSize.height/2-(GameConditions.WINDOW_HEIGHT/2));
         gameFrame.setLocation(location.width, location.height);
         settings.setGameFrameLocation(location);
         gameFrame.pack();

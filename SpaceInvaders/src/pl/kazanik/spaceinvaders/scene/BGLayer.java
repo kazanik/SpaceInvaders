@@ -7,6 +7,7 @@ package pl.kazanik.spaceinvaders.scene;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
  *
@@ -48,7 +49,7 @@ public class BGLayer implements ISceneLayer {
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
 //        System.out.println("Draw bg layer");
-        g.drawImage(bgImage, 0, 0, canvas);
+        g.drawImage(bgImage, GameConditions.SCENE_HORIZONTAL_GAP, 0, canvas);
     }
 
     @Override

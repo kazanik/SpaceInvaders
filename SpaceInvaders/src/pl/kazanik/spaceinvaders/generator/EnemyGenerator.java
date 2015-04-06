@@ -31,7 +31,8 @@ public class EnemyGenerator implements IGenerator {
     private int horizontalGap, singleHGap;
     
     private EnemyGenerator() {
-        singleHGap = GameConditions.ENEMY_SPRITE_WIDTH+GameConditions.SCENE_WIDTH/10;
+        singleHGap = GameConditions.ENEMY_SPRITE_WIDTH
+                +(GameConditions.SCENE_WIDTH/10);
         horizontalGap = singleHGap;
     }
     
@@ -64,7 +65,8 @@ public class EnemyGenerator implements IGenerator {
     }
     
     public AbstractSpaceCraft generateEnemy() {
-        horizontalGap = (horizontalGap > GameConditions.SCENE_WIDTH-GameConditions.ENEMY_SPRITE_WIDTH) 
+        horizontalGap = (horizontalGap+singleHGap > GameConditions.SCENE_WIDTH
+                +GameConditions.SCENE_HORIZONTAL_GAP-GameConditions.ENEMY_SPRITE_WIDTH) 
                 ? singleHGap : horizontalGap+singleHGap;
         BufferedImage spriteImg = Graphics.createImage(GameConditions.ENEMY_SPRITE_PATH);
         AbstractSpaceCraft enemy = factory.createPhoenixEntity(100.0f,

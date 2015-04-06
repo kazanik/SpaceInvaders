@@ -11,11 +11,13 @@ package pl.kazanik.spaceinvaders.settings;
 public class GameConditions {
     
     // static fields
-    public static final int WINDOW_WIDTH = 640;
+    public static final int WINDOW_WIDTH = 768;
     public static final int WINDOW_HEIGHT = 480;
     public static final int SCENE_WIDTH = 640;
     public static final int SCENE_HEIGHT = 480;
     public static final int SCENE_LAYERS = 3;
+    public static final int SCENE_HORIZONTAL_GAP = 64;
+    public static final int SCENE_VERTICAL_GAP = 0;
     public static final int BG_LAYER_ID = 0;
     public static final int OBJECTS_LAYER_ID = 1;
     public static final int EFFECTS_LAYER_ID = 2;
