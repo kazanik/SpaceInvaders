@@ -40,7 +40,7 @@ public class EnemyGenerator {
 //        List<AbstractEntity> enemies = new ArrayList<>();
         List<AbstractSpaceCraft> enemies = new CopyOnWriteArrayList<>();
         List<List<AbstractSpaceCraft>> enemiesWaves = new ArrayList<>();
-        BufferedImage spriteImg = Graphics.createImage(GameConditions.ENEMY_SPRITE_PATH);
+        BufferedImage spriteImg = Graphics.createImage(GameConditions.PHOENIX_SPRITE_PATH);
         for(int i = 1; i <= settings.getDifficulty().getEnemyWaves(); i++) {
             long intervalMilis = settings.getDifficulty().getEnemyWaveIntervalMilis();
             List<AbstractSpaceCraft> wave = new ArrayList<>();
@@ -63,7 +63,7 @@ public class EnemyGenerator {
         horizontalGap = (horizontalGap+singleHGap > GameConditions.SCENE_WIDTH
                 +GameConditions.SCENE_HORIZONTAL_GAP-GameConditions.ENEMY_SPRITE_WIDTH) 
                 ? singleHGap : horizontalGap+singleHGap;
-        BufferedImage spriteImg = Graphics.createImage(GameConditions.ENEMY_SPRITE_PATH);
+        BufferedImage spriteImg = Graphics.createImage(GameConditions.PHOENIX_SPRITE_PATH);
         AbstractSpaceCraft enemy = factory.createPhoenixEntity(100.0f,
                 settings.getDifficulty().getEnemySpeed(), 0f, 0, 
                 GameConditions.ENEMY_SPRITE_WIDTH, GameConditions.ENEMY_SPRITE_HEIGHT, 

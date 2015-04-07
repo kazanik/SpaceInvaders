@@ -28,9 +28,9 @@ public class GameConditions {
     public static final int ENEMY_SPRITE_WIDTH = 50;
     public static final int ENEMY_SPRITE_HEIGHT = 50;
     public static final String PLAYER_SPRITE_PATH = 
-            "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
-    public static final String ENEMY_SPRITE_PATH = 
-            "/home/kazanik/Obrazy/sprite/space_ship2_sprite.png";
+            "/home/kazanik/Obrazy/sprite/space_ship1_sprite.png";
+    public static final String PHOENIX_SPRITE_PATH = 
+            "/home/kazanik/Obrazy/sprite/space_ship2_r_sprite.png";
     public static final String SCORES_FILE_PATH = "scores";
     public static final int FIRE_KEY_CODE = 17, FIRE_KEY_CODE2 = 32;
     public static final int RIGHT_KEY_CODE = 39, RIGHT_KEY_CODE2 = 68;
