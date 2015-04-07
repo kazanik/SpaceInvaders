@@ -7,22 +7,19 @@ package pl.kazanik.spaceinvaders.generator;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.scene.BGLayer;
 import pl.kazanik.spaceinvaders.scene.EffectsLayer;
 import pl.kazanik.spaceinvaders.scene.ISceneLayer;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
-import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *
  * @author kazanik
  */
-public class SceneGenerator implements IGenerator {
+public class SceneGenerator {
     
     private static final SceneGenerator sg = new SceneGenerator();
     
@@ -33,7 +30,6 @@ public class SceneGenerator implements IGenerator {
         return sg;
     }
     
-    @Override
     public Scene generate() {
         Scene scene = Scene.getInstance();
         LinkedList<ISceneLayer> sceneLayers = new LinkedList<>();

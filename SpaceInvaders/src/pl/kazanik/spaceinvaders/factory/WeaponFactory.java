@@ -6,7 +6,6 @@ package pl.kazanik.spaceinvaders.factory;
 
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 import pl.kazanik.spaceinvaders.weapon.Cannon;
-import pl.kazanik.spaceinvaders.weapon.Weapon;
 import pl.kazanik.spaceinvaders.weapon.Weapons;
 
 /**

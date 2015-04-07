@@ -15,7 +15,7 @@ import pl.kazanik.spaceinvaders.scene.SpritesLayer;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
-import pl.kazanik.spaceinvaders.sprite.MissleSprite;
+import pl.kazanik.spaceinvaders.sprite.NormalSprite;
 
 /**
  *
@@ -32,7 +32,7 @@ public class MissleFactory {
     public <T extends AbstractEntity>void create(T entity, Missles missle, 
             int direction, int x, int y) {
         //To change body of generated methods, choose Tools | Templates.
-        AbstractSprite sprite = new MissleSprite(missle.getWidth(), missle.getHeight(), 
+        AbstractSprite sprite = new NormalSprite(missle.getWidth(), missle.getHeight(), 
                 x, y, missle.getCollisionOffset(), getImage(missle));
         AbstractEntity missleEntity = new Missle(missle.getDamage(), direction, 
                 missle.getSpeed(), 0, -1, sprite);

@@ -5,14 +5,10 @@
 package pl.kazanik.spaceinvaders.generator;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import javax.imageio.ImageIO;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
-import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.factory.EntityFactory;
@@ -23,7 +19,7 @@ import pl.kazanik.spaceinvaders.settings.Graphics;
  *
  * @author kazanik
  */
-public class EnemyGenerator implements IGenerator {
+public class EnemyGenerator {
 
     private static final EnemyGenerator eg = new EnemyGenerator();
     private EntityFactory factory = new EntityFactory();
@@ -40,7 +36,6 @@ public class EnemyGenerator implements IGenerator {
         return eg;
     }
     
-    @Override
     public List<AbstractSpaceCraft> generate() {
 //        List<AbstractEntity> enemies = new ArrayList<>();
         List<AbstractSpaceCraft> enemies = new CopyOnWriteArrayList<>();

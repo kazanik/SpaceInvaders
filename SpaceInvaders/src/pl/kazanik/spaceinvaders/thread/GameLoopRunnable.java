@@ -4,21 +4,17 @@
  */
 package pl.kazanik.spaceinvaders.thread;
 
-import java.awt.Rectangle;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
-import pl.kazanik.spaceinvaders.entity.EnemyEntity;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.generator.EnemyGenerator;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 import pl.kazanik.spaceinvaders.main.GameLoop;
-import pl.kazanik.spaceinvaders.missle.Missle;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 
 /**
@@ -51,7 +47,6 @@ public class GameLoopRunnable implements Runnable {
         System.out.println("Update runnable");
         long lastFrameTime = 0l;
         long lastCreateTime = System.currentTimeMillis();
-//        PlayerEntity pe = (PlayerEntity) player;
         Random rnd = new Random();
         gameloop:
         while(running) {
@@ -78,25 +73,20 @@ public class GameLoopRunnable implements Runnable {
             if(System.currentTimeMillis()-lastCreateTime > 
                     settings.getDifficulty().getEnemyWaveIntervalMilis()) {
                 for (int i = 0; i < rnd.nextInt(4)+1; i++) {
-                    AbstractSpaceCraft enemy = eg.generateEnemy();
-                    em.addEnemy(enemy);
+                    em.addEnemy(eg.generateEnemy());
                 }
                 lastCreateTime = System.currentTimeMillis();
             }
             //      Enemies move
             for(AbstractSpaceCraft enemy : em.getEnemies()) {
-//                EnemyEntity e = (EnemyEntity) enemy;
-//                if(System.currentTimeMillis()-start > e.getIntervalMilis()) {
-                    enemy.move();
-                    enemy.setLastMoveFrame(frames);
-//                }
+                enemy.move();
+                enemy.setLastMoveFrame(frames);
             }
             //      Player actions
             player.doAction();
-//            pe.doAction();
             player.setLastMoveFrame(frames);
             frames = (frames >= 2000000000) ? 0 : frames;
-            //      Collision
+            //      Collisions
             for(AbstractSpaceCraft enemy : em.getEnemies()) {
                 if(enemy.getSprite().collisionRect().intersects(
                         player.getSprite().collisionRect())) {
@@ -109,7 +99,6 @@ public class GameLoopRunnable implements Runnable {
                         gameLoop.abort();
                         break gameloop;
                     }
-                    
                 }
                 for(AbstractEntity missle : em.getPlayerMissles()) {
                     if(enemy.getSprite().collisionRect().intersects(

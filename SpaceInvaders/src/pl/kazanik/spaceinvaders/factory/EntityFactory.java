@@ -5,18 +5,15 @@
 package pl.kazanik.spaceinvaders.factory;
 
 import java.awt.image.BufferedImage;
-import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
-import pl.kazanik.spaceinvaders.entity.EnemyEntity;
+import pl.kazanik.spaceinvaders.entity.PhoenixEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
-import pl.kazanik.spaceinvaders.sprite.EnemySprite;
-import pl.kazanik.spaceinvaders.sprite.PlayerSprite;
+import pl.kazanik.spaceinvaders.sprite.NormalSprite;
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
-import pl.kazanik.spaceinvaders.weapon.Cannon;
 import pl.kazanik.spaceinvaders.weapon.Weapons;
 
 /**
@@ -32,7 +29,7 @@ public class EntityFactory {
             float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
         AbstractWeapon weapon = wf.createCannon(Weapons.CANNON);
-        AbstractSprite sprite = new PlayerSprite(width, height, x, y, collisionOffset, spriteImg);
+        AbstractSprite sprite = new NormalSprite(width, height, x, y, collisionOffset, spriteImg);
         AbstractSpaceCraft player = new PlayerEntity(health, speed, armor, 0, 1, weapon, sprite);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
@@ -43,8 +40,8 @@ public class EntityFactory {
     public AbstractSpaceCraft createPhoenixEntity(float health, float speed, float armor, 
             long intervalMilis, float width, float height, float x, float y, 
             int collisionOffset, BufferedImage spriteImg) {
-        AbstractSprite sprite = new EnemySprite(width, height, x, y, collisionOffset, spriteImg);
-        AbstractSpaceCraft enemy = new EnemyEntity(health, speed, armor, intervalMilis, 0, 1, sprite);
+        AbstractSprite sprite = new NormalSprite(width, height, x, y, collisionOffset, spriteImg);
+        AbstractSpaceCraft enemy = new PhoenixEntity(health, speed, armor, intervalMilis, 0, 1, sprite);
         SpritesLayer sl = (SpritesLayer) settings.getGameScene().
                 getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(enemy);

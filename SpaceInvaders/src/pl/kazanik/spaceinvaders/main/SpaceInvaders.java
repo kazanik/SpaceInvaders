@@ -7,22 +7,15 @@ package pl.kazanik.spaceinvaders.main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.List;
 import javax.swing.JFrame;
 import pl.kazanik.spaceinvaders.difficulty.Difficulties;
 import pl.kazanik.spaceinvaders.generator.SceneGenerator;
-import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
-import pl.kazanik.spaceinvaders.entity.EnemyEntity;
-import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
-import pl.kazanik.spaceinvaders.generator.EnemyGenerator;
 import pl.kazanik.spaceinvaders.generator.PlayerGenerator;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
-import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
-import pl.kazanik.spaceinvaders.sprite.EnemySprite;
 
 /**
  *

@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.util.EnumSet;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
-import pl.kazanik.spaceinvaders.settings.GameSettings;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 

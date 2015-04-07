@@ -5,7 +5,6 @@
 package pl.kazanik.spaceinvaders.missle;
 
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
-import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 

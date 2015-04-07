@@ -5,9 +5,7 @@
 package pl.kazanik.spaceinvaders.scene;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 
 /**

@@ -4,26 +4,24 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
-import pl.kazanik.spaceinvaders.missle.Missle;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
-import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
 /**
  *
  * @author kazanik
  */
 
-public class EnemyEntity extends AbstractSpaceCraft {
+public class PhoenixEntity extends AbstractSpaceCraft {
 
     private long intervalMilis;
     private boolean spawned = true;
     
-    public EnemyEntity() {
+    public PhoenixEntity() {
         super();
     }
 
-    public EnemyEntity(float health, float speed, float armor, long intervalMilis, 
+    public PhoenixEntity(float health, float speed, float armor, long intervalMilis, 
             int horizontalDirection, int verticalDirection, AbstractSprite sprite) {
         super(health, speed, armor, horizontalDirection, verticalDirection, sprite);
         this.intervalMilis = intervalMilis;
