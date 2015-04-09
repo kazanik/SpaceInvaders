@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import javax.swing.JComponent;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
-import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
@@ -18,10 +17,14 @@ import pl.kazanik.spaceinvaders.settings.GameConditions;
  */
 public class GameCanvas extends JComponent /*JPanel*/ {
 
-    private Scene scene;
+//    private Scene scene;
+//    private GameMenu menu;
+    IDrawable container;
     
-    public GameCanvas(Scene scene, AbstractEntity player2) {
-        this.scene = scene;
+    public GameCanvas(IDrawable container, AbstractEntity player2) {
+//        this.scene = scene;
+//        this.menu = menu;
+        this.container = container;
         PlayerEntity player = (PlayerEntity) player2;
         setFocusable(true);
         addMouseListener(player);
@@ -33,9 +36,7 @@ public class GameCanvas extends JComponent /*JPanel*/ {
 
     @Override
     protected void paintComponent(Graphics g) {
-//        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-//        setOpaque(true);
-        scene.draw(g, this);
+        container.draw(g, this);
     }
 
     @Override
@@ -44,13 +45,11 @@ public class GameCanvas extends JComponent /*JPanel*/ {
                 GameConditions.WINDOW_HEIGHT); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public IDrawable getContainer() {
+        return container;
+    }
 
-    /*@Override
-    public void paint(Graphics g) {
-//        super.paint(g); //To change body of generated methods, choose Tools | Templates.
-//        setOpaque(true);
-        scene.draw(g, this);
-    }*/
-    
-    
+    public void setContainer(IDrawable container) {
+        this.container = container;
+    }
 }

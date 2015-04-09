@@ -7,12 +7,13 @@ package pl.kazanik.spaceinvaders.scene;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
+import pl.kazanik.spaceinvaders.main.IDrawable;
 
 /**
  *
  * @author kazanik
  */
-public class Scene {
+public class Scene implements IDrawable {
     
     private static final Scene scene = new Scene();
     private LinkedList<ISceneLayer> layers;
@@ -41,6 +42,7 @@ public class Scene {
         return layers.get(level);
     }
     
+    @Override
     public void draw(Graphics g, GameCanvas canvas) {
         for(ISceneLayer layer : layers) {
             layer.draw(g, canvas);
