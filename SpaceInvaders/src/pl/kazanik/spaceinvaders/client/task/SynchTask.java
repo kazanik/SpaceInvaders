@@ -53,7 +53,7 @@ public class SynchTask /*implements Runnable*/ extends AbstractClientTask {
             String serverOutMode = inMessageSplitArray[0];
             String inSerEnts = inMessageSplitArray[1];
             em.deserializeEntities(inSerEnts);
-            // find player by token
+            client.setLastHeartBeat(System.currentTimeMillis());
         }
         String serEnts = em.serializeClientEntities();
         String outMessage = GameConditions.SERVER_MODE_SEND + 

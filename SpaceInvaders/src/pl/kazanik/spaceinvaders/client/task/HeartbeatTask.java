@@ -58,6 +58,7 @@ public class HeartbeatTask /*implements Runnable*/ extends AbstractClientTask {
                 if(tokenMatcher.matches())
                     session.setClientToken(inToken);
             }
+            client.setLastHeartBeat(System.currentTimeMillis());
         }
         String outMessage = GameConditions.SERVER_MODE_HEARTBEAT +
             GameConditions.MESSAGE_FRAGMENT_SEPARATOR + session.getClientToken();

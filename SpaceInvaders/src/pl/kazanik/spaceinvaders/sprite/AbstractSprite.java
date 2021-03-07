@@ -40,15 +40,18 @@ public abstract class AbstractSprite implements Serializable {
         this.image = image;
     }
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
+    private synchronized void writeObject(ObjectOutputStream out) 
+            throws IOException {
         out.defaultWriteObject();
         //out.writeInt(1); // how many images are serialized?
         //for (BufferedImage eachImage : images) {
             ImageIO.write(image, "png", out); // png is lossless
+            out.close();
         //}
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    private synchronized void readObject(ObjectInputStream in) 
+            throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         //final int imageCount = in.readInt();
         //images = new ArrayList<BufferedImage>(imageCount);
@@ -56,6 +59,7 @@ public abstract class AbstractSprite implements Serializable {
             //images.add(ImageIO.read(in));
         //}
         image = ImageIO.read(in);
+        in.close();
     }
     
     public abstract Rectangle collisionRect();

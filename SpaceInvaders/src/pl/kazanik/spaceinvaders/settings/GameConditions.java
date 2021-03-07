@@ -38,7 +38,7 @@ public class GameConditions {
     public static final long SERVER_SYNCH_DELAY2 = 10;
     // client send heartbeat to server every 1 seconds
     public static final long CLIENT_HEARTBEAT_DELAY = 1000;
-    public static final long CLIENT_MAX_IDLE_TIME = 1000*10;
+    public static final long CLIENT_MAX_IDLE_TIME = 10_000l;   // 1000*10
     public static final long SERVER_HEARTBEAT_DELAY = 500;
     // resources
     public static final String PLAYER_SPRITE_PATH = 

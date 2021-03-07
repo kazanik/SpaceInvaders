@@ -138,10 +138,10 @@ public class GameLauncher implements Runnable {
         BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
         client = new Client("", serverSocket, System.currentTimeMillis(),
                 in, out, socketInLock, socketOutLock);
-        heartbeatPool = Executors.newCachedThreadPool();
-        inputPool = Executors.newCachedThreadPool();
-        outputPool = Executors.newCachedThreadPool();
-        synchPool = Executors.newCachedThreadPool();
+        heartbeatPool = Executors.newSingleThreadExecutor();
+        inputPool = Executors.newSingleThreadExecutor();
+        outputPool = Executors.newSingleThreadExecutor();
+        synchPool = Executors.newSingleThreadExecutor();
         gameManager.initGame();
 //        gameRunnable = new ClientGameLoop(canvas, player, this);
         gameRunnable = new ClientGameLoop(gameManager.getCanvas(), gameManager.getPlayer());

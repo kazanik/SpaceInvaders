@@ -21,7 +21,7 @@ public class Client {
     private String token;
     private final Socket socket;
     private final EventCachingQueue inMessageQueue, outMessageQueue;
-    private long lastHeartBeat;
+    private volatile long lastHeartBeat;
     private final Lock SOCKET_IN_STREAM_LOCK, SOCKET_OUT_STREAM_LOCK;
     private boolean tokenSaved;
 
@@ -36,8 +36,9 @@ public class Client {
         this.SOCKET_OUT_STREAM_LOCK = outLock;
     }
 
-    public void setLastHeartBeat(long lastHeartBeat) {
-        this.lastHeartBeat = lastHeartBeat;
+    public synchronized void setLastHeartBeat(long lastHeartBeat) {
+        if(lastHeartBeat > this.lastHeartBeat)
+            this.lastHeartBeat = lastHeartBeat;
     }
 
     public void setToken(String token) {
@@ -53,7 +54,7 @@ public class Client {
         return socket;
     }
 
-    public long getLastHeartBeat() {
+    public synchronized long getLastHeartBeat() {
         return lastHeartBeat;
     }
 
