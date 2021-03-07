@@ -7,7 +7,9 @@ package pl.kazanik.spaceinvaders.entity;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import javax.swing.event.MouseInputListener;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
@@ -96,7 +98,11 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     public void attack() {
 //        System.out.println("Player attack");
         int x = (int) (getSprite().getX()+(getSprite().getWidth()/2));
-        getWeapon().fire(this, shootDirection, x, (int) getSprite().getY());
+        AbstractEntity missle = getWeapon().fire(
+                this, shootDirection, x, (int) getSprite().getY());
+        setShots(getShots()+1);
+        if(missle != null)
+            spacecraftMissles.add(missle);
     }
     
     @Override
@@ -208,6 +214,7 @@ public class PlayerEntity extends AbstractSpaceCraft implements
     }
     
     public void doAction() {
+//        System.out.println("here");
         if(leftPressed) {
             direction = -1;
             move();

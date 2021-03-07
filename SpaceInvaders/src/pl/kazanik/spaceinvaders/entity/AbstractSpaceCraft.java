@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.weapon.AbstractWeapon;
 
@@ -18,7 +20,9 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     private int horizontalMoveDirection;
     private int verticalMoveDirection;
     private boolean alive = true;
+    private int shots;      // missles fired
     private AbstractWeapon weapon;
+    protected List<AbstractEntity> spacecraftMissles;
 
     protected AbstractSpaceCraft() {
     }
@@ -31,6 +35,7 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
         this.armor = armor;
         this.horizontalMoveDirection = horizontalMoveDirection;
         this.verticalMoveDirection = verticalMoveDirection;
+        spacecraftMissles = new ArrayList<>();
     }
     
     protected AbstractSpaceCraft(float health, float speed, float armor, 
@@ -42,6 +47,7 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
         this.horizontalMoveDirection = horizontalMoveDirection;
         this.verticalMoveDirection = verticalMoveDirection;
         this.weapon = weapon;
+        spacecraftMissles = new ArrayList<>();
     }
     
     public abstract void attack();
@@ -95,5 +101,16 @@ public abstract class AbstractSpaceCraft extends AbstractEntity {
     public void setAlive(boolean alive) {
         this.alive = alive;
     }
+
+    public int getShots() {
+        return shots;
+    }
+
+    public void setShots(int shots) {
+        this.shots = shots;
+    }
     
+    public List<AbstractEntity> getSpaceCraftMissles() {
+        return spacecraftMissles;
+    }
 }

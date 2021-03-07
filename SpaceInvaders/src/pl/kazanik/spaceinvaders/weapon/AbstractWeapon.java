@@ -4,6 +4,7 @@
  */
 package pl.kazanik.spaceinvaders.weapon;
 
+import java.io.Serializable;
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
 import pl.kazanik.spaceinvaders.factory.MissleFactory;
 
@@ -11,7 +12,7 @@ import pl.kazanik.spaceinvaders.factory.MissleFactory;
  *
  * @author kazanik
  */
-public abstract class AbstractWeapon {
+public abstract class AbstractWeapon implements Serializable {
     
     private long fireDelay;
     private int ammoCapacity;
@@ -19,7 +20,7 @@ public abstract class AbstractWeapon {
     private int clipCapacity;
     private int clipAmmo;
     private int damage;
-    private MissleFactory missleFactory;
+//    private MissleFactory missleFactory;
 
     // private AbstractMissle bullet;
     protected AbstractWeapon() {
@@ -33,10 +34,10 @@ public abstract class AbstractWeapon {
         this.clipCapacity = clipCapacity;
         this.clipAmmo = clipAmmo;
         this.damage = damage;
-        this.missleFactory = new MissleFactory();
+//        this.missleFactory = new MissleFactory();
     }
     
-    public abstract void fire(AbstractEntity entity, int direction, int x, int y);
+    public abstract AbstractEntity fire(AbstractEntity entity, int direction, int x, int y);
     public abstract void reload();
 
     public long getFireDelay() {
@@ -87,12 +88,12 @@ public abstract class AbstractWeapon {
         this.damage = damage;
     }
 
-    public MissleFactory getMissleFactory() {
-        return missleFactory;
-    }
-
-    public void setMissleFactory(MissleFactory missleFactory) {
-        this.missleFactory = missleFactory;
-    }
+//    public MissleFactory getMissleFactory() {
+//        return missleFactory;
+//    }
+//
+//    public void setMissleFactory(MissleFactory missleFactory) {
+//        this.missleFactory = missleFactory;
+//    }
 
 }

@@ -24,22 +24,19 @@ public class EnemyGenerator {
     private static final EnemyGenerator eg = new EnemyGenerator();
     private EntityFactory factory = new EntityFactory();
     private GameSettings settings = GameSettings.getInstance();
+    private EntityManager em = EntityManager.getInstance();
     private int horizontalGap, singleHGap;
     
-    private EnemyGenerator() {
+    public EnemyGenerator() {
         singleHGap = GameConditions.ENEMY_SPRITE_WIDTH
                 +(GameConditions.SCENE_WIDTH/10);
         horizontalGap = singleHGap;
     }
     
-    public static EnemyGenerator getInstance() {
-        return eg;
-    }
-    
     public List<AbstractSpaceCraft> generate() {
 //        List<AbstractEntity> enemies = new ArrayList<>();
         List<AbstractSpaceCraft> enemies = new CopyOnWriteArrayList<>();
-        List<List<AbstractSpaceCraft>> enemiesWaves = new ArrayList<>();
+        List<List<AbstractSpaceCraft>> enemiesWaves = new CopyOnWriteArrayList<>();
         BufferedImage spriteImg = Graphics.createImage(GameConditions.PHOENIX_SPRITE_PATH);
         for(int i = 1; i <= settings.getDifficulty().getEnemyWaves(); i++) {
             long intervalMilis = settings.getDifficulty().getEnemyWaveIntervalMilis();
@@ -55,7 +52,7 @@ public class EnemyGenerator {
             }
             enemiesWaves.add(wave);
         }
-        EntityManager.getInstance().setEnemiesWaves(enemiesWaves);
+        em.setEnemiesWaves(enemiesWaves);
         return enemies;
     }
     

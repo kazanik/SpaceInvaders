@@ -14,6 +14,7 @@ import pl.kazanik.spaceinvaders.missle.Missles;
 import pl.kazanik.spaceinvaders.scene.SpritesLayer;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
+import pl.kazanik.spaceinvaders.sound.SoundPlayer;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 import pl.kazanik.spaceinvaders.sprite.NormalSprite;
 
@@ -24,12 +25,13 @@ import pl.kazanik.spaceinvaders.sprite.NormalSprite;
 public class MissleFactory {
 
     private GameSettings settings = GameSettings.getInstance();
+    private EntityManager em = EntityManager.getInstance();
     
     public MissleFactory() {
         
     }
 
-    public <T extends AbstractEntity>void create(T entity, Missles missle, 
+    public <T extends AbstractEntity>AbstractEntity create(T entity, Missles missle, 
             int direction, int x, int y) {
         //To change body of generated methods, choose Tools | Templates.
         AbstractSprite sprite = new NormalSprite(missle.getWidth(), missle.getHeight(), 
@@ -40,9 +42,12 @@ public class MissleFactory {
                 settings.getGameScene().getLayer(GameConditions.OBJECTS_LAYER_ID);
         sl.addEntity(missleEntity);
         if(entity instanceof PlayerEntity)
-            EntityManager.getInstance().addPlayerMissle(missleEntity);
+            em.addPlayerMissle(missleEntity);
         else 
-            EntityManager.getInstance().addEnemyMissle(missleEntity);
+            em.addEnemyMissle(missleEntity);
+        SoundPlayer sp = new SoundPlayer();
+        sp.play(missle.getSoundPath());
+        return missleEntity;//
     }
     
     private BufferedImage getImage(Missles missle) {

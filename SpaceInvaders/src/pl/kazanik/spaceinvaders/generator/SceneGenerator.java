@@ -21,13 +21,7 @@ import pl.kazanik.spaceinvaders.scene.SpritesLayer;
  */
 public class SceneGenerator {
     
-    private static final SceneGenerator sg = new SceneGenerator();
-    
-    private SceneGenerator() {
-    }
-    
-    public static SceneGenerator getInstance() {
-        return sg;
+    public SceneGenerator() {
     }
     
     public Scene generate() {

@@ -52,13 +52,12 @@ public class ScoreFileDao implements IScoreDao {
                 scores.add(score);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } finally {
             try {
                 ois.close();
                 fis.close();
             } catch (IOException ioe) {
-                ioe.printStackTrace();
             } finally {
                 return scores;
             }

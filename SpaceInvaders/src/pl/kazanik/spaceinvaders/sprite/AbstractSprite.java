@@ -7,20 +7,25 @@ package pl.kazanik.spaceinvaders.sprite;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import javax.imageio.ImageIO;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
 
 /**
  *
  * @author kazanik
  */
-public abstract class AbstractSprite {
+public abstract class AbstractSprite implements Serializable {
     
     private float width;
     private float height;
     private float x;
     private float y;
     private int collisionOffset;
-    private BufferedImage image;
+    private transient BufferedImage image;
 
     protected AbstractSprite() {
     }
@@ -35,6 +40,24 @@ public abstract class AbstractSprite {
         this.image = image;
     }
 
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        //out.writeInt(1); // how many images are serialized?
+        //for (BufferedImage eachImage : images) {
+            ImageIO.write(image, "png", out); // png is lossless
+        //}
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        //final int imageCount = in.readInt();
+        //images = new ArrayList<BufferedImage>(imageCount);
+        //for (int i=0; i<imageCount; i++) {
+            //images.add(ImageIO.read(in));
+        //}
+        image = ImageIO.read(in);
+    }
+    
     public abstract Rectangle collisionRect();
     
     public void draw(Graphics g, GameCanvas canvas) {

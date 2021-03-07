@@ -20,14 +20,14 @@ public class GameSettings {
     private Scene gameScene;
     private Dimension gameFrameLocation;
     private List<Score> scores;
-    private static final GameSettings settings = new GameSettings();
+    private static final GameSettings gs = new GameSettings();
 
     private GameSettings() {
         
     }
-
+    
     public static GameSettings getInstance() {
-        return settings;
+        return gs;
     }
 
     public Difficulties getDifficulty() {

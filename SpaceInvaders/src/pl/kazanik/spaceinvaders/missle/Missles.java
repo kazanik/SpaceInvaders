@@ -5,6 +5,7 @@
 package pl.kazanik.spaceinvaders.missle;
 
 import java.awt.Color;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
  *
@@ -12,7 +13,7 @@ import java.awt.Color;
  */
 public enum Missles {
     
-    CANNON_ROUND(10, 3, 0, 2, 4, Color.WHITE);
+    CANNON_ROUND(10, 3, 0, 2, 4, Color.WHITE, GameConditions.CANNON_MISSLE_SOUND_PATH);
     
     private final int damage;
     private final int speed;
@@ -20,15 +21,17 @@ public enum Missles {
     private final int width;
     private final int height;
     private final Color color;
+    private final String soundPath;
 
     private Missles(int damage, int speed, int collisionOffset, int width, 
-            int height, Color color) {
+            int height, Color color, String soundPath) {
         this.damage = damage;
         this.speed = speed;
         this.collisionOffset = collisionOffset;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.soundPath = soundPath;
     }
 
     public int getDamage() {
@@ -53,6 +56,10 @@ public enum Missles {
 
     public Color getColor() {
         return color;
+    }
+
+    public String getSoundPath() {
+        return soundPath;
     }
 
 }

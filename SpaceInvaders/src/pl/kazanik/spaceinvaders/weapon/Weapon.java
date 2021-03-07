@@ -5,6 +5,7 @@
 package pl.kazanik.spaceinvaders.weapon;
 
 import pl.kazanik.spaceinvaders.entity.AbstractEntity;
+import pl.kazanik.spaceinvaders.factory.MissleFactory;
 import pl.kazanik.spaceinvaders.missle.Missles;
 
 /**
@@ -24,13 +25,16 @@ public class Weapon extends AbstractWeapon {
     }
 
     @Override
-    public void fire(AbstractEntity entity, int direction, int x, int y) {
+    public AbstractEntity fire(AbstractEntity entity, int direction, int x, int y) {
+        MissleFactory mf = new MissleFactory();
         int availableAmmo = getAvailableAmmo();
         long now = System.currentTimeMillis();
+        AbstractEntity missle = null;
         if(availableAmmo > 0 && now-lastShotTime > getFireDelay()) {
-            getMissleFactory().create(entity, Missles.CANNON_ROUND, direction, x, y);
+            missle = mf.create(entity, Missles.CANNON_ROUND, direction, x, y);
             setAvailableAmmo(availableAmmo-1);
         }
+        return missle;
     }
 
     @Override

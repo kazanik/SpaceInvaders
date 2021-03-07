@@ -4,13 +4,14 @@
  */
 package pl.kazanik.spaceinvaders.entity;
 
+import java.io.Serializable;
 import pl.kazanik.spaceinvaders.sprite.AbstractSprite;
 
 /**
  *
  * @author kazanik
  */
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
     
     private float speed;
     private int lastMoveFrame = 0;

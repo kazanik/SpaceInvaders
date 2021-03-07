@@ -34,14 +34,14 @@ public class GameMenu implements IDrawable, KeyListener, MouseListener {
             BG_COLOR = Color.blue;
     private int currentOptionId;
     private Image bgImage;
+    GameCanvas canvas;
     
     public GameMenu() {
     }
     
     @Override
     public void draw(Graphics g, GameCanvas canvas) {
-        // not implemented
-//        g.drawImage(bgImage, H_MARGIN_PX, V_MARGIN_PX, null);
+        this.canvas = canvas;
         g.setFont(new Font("Arial", Font.BOLD, FONT_SIZE_PX));
         int y = V_MARGIN_PX;
         for(String option : options) {
@@ -75,6 +75,14 @@ public class GameMenu implements IDrawable, KeyListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // check if any menu option clicked
+        if(e.getX() >= H_MARGIN_PX && e.getX() <= H_MARGIN_PX+OPTION_WIDTH_PX) {
+            int y = V_MARGIN_PX;
+            for(String option : options) {
+                if(e.getY() >= y && e.getY() <= y+OPTION_HEIGHT_PX)
+                    ;
+                y += OPTION_V_GAP_PX+OPTION_HEIGHT_PX;
+            }
+        }
     }
 
     @Override

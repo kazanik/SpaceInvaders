@@ -14,32 +14,32 @@ import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.entity.PlayerEntity;
 import pl.kazanik.spaceinvaders.generator.EnemyGenerator;
 import pl.kazanik.spaceinvaders.main.GameCanvas;
-import pl.kazanik.spaceinvaders.main.GameLoop;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
+import pl.kazanik.spaceinvaders.sound.SoundPlayer;
 
 /**
  *
  * @author kazanik
  */
-public class GameLoopRunnable implements Runnable {
+public class ClientGameLoop implements Runnable {
 
     private PlayerEntity player;
     private GameCanvas canvas;
     private EntityManager em = EntityManager.getInstance();
-    private GameLoop gameLoop;
     private GameSettings settings = GameSettings.getInstance();
-    private EnemyGenerator eg = EnemyGenerator.getInstance();
+    private EnemyGenerator eg = new EnemyGenerator();
+    private SoundPlayer sp = new SoundPlayer();
     private boolean running = true;
     private int frames = 0;
+    private int enemiesCreated = 0;
     
-    public GameLoopRunnable() {
+    public ClientGameLoop() {
         
     }
     
-    public GameLoopRunnable(GameCanvas canvas, PlayerEntity player, GameLoop gameLoop) {
+    public ClientGameLoop(GameCanvas canvas, PlayerEntity player) {
         this.canvas = canvas;
         this.player = player;
-        this.gameLoop = gameLoop;
     }
     
     @Override
@@ -52,35 +52,19 @@ public class GameLoopRunnable implements Runnable {
         while(running) {
             // Scene
             try {
-                Thread.sleep(GameConditions.REFRESH_RATE);
+                Thread.sleep(GameConditions.SCENE_REFRESH_RATE);
                 canvas.repaint();
                 frames++;
                 lastFrameTime = System.currentTimeMillis();
             } catch (InterruptedException ex) {
-                Logger.getLogger(GameLoopRunnable.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //      Enemy Missles move
-            for(AbstractEntity missle : em.getEnemyMissles()) {
-                missle.move();
-                missle.setLastMoveFrame(frames);
+                Logger.getLogger(ClientGameLoop.class.getName()).log(Level.SEVERE, null, ex);
+                running = false;
+                break;
             }
             //      Player Missles move
             for(AbstractEntity missle : em.getPlayerMissles()) {
                 missle.move();
                 missle.setLastMoveFrame(frames);
-            }
-            // Create enemies
-            if(System.currentTimeMillis()-lastCreateTime > 
-                    settings.getDifficulty().getEnemyWaveIntervalMilis()) {
-                for (int i = 0; i < rnd.nextInt(4)+1; i++) {
-                    em.addEnemy(eg.generateEnemy());
-                }
-                lastCreateTime = System.currentTimeMillis();
-            }
-            //      Enemies move
-            for(AbstractSpaceCraft enemy : em.getEnemies()) {
-                enemy.move();
-                enemy.setLastMoveFrame(frames);
             }
             //      Player actions
             player.doAction();
@@ -90,13 +74,13 @@ public class GameLoopRunnable implements Runnable {
             for(AbstractSpaceCraft enemy : em.getEnemies()) {
                 if(enemy.getSprite().collisionRect().intersects(
                         player.getSprite().collisionRect())) {
-                    gameLoop.abort();
+//                    gameLoop.abort();
                     break gameloop;
                 }
                 for(AbstractEntity missle : em.getEnemyMissles()) {
                     if(player.getSprite().collisionRect().intersects(
                             missle.getSprite().collisionRect())) {
-                        gameLoop.abort();
+//                        gameLoop.abort();
                         break gameloop;
                     }
                 }
@@ -105,6 +89,8 @@ public class GameLoopRunnable implements Runnable {
                             missle.getSprite().collisionRect())) {
                         enemy.collision(missle);
                         missle.collision(enemy);
+                        //
+                        sp.play(GameConditions.EXPLOSION_SOUND_PATH);
                     }
                 }
             }
