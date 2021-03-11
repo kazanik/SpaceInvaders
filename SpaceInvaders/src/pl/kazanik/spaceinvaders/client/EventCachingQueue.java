@@ -33,49 +33,49 @@ class EventCachingQueue {
     
     protected  boolean pushEvent(String message) {
         boolean pushed = false;
-        if(SOCKET_STREAM_LOCK.tryLock()) {
+//        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 pushed = eventQueue.offer(message);
             } finally {
-                SOCKET_STREAM_LOCK.unlock();
+//                SOCKET_STREAM_LOCK.unlock();
             }
-        }
+//        }
         return pushed;
     }
     
     protected  String pollEvent() {
         String message = "";
-        if(SOCKET_STREAM_LOCK.tryLock()) {
+//        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 message = eventQueue.poll();
             } finally {
-                SOCKET_STREAM_LOCK.unlock();
+//                SOCKET_STREAM_LOCK.unlock();
             }
-        }
+//        }
         return message;
     }
     
     protected  String peekEvent() {
         String message = "";
-        if(SOCKET_STREAM_LOCK.tryLock()) {
+//        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 message = eventQueue.peek();
             } finally {
-                SOCKET_STREAM_LOCK.unlock();
+//                SOCKET_STREAM_LOCK.unlock();
             }
-        }
+//        }
         return message;
     }
     
     protected  String readLine() throws IOException {
         String line = "";
-        if(SOCKET_STREAM_LOCK.tryLock()) {
+//        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 line = socketReader.readLine();
             } finally {
-                SOCKET_STREAM_LOCK.unlock();
+//                SOCKET_STREAM_LOCK.unlock();
             }
-        }
+//        }
         return line;
     }
     

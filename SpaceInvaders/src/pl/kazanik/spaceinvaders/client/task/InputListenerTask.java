@@ -10,6 +10,9 @@ import java.net.Socket;
 import pl.kazanik.spaceinvaders.client.Client;
 import pl.kazanik.spaceinvaders.client.SessionManager;
 import pl.kazanik.spaceinvaders.client.exception.ClientDisconnectedException;
+import pl.kazanik.spaceinvaders.client.exception.ExceptionUtils;
+import pl.kazanik.spaceinvaders.main.GameLauncher;
+import pl.kazanik.spaceinvaders.settings.GameConditions;
 
 /**
  *
@@ -17,17 +20,33 @@ import pl.kazanik.spaceinvaders.client.exception.ClientDisconnectedException;
  */
 public class InputListenerTask extends AbstractClientTask {
 
-    public InputListenerTask(SessionManager session, Socket serverSocket, 
-            Object gameLock, Object serverLock, Client client) {
-        super(session, serverSocket, gameLock, serverLock, client);
+    public InputListenerTask(SessionManager session, GameLauncher gameLauncher,
+            Client client) {
+        super(session, gameLauncher, client);
     }
     
     @Override
     protected void execute() throws IOException {
-        String inputLine = client.readLine();
-        if(inputLine != null && !inputLine.isEmpty()) {
-            client.pushInMessage(inputLine);
-//            System.out.println("in message: "+inputLine);
+        boolean runn = true;
+        while(runn) {
+            try {
+                Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
+                System.out.println("client input");
+                String inputLine = client.readLine();
+                if(inputLine != null && !inputLine.isEmpty()) {
+                    client.pushInMessage(inputLine);
+        //            System.out.println("in message: "+inputLine);
+                }
+            } catch(InterruptedException ex) {
+                if(ExceptionUtils.isCausedByIOEx(ex)) {
+                    System.out.println("****client input execute: "
+                        + "input task exception catched, "
+                        + "now try stop thread and close resources");
+                    runn = false;
+                } else {
+                    System.out.println("so timeout");
+                }
+            }
         }
     }
 
@@ -37,6 +56,7 @@ public class InputListenerTask extends AbstractClientTask {
             execute();
             return true;
         } catch(IOException e) {
+            gameLauncher.setInputRunning(false);
             String exLocation = "listener task execute ioex";
             ClientDisconnectedException cde = new ClientDisconnectedException(
                 session.getClientToken(), exLocation, e.getMessage(), e);

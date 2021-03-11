@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 
 /**
@@ -21,11 +22,12 @@ public class Client {
     private String token;
     private final Socket socket;
     private final EventCachingQueue inMessageQueue, outMessageQueue;
-    private volatile long lastHeartBeat;
+//    private volatile long lastHeartBeat;
+    private AtomicLong lastHeartBeat;
     private final Lock SOCKET_IN_STREAM_LOCK, SOCKET_OUT_STREAM_LOCK;
     private boolean tokenSaved;
 
-    public Client(String token, Socket socket, long lastHeartBeat, 
+    public Client(String token, Socket socket, AtomicLong lastHeartBeat, 
             BufferedReader in, PrintWriter out, Lock inLock, Lock outLock) {
         this.token = token;
         this.socket = socket;
@@ -36,9 +38,11 @@ public class Client {
         this.SOCKET_OUT_STREAM_LOCK = outLock;
     }
 
-    public synchronized void setLastHeartBeat(long lastHeartBeat) {
-        if(lastHeartBeat > this.lastHeartBeat)
-            this.lastHeartBeat = lastHeartBeat;
+    public void setLastHeartBeat(long lastHeartBeat) {
+        if(Long.compare(lastHeartBeat, this.lastHeartBeat.longValue()) > 0) {
+            this.lastHeartBeat.set(lastHeartBeat);
+            System.out.println("set");
+        }
     }
 
     public void setToken(String token) {
@@ -54,8 +58,8 @@ public class Client {
         return socket;
     }
 
-    public synchronized long getLastHeartBeat() {
-        return lastHeartBeat;
+    public long getLastHeartBeat() {
+        return lastHeartBeat.longValue();
     }
 
     public boolean isTokenSaved() {
@@ -110,7 +114,7 @@ public class Client {
     }
     
     // OUT
-    public synchronized String pollOutMessage() {
+    public /*synchronized*/ String pollOutMessage() {
         String message = "";
         //if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
             try {
@@ -123,7 +127,7 @@ public class Client {
     }
     
     // IN
-    public synchronized String peekInMessage() {
+    public /*synchronized*/ String peekInMessage() {
         String message = "";
         //if(SOCKET_IN_STREAM_LOCK.tryLock()) {
             try {
@@ -231,20 +235,23 @@ public class Client {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+//        if (this == obj) {
+//            return true;
+//        }
+        if (obj == null || !(obj instanceof Client)) {
             return false;
         }
         final Client other = (Client) obj;
-        if (!Objects.equals(this.token, other.token)) {
+        if (!this.token.equals(other.getToken())) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" + "token=" + token + ", socket=" + socket 
+                + ", lastHeartBeat=" + lastHeartBeat + ", tokenSaved=" + tokenSaved + '}';
     }
     
 }

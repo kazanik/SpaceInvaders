@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import pl.kazanik.spaceinvaders.client.Client;
@@ -43,10 +44,11 @@ public class GameLauncher implements Runnable {
     private boolean running, inited;
     private int frames;
     private Object gameLock, serverLock;
-    private ExecutorService heartbeatPool, synchPool, inputPool, outputPool;
+    private ExecutorService heartbeatPool;
     private Client client;
     private Socket serverSocket;
     private Lock socketInLock, socketOutLock;
+    private boolean updateRunning, heartbeatRunning, inputRunning, outputRunning;
     
     public GameLauncher() {
         
@@ -71,41 +73,35 @@ public class GameLauncher implements Runnable {
                 try {
                     frames++;
                     Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
-                    //Thread.sleep(50);
-                    AbstractClientTask synchTask = new SynchTask(
-                        session, serverSocket, gameLock, serverLock, client);
-                    AbstractClientTask heartbeatTask = new HeartbeatTask(
-                        session, serverSocket, gameLock, serverLock, client);
-                    AbstractClientTask inputListenerTask = new InputListenerTask(
-                        session, serverSocket, gameLock, serverLock, client);
-                    AbstractClientTask outputPrinterTask = new OutputPrinterTask(
-                        session, serverSocket, gameLock, serverLock, client);
-                    //if(frames%4 == 0) {
-                        Future<?> futureHeart = heartbeatPool.submit(heartbeatTask);
-                        futureHeart.get(100, TimeUnit.MICROSECONDS);
-                    //}
-                    //if(frames%2 == 0) {
-                        Future<?> futureSynch = synchPool.submit(synchTask);
-                        futureSynch.get(100, TimeUnit.MICROSECONDS);
-                    //}
-                    Future<?> futureInput = inputPool.submit(inputListenerTask);
-                    futureInput.get(100, TimeUnit.MICROSECONDS);
-                    Future<?> futureOutput = outputPool.submit(outputPrinterTask);
-                    futureOutput.get(100, TimeUnit.MICROSECONDS);
+//                    Thread.sleep(1000);
+                    if(!heartbeatRunning) {
+                        heartbeatRunning = true;
+                        heartbeatPool.submit(new HeartbeatTask(session, this, client));
+                    }
+                    if(!updateRunning) {
+                        updateRunning = true;
+                        heartbeatPool.submit(new SynchTask(session, this, client));
+                    }
+                    if(!inputRunning) {
+                        inputRunning = true;
+                        heartbeatPool.submit(new InputListenerTask(session, this, client));
+                    }
+                    if(!outputRunning) {
+                        outputRunning = true;
+                        heartbeatPool.submit(new OutputPrinterTask(session, this, client));
+                    }
                     if(frames >= max_frames)
                         frames = 0;
                     //System.out.println("blablabl");
-                } catch (InterruptedException ex) {}
-                catch(TimeoutException te) {}
+                } catch (InterruptedException ex) {
+                    System.err.println("game launcher run: synch/heartbeat task exc "
+                        + "catched, now try stop thread and close resources");
+                    running = false;
+//                catch(TimeoutException te) {}
+                }
                 }
             }
             System.out.println("game launcher loop done");
-        } catch (ExecutionException e) {
-//            running = false;
-            if(ExceptionUtils.isCausedByIOEx(e)) {
-                System.err.println("game launcher run: synch/heartbeat task exc "
-                    + "catched, now try stop thread and close resources");
-            }
         } catch (IOException e) {
             System.err.println("init server ioex");
 //            running = false;
@@ -136,12 +132,9 @@ public class GameLauncher implements Runnable {
         serverSocket = new Socket(serverAddress, GameConditions.SERVER_PORT);
         PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
-        client = new Client("", serverSocket, System.currentTimeMillis(),
+        client = new Client("", serverSocket, new AtomicLong(System.currentTimeMillis()),
                 in, out, socketInLock, socketOutLock);
-        heartbeatPool = Executors.newSingleThreadExecutor();
-        inputPool = Executors.newSingleThreadExecutor();
-        outputPool = Executors.newSingleThreadExecutor();
-        synchPool = Executors.newSingleThreadExecutor();
+        heartbeatPool = Executors.newFixedThreadPool(4);
         gameManager.initGame();
 //        gameRunnable = new ClientGameLoop(canvas, player, this);
         gameRunnable = new ClientGameLoop(gameManager.getCanvas(), gameManager.getPlayer());
@@ -162,10 +155,6 @@ public class GameLauncher implements Runnable {
         gameLock = null;
         serverLock = null;
         heartbeatPool.shutdownNow();
-        inputPool.shutdownNow();
-        outputPool.shutdownNow();
-        synchPool.shutdownNow();
-        
         if(gameThread != null)
             gameThread.interrupt();
         gameThread = null;
@@ -198,4 +187,21 @@ public class GameLauncher implements Runnable {
     public void nextFrame() {
         frames++;
     }
+
+    public void setUpdateRunning(boolean updateRunning) {
+        this.updateRunning = updateRunning;
+    }
+
+    public void setHeartbeatRunning(boolean heartbeatRunning) {
+        this.heartbeatRunning = heartbeatRunning;
+    }
+
+    public void setInputRunning(boolean inputRunning) {
+        this.inputRunning = inputRunning;
+    }
+
+    public void setOutputRunning(boolean outputRunning) {
+        this.outputRunning = outputRunning;
+    }
+    
 }
