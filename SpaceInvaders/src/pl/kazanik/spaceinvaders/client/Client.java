@@ -75,72 +75,72 @@ public class Client {
     }
 
     // IN
-    public synchronized boolean pushInMessage(String message) {
+    public /*synchronized*/ boolean pushInMessage(String message) {
         boolean pushed = false;
-        //if(SOCKET_IN_STREAM_LOCK.tryLock()) {
+        if(SOCKET_IN_STREAM_LOCK.tryLock()) {
             try {
                 pushed = inMessageQueue.pushEvent(message);
             } finally {
-                //SOCKET_IN_STREAM_LOCK.unlock();
+                SOCKET_IN_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return pushed;
     }
     
     // OUT
-    public synchronized boolean pushOutMessage(String message) {
+    public /*synchronized*/ boolean pushOutMessage(String message) {
         boolean pushed = false;
-        //if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
+        if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
             try {
                 pushed = outMessageQueue.pushEvent(message);
             } finally {
-                //SOCKET_OUT_STREAM_LOCK.unlock();
+                SOCKET_OUT_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return pushed;
     }
     
     // IN
-    public synchronized String pollInMessage() {
+    public /*synchronized*/ String pollInMessage() {
         String message = "";
-        //if(SOCKET_IN_STREAM_LOCK.tryLock()) {
+        if(SOCKET_IN_STREAM_LOCK.tryLock()) {
             try {
                 message = inMessageQueue.pollEvent();
             } finally {
-                //SOCKET_IN_STREAM_LOCK.unlock();
+                SOCKET_IN_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return message;
     }
     
     // OUT
     public /*synchronized*/ String pollOutMessage() {
         String message = "";
-        //if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
+        if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
             try {
                 message = outMessageQueue.pollEvent();
             } finally {
-                //SOCKET_OUT_STREAM_LOCK.unlock();
+                SOCKET_OUT_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return message;
     }
     
     // IN
     public /*synchronized*/ String peekInMessage() {
         String message = "";
-        //if(SOCKET_IN_STREAM_LOCK.tryLock()) {
+        if(SOCKET_IN_STREAM_LOCK.tryLock()) {
             try {
                 message = inMessageQueue.peekEvent();
             } finally {
-                //SOCKET_IN_STREAM_LOCK.unlock();
+                SOCKET_IN_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return message;
     }
     
     // OUT
-    public synchronized String peekOutMessage() {
+    public /*synchronized*/ String peekOutMessage() {
         String message = "";
         //if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
             try {
@@ -153,15 +153,16 @@ public class Client {
     }
     
     public /*synchronized*/ String readLine() throws IOException {
-        //System.out.println("client readl");
+//        System.out.println("client readl");
         String line = "";
-        //if(SOCKET_IN_STREAM_LOCK.tryLock()) {
+//        SOCKET_IN_STREAM_LOCK.lock();
+        if(SOCKET_IN_STREAM_LOCK.tryLock()) {
             try {
                 line = inMessageQueue.readLine();
             } finally {
-                //SOCKET_IN_STREAM_LOCK.unlock();
+                SOCKET_IN_STREAM_LOCK.unlock();
             }
-        //}
+        }
         return line;
         //return messageQueue.readLine();
     }
@@ -183,13 +184,13 @@ public class Client {
     
     public /*synchronized*/ void printLine(String line) {
         //System.out.println("client printl");
-        //if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
+        if(SOCKET_OUT_STREAM_LOCK.tryLock()) {
             try {
                 outMessageQueue.printLine(line);
             } finally {
-                //SOCKET_OUT_STREAM_LOCK.unlock();
+                SOCKET_OUT_STREAM_LOCK.unlock();
             }
-        //}
+        }
         //messageQueue.printLine(line);
     }
     

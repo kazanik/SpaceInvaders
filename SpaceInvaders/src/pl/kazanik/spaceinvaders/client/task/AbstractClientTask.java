@@ -17,7 +17,7 @@ import pl.kazanik.spaceinvaders.main.GameLauncher;
  *
  * @author user
  */
-public abstract class AbstractClientTask implements /*Runnable*/ Callable<Boolean> {
+public abstract class AbstractClientTask implements Runnable /*Callable<Boolean>*/ {
     
 //    protected char[] inStreamBuff;
     protected Exception error;
@@ -26,6 +26,11 @@ public abstract class AbstractClientTask implements /*Runnable*/ Callable<Boolea
     protected GameLauncher gameLauncher;
     protected final SessionManager session;
     protected final Client client;
+
+    public AbstractClientTask() {
+        session = null;
+        client = null;
+    }
     
     protected AbstractClientTask(SessionManager session, /*Socket serverSocket,*/ 
             GameLauncher gameLauncher, Client client) {

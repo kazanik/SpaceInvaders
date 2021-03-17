@@ -10,25 +10,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import pl.kazanik.spaceinvaders.client.Client;
-import pl.kazanik.spaceinvaders.client.task.HeartbeatTask;
 import pl.kazanik.spaceinvaders.client.SessionManager;
-import pl.kazanik.spaceinvaders.client.exception.ExceptionUtils;
 import pl.kazanik.spaceinvaders.client.task.AbstractClientTask;
-import pl.kazanik.spaceinvaders.client.task.InputListenerTask;
-import pl.kazanik.spaceinvaders.client.task.OutputPrinterTask;
-import pl.kazanik.spaceinvaders.client.task.SynchTask;
+import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
-import pl.kazanik.spaceinvaders.thread.ClientGameLoop;
 
 /**
  *
@@ -39,12 +29,10 @@ public class GameLauncher implements Runnable {
     private GameManager gameManager;
     private SessionManager session;
     private InetAddress serverAddress;
-    private Thread gameThread;
-    private Runnable gameRunnable;
+    private AbstractClientTask synchRun, ioRun;
     private boolean running, inited;
     private int frames;
     private Object gameLock, serverLock;
-    private ExecutorService heartbeatPool;
     private Client client;
     private Socket serverSocket;
     private Lock socketInLock, socketOutLock;
@@ -55,8 +43,8 @@ public class GameLauncher implements Runnable {
     }
     
     public GameLauncher(SessionManager session, GameManager gameManager) {
-        this.gameManager = gameManager;
         this.session = session;
+        this.gameManager = gameManager;
         this.socketInLock = new ReentrantLock();
         this.socketOutLock = new ReentrantLock();
     }
@@ -64,52 +52,74 @@ public class GameLauncher implements Runnable {
     @Override
     public void run() {
         try {
-//            init();
+            init();
             int max_frames = 2_000_000_000;
-            while(!init() || !(serverSocket.isClosed() || 
-                    serverSocket.isInputShutdown() || serverSocket.isOutputShutdown())) {
-                if(inited) {
+            while(inited && !(serverSocket.isClosed() || 
+                    serverSocket.isInputShutdown() || serverSocket.isOutputShutdown())
+                    && !client.getSocket().isClosed()) {
+//                if(inited) {
 //                running = true;
                 try {
+//                    System.out.println("gamelauncher 1");
                     frames++;
                     Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
-//                    Thread.sleep(1000);
-                    if(!heartbeatRunning) {
-                        heartbeatRunning = true;
-                        heartbeatPool.submit(new HeartbeatTask(session, this, client));
+                    // synch
+                    String inMessage = client.peekInMessage();
+                    if(inMessage != null && !inMessage.isEmpty() && 
+                            inMessage.startsWith(GameConditions.SERVER_MODE_RECEIVE)) {
+                        client.pollInMessage();
+                        String[] inMessageSplitArray = inMessage.split(
+                                GameConditions.MESSAGE_FRAGMENT_SEPARATOR);
+                        String serverOutMode = inMessageSplitArray[0];
+                        String inSerEnts = inMessageSplitArray[1];
+                        EntityManager.getInstance().deserializeEntities(inSerEnts);
+                        System.out.println("client synch");
                     }
-                    if(!updateRunning) {
-                        updateRunning = true;
-                        heartbeatPool.submit(new SynchTask(session, this, client));
+                    String serEnts = EntityManager.getInstance().serializeClientEntities();
+                    String outMessage = GameConditions.SERVER_MODE_SEND + 
+                            GameConditions.MESSAGE_FRAGMENT_SEPARATOR + serEnts;
+                    client.pushOutMessage(outMessage);
+//                    System.out.println("gamelauncher 2");
+                    // io
+                    // input
+                    String inputLine = "";
+                    try {
+                        inputLine = client.readLine();
+                    } catch(SocketTimeoutException te) {}
+//                    System.out.println("gamelauncher 21");
+                    if(inputLine != null && !inputLine.isEmpty()) {
+                        client.pushInMessage(inputLine);
+            //            System.out.println("in message: "+inputLine);
+                        System.out.println("client input");
                     }
-                    if(!inputRunning) {
-                        inputRunning = true;
-                        heartbeatPool.submit(new InputListenerTask(session, this, client));
-                    }
-                    if(!outputRunning) {
-                        outputRunning = true;
-                        heartbeatPool.submit(new OutputPrinterTask(session, this, client));
+//                    System.out.println("gamelauncher 3");
+                    // output
+                    String outputLine = client.pollOutMessage();
+                    if(outputLine != null) {
+                        client.printLine(outputLine);
+                        //System.out.println("out message: "+outputLine);
+                        System.out.println("client output");
                     }
                     if(frames >= max_frames)
                         frames = 0;
-                    //System.out.println("blablabl");
+//                    System.out.println("gamelauncher 4");
                 } catch (InterruptedException ex) {
                     System.err.println("game launcher run: synch/heartbeat task exc "
                         + "catched, now try stop thread and close resources");
                     running = false;
-//                catch(TimeoutException te) {}
                 }
-                }
+//                }
             }
             System.out.println("game launcher loop done");
         } catch (IOException e) {
             System.err.println("init server ioex");
 //            running = false;
         } finally {
-            if(running)
-                abort();
             try {
+                if(running)
+                    abort();
                 client.closeStreams();
+                client.closeSocket();
                 if(serverSocket != null) {
                     serverSocket.close();
                     serverSocket = null;
@@ -130,17 +140,13 @@ public class GameLauncher implements Runnable {
         serverLock = new Object();
         serverAddress = InetAddress.getLocalHost();
         serverSocket = new Socket(serverAddress, GameConditions.SERVER_PORT);
+        serverSocket.setSoTimeout(10);
         PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
         client = new Client("", serverSocket, new AtomicLong(System.currentTimeMillis()),
                 in, out, socketInLock, socketOutLock);
-        heartbeatPool = Executors.newFixedThreadPool(4);
-        gameManager.initGame();
-//        gameRunnable = new ClientGameLoop(canvas, player, this);
-        gameRunnable = new ClientGameLoop(gameManager.getCanvas(), gameManager.getPlayer());
-        gameThread = new Thread(gameRunnable);
         inited = true;
-        start();
+        gameManager.startGameLoop();
         return true;
         } catch(IOException ie) {
 //            System.out.println("a");
@@ -149,27 +155,14 @@ public class GameLauncher implements Runnable {
         }
     }
     
-    public void abort() {
+    public void abort() throws IOException {
         System.out.println("abort");
         running = false;
         gameLock = null;
         serverLock = null;
-        heartbeatPool.shutdownNow();
-        if(gameThread != null)
-            gameThread.interrupt();
-        gameThread = null;
-        
-    }
-    
-    public void restart() throws IOException {
-        abort();
-        init();
-        start();
-    }
-    
-    public void start() {
-        gameThread.start();
-        running = true;
+        gameManager.abortGame();
+        client.closeSocket();
+        client.closeStreams();
     }
 
     public boolean isRunning() {

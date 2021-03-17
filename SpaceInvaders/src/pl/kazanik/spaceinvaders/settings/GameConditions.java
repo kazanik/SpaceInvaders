@@ -33,13 +33,11 @@ public class GameConditions {
     // refresh scene every 20 ms
     public static final long SCENE_REFRESH_RATE = 20;
     // client send/receive packets to server every x ms
-    public static final long CLIENT_SYNCH_DELAY = 20;
+    public static final long CLIENT_SYNCH_DELAY = 40;  // was 20
     // server send/receive packets to server every x ms
-    public static final long SERVER_SYNCH_DELAY2 = 10;
+    public static final long SERVER_SYNCH_DELAY2 = 20;  // was 10
     // client send heartbeat to server every 1 seconds
-    public static final long CLIENT_HEARTBEAT_DELAY = 1000;
     public static final long CLIENT_MAX_IDLE_TIME = 10_000l;   // 1000*10
-    public static final long SERVER_HEARTBEAT_DELAY = 500;
     // resources
     public static final String PLAYER_SPRITE_PATH = 
             "resources/sprites/space_ship1_sprite.png";

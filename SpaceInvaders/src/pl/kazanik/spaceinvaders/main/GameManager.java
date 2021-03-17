@@ -8,6 +8,8 @@ package pl.kazanik.spaceinvaders.main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.JFrame;
 import pl.kazanik.spaceinvaders.difficulty.Difficulties;
 import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
@@ -17,6 +19,7 @@ import pl.kazanik.spaceinvaders.generator.SceneGenerator;
 import pl.kazanik.spaceinvaders.scene.Scene;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
 import pl.kazanik.spaceinvaders.settings.GameSettings;
+import pl.kazanik.spaceinvaders.thread.ClientGameLoop;
 
 /**
  *
@@ -26,6 +29,12 @@ public class GameManager {
     
     private GameCanvas canvas;
     private PlayerEntity player;
+    private Runnable gameRunnable;
+    private ExecutorService clientThreadPool;
+
+    public GameManager() {
+        clientThreadPool = Executors.newFixedThreadPool(2);
+    }
     
     public void initGame() {
         Difficulties gameDifficulty = Difficulties.EASY;
@@ -52,6 +61,19 @@ public class GameManager {
         gameFrame.setResizable(false);
     }
 
+    public void launchGame(GameLauncher gl) {
+        clientThreadPool.submit(gl);
+    }
+    
+    public void startGameLoop() {
+        gameRunnable = new ClientGameLoop(canvas, player);
+        clientThreadPool.submit(gameRunnable);
+    }
+    
+    public void abortGame() {
+        clientThreadPool.shutdownNow();
+    }
+    
     public GameCanvas getCanvas() {
         return canvas;
     }

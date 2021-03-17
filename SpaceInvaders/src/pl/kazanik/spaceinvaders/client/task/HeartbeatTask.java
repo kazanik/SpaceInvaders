@@ -27,30 +27,34 @@ public class HeartbeatTask /*implements Runnable*/ extends AbstractClientTask {
     }
     
     @Override
-    public Boolean call() throws IOException {
+    public void run() {
+//    public Boolean call() throws IOException {
         try {
             execute();
-            return true;
+//            return true;
         } catch(IOException e) {
             gameLauncher.setHeartbeatRunning(false);
-            String exLocation = "heartbeat task execute ioex";
-            ClientDisconnectedException cde = new ClientDisconnectedException(
-                session.getClientToken(), exLocation, e.getMessage(), e);
-            error = cde;
-            throw cde;
-            //throw new RuntimeException("ex listening client heartbeat", e);
-            //throw e;
+            try {
+                gameLauncher.abort();
+            } finally {
+                String exLocation = "client heartbeat task execute ioex";
+                ClientDisconnectedException cde = new ClientDisconnectedException(
+                    session.getClientToken(), exLocation, e.getMessage(), e);
+                error = cde;
+    //            throw cde;
+                throw new RuntimeException("ex listening client heartbeat", e);
+                //throw e;
+            }
         }
     }
 
     @Override
     protected void execute() throws IOException {
         boolean runn = true;
-        while(runn) {
+        while(gameLauncher.isRunning()) {
             try {
                 Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
                 String inMessage = client.peekInMessage();
-                System.out.println("client heart");
                 if(inMessage != null && !inMessage.isEmpty() && 
                         inMessage.startsWith(GameConditions.SERVER_MODE_HEARTBEAT)) {
                     client.pollInMessage();
@@ -66,7 +70,7 @@ public class HeartbeatTask /*implements Runnable*/ extends AbstractClientTask {
                         if(tokenMatcher.matches())
                             session.setClientToken(inToken);
                     }
-        //            client.setLastHeartBeat(System.currentTimeMillis());
+                    System.out.println("client heart");
                 }
                 String outMessage = GameConditions.SERVER_MODE_HEARTBEAT +
                     GameConditions.MESSAGE_FRAGMENT_SEPARATOR + session.getClientToken();

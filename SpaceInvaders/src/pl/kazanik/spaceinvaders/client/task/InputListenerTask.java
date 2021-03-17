@@ -27,22 +27,28 @@ public class InputListenerTask extends AbstractClientTask {
     
     @Override
     protected void execute() throws IOException {
-        boolean runn = true;
-        while(runn) {
+        while(gameLauncher.isRunning()) {
             try {
                 Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
-                System.out.println("client input");
+                // input
                 String inputLine = client.readLine();
                 if(inputLine != null && !inputLine.isEmpty()) {
                     client.pushInMessage(inputLine);
         //            System.out.println("in message: "+inputLine);
+                    System.out.println("client input");
+                }
+                // output
+                String outputLine = client.pollOutMessage();
+                if(outputLine != null) {
+                    client.printLine(outputLine);
+                    //System.out.println("out message: "+outputLine);
+                    System.out.println("client output");
                 }
             } catch(InterruptedException ex) {
                 if(ExceptionUtils.isCausedByIOEx(ex)) {
-                    System.out.println("****client input execute: "
-                        + "input task exception catched, "
+                    System.out.println("****client io execute: "
+                        + "io task exception catched, "
                         + "now try stop thread and close resources");
-                    runn = false;
                 } else {
                     System.out.println("so timeout");
                 }
@@ -51,19 +57,24 @@ public class InputListenerTask extends AbstractClientTask {
     }
 
     @Override
-    public Boolean call() throws Exception {
+    public void run() {
+//    public Boolean call() throws Exception {
         try {
             execute();
-            return true;
+//            return true;
         } catch(IOException e) {
             gameLauncher.setInputRunning(false);
-            String exLocation = "listener task execute ioex";
-            ClientDisconnectedException cde = new ClientDisconnectedException(
-                session.getClientToken(), exLocation, e.getMessage(), e);
-            error = cde;
-            throw cde;
-            //throw new RuntimeException("ex listening client heartbeat", e);
-            //throw e;
+            try {
+                gameLauncher.abort();
+            } finally {
+                String exLocation = "client io task execute ioex";
+                ClientDisconnectedException cde = new ClientDisconnectedException(
+                    session.getClientToken(), exLocation, e.getMessage(), e);
+                error = cde;
+    //            throw cde;
+                throw new RuntimeException("ex client io", cde);
+                //throw e;
+            }
         }
     }
     

@@ -69,6 +69,7 @@ class EventCachingQueue {
     
     protected  String readLine() throws IOException {
         String line = "";
+//        SOCKET_STREAM_LOCK.lock();
 //        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 line = socketReader.readLine();
@@ -91,13 +92,13 @@ class EventCachingQueue {
     }
     
     protected  void printLine(String line) {
-        if(SOCKET_STREAM_LOCK.tryLock()) {
+//        if(SOCKET_STREAM_LOCK.tryLock()) {
             try {
                 socketWriter.println(line);
             } finally {
-                SOCKET_STREAM_LOCK.unlock();
+//                SOCKET_STREAM_LOCK.unlock();
             }
-        }
+//        }
     }
     
     protected  void printLine(int length) {

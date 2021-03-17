@@ -4,6 +4,8 @@
  */
 package pl.kazanik.spaceinvaders.main;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import pl.kazanik.spaceinvaders.client.SessionManager;
 
 /**
@@ -21,8 +23,10 @@ public class SpaceInvaders {
         SessionManager session = new SessionManager();
 //        GameLauncher gl = new GameLauncher(canvas, (PlayerEntity) player, session);
         GameLauncher gl = new GameLauncher(session, gameManager);
-        Thread mainThread = new Thread(gl);
-        mainThread.start();
+        gameManager.initGame();
+        gameManager.launchGame(gl);
+//        Thread mainThread = new Thread(gl);
+//        mainThread.start();
         //gl.init();
         //gl.start();
         

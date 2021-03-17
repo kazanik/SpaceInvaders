@@ -6,12 +6,10 @@
 package pl.kazanik.spaceinvaders.client.task;
 
 import java.io.IOException;
-import java.net.Socket;
 import pl.kazanik.spaceinvaders.client.Client;
 import pl.kazanik.spaceinvaders.client.SessionManager;
 import pl.kazanik.spaceinvaders.client.exception.ClientDisconnectedException;
 import pl.kazanik.spaceinvaders.client.exception.ExceptionUtils;
-import pl.kazanik.spaceinvaders.entity.AbstractSpaceCraft;
 import pl.kazanik.spaceinvaders.entity.EntityManager;
 import pl.kazanik.spaceinvaders.main.GameLauncher;
 import pl.kazanik.spaceinvaders.settings.GameConditions;
@@ -28,31 +26,33 @@ public class SynchTask /*implements Runnable*/ extends AbstractClientTask {
     }
 
     @Override
-    public Boolean call() throws IOException {
+    public void run() {
+//    public Boolean call() throws IOException {
         try {
             execute();
-            return true;
+//            return true;
         } catch(IOException e) {
             gameLauncher.setUpdateRunning(false);
-            String exLocation = "update task execute ioex";
-            ClientDisconnectedException cde = new ClientDisconnectedException(
-                session.getClientToken(), exLocation, e.getMessage(), e);
-            error = cde;
-            throw cde;
-            //throw new RuntimeException("ex listening client heartbeat", e);
-            //throw e;
+            try {
+                gameLauncher.abort();
+            } finally {
+                String exLocation = "client synch task execute ioex";
+                ClientDisconnectedException cde = new ClientDisconnectedException(
+                    session.getClientToken(), exLocation, e.getMessage(), e);
+                error = cde;
+    //            throw cde;
+                throw new RuntimeException("ex client synch", cde);
+                //throw e;
+            }
         }
     }
 
     @Override
     protected void execute() throws IOException {
-        boolean runn = true;
-        while(runn) {
+        while(gameLauncher.isRunning()) {
             try {
                 Thread.sleep(GameConditions.CLIENT_SYNCH_DELAY);
-                System.out.println("client synch");
                 String inMessage = client.peekInMessage();
-                EntityManager em = EntityManager.getInstance();
                 if(inMessage != null && !inMessage.isEmpty() && 
                         inMessage.startsWith(GameConditions.SERVER_MODE_RECEIVE)) {
                     client.pollInMessage();
@@ -60,10 +60,10 @@ public class SynchTask /*implements Runnable*/ extends AbstractClientTask {
                             GameConditions.MESSAGE_FRAGMENT_SEPARATOR);
                     String serverOutMode = inMessageSplitArray[0];
                     String inSerEnts = inMessageSplitArray[1];
-                    em.deserializeEntities(inSerEnts);
-                    client.setLastHeartBeat(System.currentTimeMillis());
+                    EntityManager.getInstance().deserializeEntities(inSerEnts);
+                    System.out.println("client synch");
                 }
-                String serEnts = em.serializeClientEntities();
+                String serEnts = EntityManager.getInstance().serializeClientEntities();
                 String outMessage = GameConditions.SERVER_MODE_SEND + 
                         GameConditions.MESSAGE_FRAGMENT_SEPARATOR + serEnts;
                 client.pushOutMessage(outMessage);
@@ -72,7 +72,6 @@ public class SynchTask /*implements Runnable*/ extends AbstractClientTask {
                     System.out.println("****client update execute: "
                         + "update task exception catched, "
                         + "now try stop thread and close resources");
-                    runn = false;
                 } else {
                     System.out.println("so timeout");
                 }
