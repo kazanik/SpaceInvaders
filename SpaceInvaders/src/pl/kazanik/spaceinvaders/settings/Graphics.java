@@ -15,10 +15,11 @@ import javax.imageio.ImageIO;
  */
 public class Graphics {
     
-    public static BufferedImage createImage(String path) {
+    public BufferedImage createImage(String path) {
         BufferedImage spriteImg = null;
         try {
-            spriteImg = ImageIO.read(new File(path));
+//            spriteImg = ImageIO.read(new File(path));
+            spriteImg = ImageIO.read(getClass().getResource(path));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

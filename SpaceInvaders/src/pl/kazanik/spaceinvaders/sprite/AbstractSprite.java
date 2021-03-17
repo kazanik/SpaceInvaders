@@ -40,7 +40,7 @@ public abstract class AbstractSprite implements Serializable {
         this.image = image;
     }
 
-    private synchronized void writeObject(ObjectOutputStream out) 
+    public synchronized void writeObject(ObjectOutputStream out) 
             throws IOException {
         out.defaultWriteObject();
         //out.writeInt(1); // how many images are serialized?
@@ -50,7 +50,7 @@ public abstract class AbstractSprite implements Serializable {
         //}
     }
 
-    private synchronized void readObject(ObjectInputStream in) 
+    public synchronized void readObject(ObjectInputStream in) 
             throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         //final int imageCount = in.readInt();

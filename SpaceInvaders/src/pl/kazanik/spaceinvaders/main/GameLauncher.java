@@ -140,7 +140,7 @@ public class GameLauncher implements Runnable {
         serverLock = new Object();
         serverAddress = InetAddress.getLocalHost();
         serverSocket = new Socket(serverAddress, GameConditions.SERVER_PORT);
-        serverSocket.setSoTimeout(10);
+        serverSocket.setSoTimeout(20);
         PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
         client = new Client("", serverSocket, new AtomicLong(System.currentTimeMillis()),

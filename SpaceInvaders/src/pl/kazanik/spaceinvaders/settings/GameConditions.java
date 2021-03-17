@@ -31,24 +31,24 @@ public class GameConditions {
     public static final int EFFECTS_LAYER_ID = 2;
     // client / server delays
     // refresh scene every 20 ms
-    public static final long SCENE_REFRESH_RATE = 20;
+    public static final long SCENE_REFRESH_RATE = 20;  // was 20
     // client send/receive packets to server every x ms
-    public static final long CLIENT_SYNCH_DELAY = 40;  // was 20
-    // server send/receive packets to server every x ms
-    public static final long SERVER_SYNCH_DELAY2 = 20;  // was 10
-    // client send heartbeat to server every 1 seconds
+    public static final long CLIENT_SYNCH_DELAY = 40;  // was 20 // 40
+    // server send/receive packets to every client every x ms
+    public static final long SERVER_SYNCH_DELAY2 = 20;  // was 10 // 20
+    // client max idle time ms
     public static final long CLIENT_MAX_IDLE_TIME = 10_000l;   // 1000*10
     // resources
     public static final String PLAYER_SPRITE_PATH = 
-            "resources/sprites/space_ship1_sprite.png";
+            "/sprites/space_ship1_sprite.png";
     public static final String PHOENIX_SPRITE_PATH = 
-            "resources/sprites/space_ship2_r_sprite.png";
+            "/sprites/space_ship2_r_sprite.png";
     public static final String SCORES_FILE_PATH = "scores";
     // sounds
     public static final String EXPLOSION_SOUND_PATH = 
-            "resources\\sounds\\8bit_bomb_explosion.wav";
+            "/sounds/8bit_bomb_explosion.wav";
     public static final String CANNON_MISSLE_SOUND_PATH = 
-            "resources\\sounds\\laser1.wav";
+            "/sounds/laser1.wav"; // resources\\
     // key codes
     public static final int FIRE_KEY_CODE = 17, FIRE_KEY_CODE2 = 32;
     public static final int RIGHT_KEY_CODE = 39, RIGHT_KEY_CODE2 = 68;

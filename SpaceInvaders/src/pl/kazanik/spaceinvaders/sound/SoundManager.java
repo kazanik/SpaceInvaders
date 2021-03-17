@@ -24,8 +24,10 @@ public class SoundManager {
     
     public void playSound(String soundFile) {
         try {
-            File f = new File("./" + soundFile);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+//            File f = new File("./" + soundFile);
+//            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+                getClass().getResource(soundFile));
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             clip.start();

@@ -29,6 +29,7 @@ public class PlayerGenerator {
 //                GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
 //                GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
 //                0, settings.getPlayerImage());
+        Graphics g = new Graphics();
         EntityFactory factory = new EntityFactory();
         AbstractSpaceCraft player = factory.createPlayer(100f, 
                 GameSettings.getInstance().getDifficulty().getPlayerSpeed(), 0f, 
@@ -36,7 +37,7 @@ public class PlayerGenerator {
                 GameConditions.PLAYER_SPRITE_HEIGHT, 
                 GameConditions.SCENE_WIDTH/2-GameConditions.PLAYER_SPRITE_WIDTH, 
                 GameConditions.SCENE_HEIGHT-GameConditions.PLAYER_SPRITE_HEIGHT, 
-                0, Graphics.createImage(GameConditions.PLAYER_SPRITE_PATH));
+                0, g.createImage(GameConditions.PLAYER_SPRITE_PATH));
         em.addPlayer(player);
         em.setPlayer(player);
         return player;
